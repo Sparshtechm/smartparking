@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_registration"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sparsh.smartparkingsystem.registration.RegistrationActivity">
+
+
+    <TextView
+        android:id="@+id/tv_reg_title"
+        style="@style/Reg_log_Style"
+        android:layout_alignParentTop="true"
+        android:text="@string/txt_title_registration" />
+
+
+    <EditText
+        android:id="@+id/edt_username"
+        style="@style/Reg_EditTextStyle"
+        android:layout_below="@+id/tv_reg_title"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="@string/hint_username"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/edt_reg_mobile"
+        style="@style/Reg_EditTextStyle"
+        android:layout_below="@+id/edt_username"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="@string/hint_mobile"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/edt_reg_email"
+        style="@style/Reg_EditTextStyle"
+        android:layout_below="@+id/edt_reg_mobile"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="@string/hint_email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/edt_reg_pswd"
+        style="@style/Reg_EditTextStyle"
+        android:layout_below="@+id/edt_reg_email"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="@string/hint_pswd"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/edt_reg_cnf_pswd"
+        style="@style/Reg_EditTextStyle"
+        android:layout_below="@+id/edt_reg_pswd"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="@string/hint_cnf_pswd"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btn_register"
+        style="@style/Reg_btnStyle"
+        android:layout_below="@+id/edt_reg_cnf_pswd"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/btn_register" />
+
+</RelativeLayout>

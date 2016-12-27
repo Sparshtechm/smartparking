@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_verification"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sparsh.smartparkingsystem.registration.VerificationActivity">
+
+    <TextView
+        android:id="@+id/tv_verify_title"
+        style="@style/Reg_log_Style"
+        android:layout_alignParentTop="true"
+        android:text="@string/txt_title_verification" />
+
+    <EditText
+        style="@style/Reg_EditTextStyle"
+        android:id="@+id/vfy_edt_user_mob"
+        android:layout_below="@+id/tv_verify_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:enabled="false"
+        android:hint="@string/hint_user_id"
+        android:inputType="textPersonName" />
+
+    <EditText
+        style="@style/Reg_EditTextStyle"
+        android:id="@+id/vfy_edt_user_code"
+        android:layout_below="@+id/vfy_edt_user_mob"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/hint_verify_code"
+        android:inputType="textPersonName" />
+
+    <Button
+        style="@style/Reg_btnStyle"
+        android:id="@+id/btn_verify"
+        android:layout_below="@+id/vfy_edt_user_code"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="@string/btn_verify" />
+
+</RelativeLayout>

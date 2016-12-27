@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">SmartParkingSystem</string>
+    <string name="app_name_splash">Smart Parking System</string>
+
+
+    <!--<string name="here_map_app_id">wCs1E0fTbD5AEF2v60WW</string>
+    <string name="here_map_app_code">o0Kuom5cmlz3udm3SrEPvg</string>
+-->
+
+    <string name="txt_forgot_pswd">Forgot Password</string>
+
+    <!-- Title Text Labels -->
+
+    <string name="txt_title_login">Login</string>
+    <string name="txt_title_registration">Registration</string>
+    <string name="txt_title_verification">Verification</string>
+
+    <!-- Alert Msgs -->
+
+    <string name="no_internet_txt">No internet is available</string>
+
+    <string name="txt_home_title">Parking Zones</string>
+
+    <string name="txt_home_lbl">Home</string>
+    <string name="txt_booking_lbl">Bookings</string>
+    <string name="txt_settings_lbl">Settings</string>
+    <string name="txt_contact_lbl">Contact Us</string>
+
+    <!-- Drawer Text Labels -->
+
+    <string name="txt_dr_passes_lbl">Parking Passes</string>
+    <string name="txt_dr_settings_lbl">Settings</string>
+    <string name="txt_dr_payments_lbl">Payments</string>
+    <string name="txt_dr_support_lbl">Support</string>
+    <string name="txt_dr_rate_us_lbl">Rate Us</string>
+    <string name="txt_dr_abt_us_lbl">About Us</string>
+
+    <!-- Buttons -->
+
+    <string name="btn_login">Login</string>
+    <string name="btn_register">Register</string>
+    <string name="btn_verify">Verify</string>
+
+    <!-- Hints -->
+
+    <string name="hint_username">Enter user name</string>
+    <string name="hint_user_id">Enter user id</string>
+    <string name="hint_mobile">Enter mobile</string>
+    <string name="hint_pswd">Enter password</string>
+    <string name="hint_email">Enter email-id</string>
+    <string name="hint_cnf_pswd">Confirm password</string>
+    <string name="hint_verify_code">Enter verify code</string>
+
+    <!-- Blank Text Labels -->
+
+    <string name="blank_txt_uname">Username can not be blank.</string>
+    <string name="blank_txt_mobile">Mobile can not be blank.</string>
+    <string name="blank_txt_email">Email can not be blank.</string>
+    <string name="blank_txt_pswd">Password can not be blank.</string>
+    <string name="blank_txt_cnf_pswd">Confirm Password can not be blank.</string>
+
+
+    <string name="txt_valid_email">Please enter valid email id.</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+
+</resources>
