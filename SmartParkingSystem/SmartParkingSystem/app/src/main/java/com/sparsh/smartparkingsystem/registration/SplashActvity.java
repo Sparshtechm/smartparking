@@ -10,7 +10,7 @@ import com.sparsh.smartparkingsystem.dashboard.DashboardActivity;
 
 public class SplashActvity extends AppCompatActivity {
 
-    private final int SPLASH_TIME_OUT = 2000;
+    private final int SPLASH_TIME_OUT = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class SplashActvity extends AppCompatActivity {
             @Override
             public void run() {
 
-               startActivity(new Intent(SplashActvity.this, DashboardActivity.class));
+               startActivity(new Intent(SplashActvity.this, LoginActivity.class));
                finish();
             }
         }, SPLASH_TIME_OUT);

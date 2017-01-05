@@ -2,6 +2,8 @@ package com.sparsh.smartparkingsystem.dashboard;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,7 +35,12 @@ import com.here.android.mpa.mapping.Map;
 import com.here.android.mpa.mapping.MapFragment;
 import com.sparsh.smartparkingsystem.R;
 import com.sparsh.smartparkingsystem.common.Common;
+import com.sparsh.smartparkingsystem.common.Constants;
 import com.sparsh.smartparkingsystem.common.GPSTracker;
+import com.sparsh.smartparkingsystem.common.Preferences;
+import com.sparsh.smartparkingsystem.profile.ChangePswdActivity;
+import com.sparsh.smartparkingsystem.profile.ProfileActivity;
+import com.sparsh.smartparkingsystem.registration.LoginActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,7 +68,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
 // ******* Declaring List View *******
 
-    ListView lv_auto_search_list;
+    ListView lv_auto_search_list, lv_booking_list;
 
 // ******* Declaring ImageView *******
 
@@ -69,6 +77,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 // ******* Declaring layouts *******
 
     RelativeLayout rl_home_btn, rl_booking_btn, rl_settings_btn, rl_contact_btn, rl_home, rl_bookings, rl_settings, rl_contact;
+    RelativeLayout rl_settings_profile, rl_settings_notify, rl_settings_change_pswd, rl_settings_logout;
 
 // ******* Declaring Map Variables *******
 
@@ -94,6 +103,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     AutoSearchAdapter autoSearchAdapter;
 
+// ******* Declaring Class Objects *******
+
+    Preferences pref;
+
 
 
     @Override
@@ -102,6 +115,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_dashboard);
+
+        pref = new Preferences(DashboardActivity.this);
 
     // ******* Check Manifest Permissions *******
 
@@ -159,9 +174,15 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         rl_settings_btn = (RelativeLayout)findViewById(R.id.rl_settings_btn);
         rl_contact_btn  = (RelativeLayout)findViewById(R.id.rl_contact_btn);
 
+        rl_settings_profile     = (RelativeLayout)findViewById(R.id.rl_settings_profile);
+        rl_settings_notify      = (RelativeLayout)findViewById(R.id.rl_settings_notify);
+        rl_settings_change_pswd = (RelativeLayout)findViewById(R.id.rl_settings_change_pswd);
+        rl_settings_logout      = (RelativeLayout)findViewById(R.id.rl_settings_logout);
+
     // ******* AutoSearch ListView *******
 
         lv_auto_search_list = (ListView)findViewById(R.id.lv_auto_search_list);
+        lv_booking_list     = (ListView)findViewById(R.id.lv_booking_list);
 
     // ******* Register listeners of onClick *******
 
@@ -170,6 +191,11 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         rl_settings_btn.setOnClickListener(this);
         rl_contact_btn.setOnClickListener(this);
         iv_search_icon.setOnClickListener(this);
+
+        rl_settings_profile.setOnClickListener(this);
+        rl_settings_notify.setOnClickListener(this);
+        rl_settings_change_pswd.setOnClickListener(this);
+        rl_settings_logout.setOnClickListener(this);
     }
 
 // ******* Get Location Method *******
@@ -231,6 +257,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 rl_settings.setVisibility(View.GONE);
                 rl_contact.setVisibility(View.GONE);
 
+                iv_search_icon.setVisibility(View.VISIBLE);
                 iv_home.setImageResource(R.drawable.home_w);
                 iv_booking.setImageResource(R.drawable.info_g);
                 iv_setting.setImageResource(R.drawable.ic_menu_manage);
@@ -247,6 +274,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 rl_settings.setVisibility(View.GONE);
                 rl_contact.setVisibility(View.GONE);
 
+                iv_search_icon.setVisibility(View.GONE);
                 iv_home.setImageResource(R.drawable.home_g);
                 iv_booking.setImageResource(R.drawable.info_w);
                 iv_setting.setImageResource(R.drawable.ic_menu_manage);
@@ -263,6 +291,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 rl_settings.setVisibility(View.VISIBLE);
                 rl_contact.setVisibility(View.GONE);
 
+                iv_search_icon.setVisibility(View.GONE);
                 iv_home.setImageResource(R.drawable.home_g);
                 iv_booking.setImageResource(R.drawable.info_g);
                 iv_setting.setImageResource(R.drawable.ic_menu_manage);
@@ -279,6 +308,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 rl_settings.setVisibility(View.GONE);
                 rl_contact.setVisibility(View.VISIBLE);
 
+                iv_search_icon.setVisibility(View.GONE);
                 iv_home.setImageResource(R.drawable.home_w);
                 iv_booking.setImageResource(R.drawable.info_g);
                 iv_setting.setImageResource(R.drawable.ic_menu_manage);
@@ -286,10 +316,31 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
                 break;
 
-
             case R.id.iv_search_icon:
 
                 break;
+
+            case R.id.rl_settings_profile:
+
+                startActivity(new Intent(DashboardActivity.this, ProfileActivity.class));
+                finish();
+                break;
+
+            case R.id.rl_settings_change_pswd:
+
+                startActivity(new Intent(DashboardActivity.this, ChangePswdActivity.class));
+                finish();
+
+                break;
+
+            case R.id.rl_settings_logout:
+
+                logout_dialog();
+
+                break;
+
+
+
 
             default:
 
@@ -468,7 +519,50 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         Volley.newRequestQueue(DashboardActivity.this).add(jsObjRequest);
     }
 
-// ******* Search dialog *******
+// ******* Logout dialog *******
+
+    public void logout_dialog(){
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(DashboardActivity.this);
+
+
+        alertDialog.setTitle("Logout...");
+
+        // Setting Dialog Message
+        alertDialog.setMessage("Are you sure you want logout this?");
+
+        // Setting Icon to Dialog
+        //alertDialog.setIcon(R.drawable.delete);
+
+        // Setting Positive "Yes" Button
+        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                // Write your code here to invoke YES event
+              //  Toast.makeText(getApplicationContext(), "You clicked on YES", Toast.LENGTH_SHORT).show();
+
+                pref.set(Constants.kcust_id, "");
+                pref.commit();
+
+
+                startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
+                finish();
+
+            }
+        });
+
+        // Setting Negative "NO" Button
+        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // Write your code here to invoke NO event
+              //  Toast.makeText(getApplicationContext(), "You clicked on NO", Toast.LENGTH_SHORT).show();
+                dialog.cancel();
+            }
+        });
+        // Showing Alert Message
+        alertDialog.show();
+
+    }
 
 
 

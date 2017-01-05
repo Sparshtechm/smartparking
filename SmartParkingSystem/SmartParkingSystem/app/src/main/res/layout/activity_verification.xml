@@ -12,7 +12,19 @@
         android:layout_alignParentTop="true"
         android:text="@string/txt_title_verification" />
 
-    <EditText
+    <TextView
+        android:id="@+id/tv_vfy_user_mob"
+       android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tv_verify_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+   <!-- <EditText
         style="@style/Reg_EditTextStyle"
         android:id="@+id/vfy_edt_user_mob"
         android:layout_below="@+id/tv_verify_title"
@@ -21,12 +33,12 @@
         android:ems="10"
         android:enabled="false"
         android:hint="@string/hint_user_id"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName" />-->
 
     <EditText
         style="@style/Reg_EditTextStyle"
         android:id="@+id/vfy_edt_user_code"
-        android:layout_below="@+id/vfy_edt_user_mob"
+        android:layout_below="@+id/tv_vfy_user_mob"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:ems="10"

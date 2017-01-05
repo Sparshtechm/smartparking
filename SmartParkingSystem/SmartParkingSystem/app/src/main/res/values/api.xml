@@ -1,47 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-     <!-- SERVER -->
-
-   <!-- <string name="server">192.168.1.103:82</string>-->
-
-    <!-- Intermediary_path -->
-
-    <!--<string name="api_intermediary_path">http://africouponapi.nl</string>
-    <string name="api_intermediary_path2">http://africouponapi.nl</string>-->
-
-    <!-- API's Name -->
-
-    <!-- LOGIN / REGISTRATION API -->
-
-   <!-- <string name="registration_api">add.json</string>
-    <string name="login_api">login.json</string>
-    <string name="forgot_pswd_api">forgetpass.json</string>
-    <string name="reset_pswd_api">resetpass.json</string>
-    <string name="verification_api">userverify.json</string>
--->
-
-    <!--<string name="login_api">user_login</string> -->
-
-
     <!-- REGISTRATION API -->
 
-    <string name="registration_api">http://localhost:8080/smartparking/api/v1/mobile/customer/registartion</string>
+    <string name="registration_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer/registartion</string>
 
     <!-- LOGIN API -->
 
-    <string name="login_api">http://localhost:8080/smartparking/api/v1/mobile/customer/login</string>
+    <string name="login_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer/login</string>
+
+    <!-- OTP REQUEST API -->
+
+    <string name="otp_request_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/nonce/creation</string>
 
     <!-- VERIFICATION API -->
 
-    <string name="verification_api">http://localhost:8080/smartparking/api/v1/mobile/customer/verification</string>
-
-    <!-- FORGOT PASSWORD API -->
-
-    <string name="forgot_pswd_api">http://user_get_otp</string>
+    <string name="verification_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/nonce/verification</string>
 
     <!-- RESET PASSWORD API -->
 
-    <string name="reset_pswd_api">http://user_reset_pass</string>
+    <string name="reset_pswd_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer/resetPassword</string>
+
+    <!-- CHANGE PASSWORD API -->
+
+    <string name="change_pswd_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer/changePassword</string>
+
+    <!-- GET USER PROFILE API -->
+
+    <string name="get_user_profile_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer?customerId=</string>
+
+    <!-- UPDATE USER PROFILE API -->
+
+    <string name="update_profile_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer/edit</string>
+
+
+
+
 
 </resources>

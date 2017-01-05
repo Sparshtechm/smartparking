@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_forget_pswd"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sparsh.smartparkingsystem.profile.Forget_Pswd_Activity">
+
+    <!-- Header View -->
+
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/app_theme_color">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/txt_title_forgot_pswd"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@null"
+            android:src="@drawable/back_button"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <!-- Forgot Screen -->
+
+    <RelativeLayout
+        android:id="@+id/rl_forgot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rl_header"
+        android:visibility="visible">
+
+        <EditText
+            android:id="@+id/edt_forgot_email"
+            style="@style/Reg_EditTextStyle"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/hint_email"
+            android:inputType="textEmailAddress" />
+
+        <Button
+            android:id="@+id/btn_forgot"
+            style="@style/Reg_btnStyle"
+            android:layout_below="@+id/edt_forgot_email"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Get OTP" />
+
+    </RelativeLayout>
+
+    <!-- Verification Screen -->
+
+    <RelativeLayout
+
+        android:id="@+id/rl_verify_code"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rl_header"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_verify_code_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="@string/txt_otp"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edt_forgot_OTP"
+            style="@style/Reg_EditTextStyle"
+            android:layout_below="@+id/tv_verify_code_lbl"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:maxLength="4"
+            android:hint="@string/hint_verify_code"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/btn_verify"
+            style="@style/Reg_btnStyle"
+            android:layout_below="@+id/edt_forgot_OTP"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/btn_verify" />
+
+    </RelativeLayout>
+
+    <!-- Reset Password Screen -->
+
+    <RelativeLayout
+        android:id="@+id/rl_reset_pswd"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rl_header"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_reset_pswd_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/txt_reset_pswd"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edt_new_reset_pswd"
+            style="@style/Reg_EditTextStyle"
+            android:layout_below="@+id/tv_reset_pswd_lbl"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/hint_new_pswd"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/edt_cnf_reset_pswd"
+            style="@style/Reg_EditTextStyle"
+            android:layout_below="@+id/edt_new_reset_pswd"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/hint_pswd"
+            android:inputType="textPassword" />
+
+
+        <Button
+            android:id="@+id/btn_submit"
+            style="@style/Reg_btnStyle"
+            android:layout_below="@+id/edt_cnf_reset_pswd"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/btn_submit" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
