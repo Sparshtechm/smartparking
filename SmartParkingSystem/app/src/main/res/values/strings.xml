@@ -1,0 +1,98 @@
+<resources>
+    <string name="app_name">SmartParkingSystem</string>
+    <string name="app_name_splash">Smart Parking System</string>
+
+    <!-- Title Text Labels -->
+
+    <string name="txt_title_login">Login</string>
+    <string name="txt_title_registration">Registration</string>
+    <string name="txt_title_verification">Verification</string>
+    <string name="txt_title_home">Parking Zones</string>
+    <string name="txt_title_profile">Profile</string>
+    <string name="txt_title_change_pswd">Change Password</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="txt_title_forgot_pswd">Forgot Password</string>
+    <string name="txt_title_verify_code">Verify Code</string>
+    <string name="txt_title_reset_pswd">Reset Password</string>
+    <string name="txt_title_parking_availability">Parking Availability</string>
+
+    <!-- Text Labels -->
+
+    <!-- <string name="txt_sign_up">Don't have an account? Sign Up!</string>-->
+    <string name="txt_forgot_pswd">Forgot Password</string>
+    <string name="txt_name_lbl">Name</string>
+    <string name="txt_user_name_lbl">Username</string>
+    <string name="txt_email_lbl">Email</string>
+    <string name="txt_mob_lbl">Mobile</string>
+    <string name="txt_home_lbl">Home</string>
+    <string name="txt_booking_lbl">Bookings</string>
+    <string name="txt_settings_lbl">Settings</string>
+    <string name="txt_contact_lbl">Contact Us</string>
+    <string name="txt_otp">Please enter OTP</string>
+    <string name="txt_valid_email">Please enter valid email id.</string>
+    <string name="txt_reset_pswd">Reset your password</string>
+    <string name="txt_pswd_length">Password should be greater than 8 digits.</string>
+    <string name="txt_start_date_lbl">Start date</string>
+    <string name="txt_end_date_lbl">End date</string>
+    <string name="txt_start_time_lbl">Start time</string>
+    <string name="txt_end_time_lbl">End time</string>
+    <string name="txt_vehicle_type_lbl">Vehicle type</string>
+    <string name="txt_slot_type_lbl">Slot type</string>
+
+
+    <!-- Alert Msgs -->
+
+    <string name="no_internet_txt">No internet is available</string>
+    <string name="txt_msg_pswd_not_match">Password not match.Please try again.</string>
+    <string name="txt_msg_all_fields">Please enter all the fields.</string>
+
+    <!-- Buttons -->
+
+    <string name="btn_login">Login</string>
+    <string name="btn_register">Register</string>
+    <string name="btn_verify">Verify</string>
+    <string name="btn_update">Update</string>
+    <string name="btn_submit">Submit</string>
+    <string name="btn_change">Change Password</string>
+    <string name="btn_chk_availability">Check Availability</string>
+
+    <!-- Hints -->
+
+    <string name="hint_name">Enter name</string>
+    <string name="hint_username">Enter user name</string>
+    <string name="hint_mobile">Enter mobile</string>
+    <string name="hint_pswd">Enter password</string>
+    <string name="hint_email">Enter email id</string>
+    <string name="hint_cnf_pswd">Re-enter password</string>
+    <string name="hint_verify_code">Enter verify code</string>
+    <string name="hint_crnt_pswd">Enter current password</string>
+    <string name="hint_new_pswd">Enter new password</string>
+
+
+    <!-- Blank Text Labels -->
+
+    <string name="blank_txt_name">Name can not be blank.</string>
+    <string name="blank_txt_uname">Username can not be blank.</string>
+    <string name="blank_txt_mobile">Mobile can not be blank.</string>
+    <string name="blank_txt_email">Email can not be blank.</string>
+    <string name="blank_txt_pswd">Password can not be blank.</string>
+    <string name="blank_txt_cnf_pswd">Confirm Password can not be blank.</string>
+    <string name="blank_txt_crnt_pswd">Current Password can not be blank.</string>
+    <string name="blank_txt_new_pswd">New Password can not be blank.</string>
+
+
+    <!-- To be deleted -->
+    <!-- Drawer Text Labels -->
+
+    <string name="txt_dr_passes_lbl">Parking Passes</string>
+    <string name="txt_dr_settings_lbl">Settings</string>
+    <string name="txt_dr_payments_lbl">Payments</string>
+    <string name="txt_dr_support_lbl">Support</string>
+    <string name="txt_dr_rate_us_lbl">Rate Us</string>
+    <string name="txt_dr_abt_us_lbl">About Us</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_parking__selection_">Parking_Selection_Activity</string>
+</resources>

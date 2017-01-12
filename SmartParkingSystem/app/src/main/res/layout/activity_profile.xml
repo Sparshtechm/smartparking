@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sparsh.smartparkingsystem.profile.ProfileActivity">
+
+
+    <!-- Header View -->
+
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/app_theme_color">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/txt_title_profile"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@null"
+            android:src="@drawable/back_button"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_prf_name"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/rl_header">
+
+        <TextView
+            android:id="@+id/tv_name_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:text="@string/txt_name_lbl" />
+
+        <EditText
+            android:id="@+id/edt_prf_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="56dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Sparsh Saxena" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_prf_email"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/rl_prf_name">
+
+        <TextView
+            android:id="@+id/tv_email_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:text="@string/txt_email_lbl" />
+
+        <EditText
+            android:id="@+id/edt_prf_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="56dp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:text="abc@gmail.com" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_prf_mob"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/rl_prf_email">
+
+        <TextView
+            android:id="@+id/tv_mob_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:text="@string/txt_mob_lbl" />
+
+        <EditText
+            android:id="@+id/edt_prf_mob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="56dp"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="10"
+            android:text="9876543212" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_prf_update"
+        style="@style/Reg_btnStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/btn_update" />
+
+</RelativeLayout>

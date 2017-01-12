@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Header View -->
+
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/app_theme_color">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/txt_title_parking_availability"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@null"
+            android:src="@drawable/back_button"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_zone_name_lbl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/rl_header"
+        android:layout_marginStart="10dp"
+        android:gravity="center_vertical"
+        android:text="Tech Mahindra NSEZ"
+        android:textColor="@color/app_theme_color"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Start Date -->
+
+    <RelativeLayout
+        android:id="@+id/rl_start_date"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/tv_zone_name_lbl">
+
+        <TextView
+            android:id="@+id/tv_start_date_lbl"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:text="@string/txt_start_date_lbl"
+            android:textColor="@color/app_theme_color"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_toEndOf="@+id/tv_start_date_lbl"
+            android:text="dd-mm-yyyy"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/iv_start_calendar_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            app:srcCompat="@drawable/calendar_g" />
+    </RelativeLayout>
+
+    <!-- Start Time -->
+
+    <RelativeLayout
+        android:id="@+id/rl_start_time"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/rl_start_date">
+
+        <TextView
+            android:id="@+id/tv_start_time_lbl"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:text="@string/txt_start_time_lbl"
+            android:textColor="@color/app_theme_color"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_toEndOf="@+id/tv_start_time_lbl"
+            android:text="2:00 PM"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/iv_start_time_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            app:srcCompat="@drawable/time_icon" />
+    </RelativeLayout>
+
+    <!-- End Date -->
+
+    <RelativeLayout
+        android:id="@+id/rl_end_date"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/rl_start_time">
+
+        <TextView
+            android:id="@+id/tv_end_date_lbl"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:text="@string/txt_end_date_lbl"
+            android:textColor="@color/app_theme_color"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_toEndOf="@+id/tv_end_date_lbl"
+            android:text="dd-mm-yyyy"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/iv_end_calendar_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            app:srcCompat="@drawable/calendar_g" />
+    </RelativeLayout>
+
+    <!--End Time -->
+
+    <RelativeLayout
+        android:id="@+id/rl_end_time"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/rl_end_date">
+
+        <TextView
+            android:id="@+id/tv_end_time_lbl"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:text="@string/txt_end_time_lbl"
+            android:textColor="@color/app_theme_color"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_toEndOf="@+id/tv_end_time_lbl"
+            android:text="2:00 PM"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/iv_end_time_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            app:srcCompat="@drawable/time_icon" />
+    </RelativeLayout>
+
+    <!-- Vehicle type -->
+
+    <RelativeLayout
+        android:id="@+id/rl_vehicle_type"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/rl_end_time">
+
+        <TextView
+            android:id="@+id/tv_vehicle_type_lbl"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:text="@string/txt_vehicle_type_lbl"
+            android:textColor="@color/app_theme_color"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/spnr_vehicle_type"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/tv_vehicle_type_lbl" />
+
+    </RelativeLayout>
+
+    <!-- Slot Type -->
+
+    <RelativeLayout
+        android:id="@+id/rl_slot_type"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/rl_vehicle_type">
+
+        <TextView
+            android:id="@+id/tv_slot_type_lbl"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:text="@string/txt_slot_type_lbl"
+            android:textColor="@color/app_theme_color"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/spnr_slot_type"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/tv_slot_type_lbl" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_chk_availability"
+        style="@style/Reg_btnStyle"
+        android:layout_below="@+id/rl_slot_type"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/btn_chk_availability" />
+
+
+</RelativeLayout>
