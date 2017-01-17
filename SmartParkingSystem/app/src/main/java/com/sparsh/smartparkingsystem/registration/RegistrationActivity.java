@@ -173,7 +173,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                     } else {
                         pDialog.cancel();
-                        Common.alert(RegistrationActivity.this, response.get("message").toString());
+                        Common.alert(RegistrationActivity.this, resMsg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

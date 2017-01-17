@@ -15,7 +15,7 @@
     <string name="txt_title_verify_code">Verify Code</string>
     <string name="txt_title_reset_pswd">Reset Password</string>
     <string name="txt_title_parking_availability">Parking Availability</string>
-
+    <string name="txt_title_parking_confirmation">Booking Confirmation</string>
     <!-- Text Labels -->
 
     <!-- <string name="txt_sign_up">Don't have an account? Sign Up!</string>-->
@@ -55,6 +55,9 @@
     <string name="btn_submit">Submit</string>
     <string name="btn_change">Change Password</string>
     <string name="btn_chk_availability">Check Availability</string>
+    <string name="btn_book_now">Book now</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_pay">Pay</string>
 
     <!-- Hints -->
 

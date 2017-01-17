@@ -41,4 +41,8 @@
 
     <string name="get_vehicle_slot_type_api">http://smartparking.cloudapp.net:8080/smartparking/zone/slotAndVehicleType</string>
 
+    <!-- GET AVAILABILITY API -->
+
+    <string name="get_availability_api">http://smartparking.cloudapp.net:8080/smartparking/zone/levelDetailList?</string>
+
 </resources>

@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
         pDialog.show();
 
-        Map<String, String> postParam = new HashMap<String, String>();
+        Map <String, String> postParam = new HashMap <String, String>();
         postParam.put("email",        email);
         postParam.put("logInSession", "true");
         postParam.put("password",     pswd);
@@ -183,7 +183,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     } else {
 
-                        Common.alert(LoginActivity.this, response.get("message").toString());
+                        Common.alert(LoginActivity.this, resMsg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

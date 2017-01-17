@@ -72,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
             android:layout_gravity="center_vertical"
             android:layout_toEndOf="@+id/tv_start_date_lbl"
             android:text="dd-mm-yyyy"
@@ -112,6 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/tv_start_time_lbl"
             android:text="2:00 PM"
             android:textSize="18sp" />
@@ -151,8 +153,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/tv_end_date_lbl"
-            android:text="dd-mm-yyyy"
+            android:text="yyyy-dd-mm"
             android:textSize="18sp" />
 
         <ImageView
@@ -188,6 +191,7 @@
             android:id="@+id/tv_end_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:layout_toEndOf="@+id/tv_end_time_lbl"

@@ -35,6 +35,7 @@ import com.here.android.mpa.mapping.Map;
 import com.here.android.mpa.mapping.MapFragment;
 import com.here.android.mpa.mapping.MapMarker;
 import com.sparsh.smartparkingsystem.R;
+import com.sparsh.smartparkingsystem.booking.Parking_Selection_Activity;
 import com.sparsh.smartparkingsystem.common.Common;
 import com.sparsh.smartparkingsystem.common.Constants;
 import com.sparsh.smartparkingsystem.common.GPSTracker;
@@ -211,12 +212,15 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         if (gpsTracker.canGetLocation()){
 
-            /*latitude = gpsTracker.getLatitude();
-            longitude = gpsTracker.getLongitude();*/
 
-            latitude = 23.464311;
-            longitude = 17.345611;
+            latitude  = gpsTracker.getLatitude();
+            longitude = gpsTracker.getLongitude();
+           /* latitude = 23.464311;
+            longitude = 17.345611;*/
 
+           /* latitude = 1.00;
+            longitude = 1.00;
+*/
          //  String stringLatitude = String.valueOf(gpsTracker.latitude);
            /* textview = (TextView)findViewById(R.id.fieldLatitude);
             textview.setText(stringLatitude);*/
@@ -329,6 +333,12 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 iv_setting.setImageResource(R.drawable.ic_menu_manage);
                 iv_cnt.setImageResource(R.drawable.contact_g);
 
+                pref.set(Constants.kZone_Id,   "1");
+                pref.set(Constants.kZone_Name, "Tech Mahindra (NSEZ).");
+                pref.commit();
+                startActivity(new Intent(DashboardActivity.this, Parking_Selection_Activity.class));
+                finish();
+
                 break;
 
             case R.id.iv_search_icon:
@@ -353,9 +363,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 logout_dialog();
 
                 break;
-
-
-
 
             default:
 

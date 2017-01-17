@@ -67,6 +67,7 @@ public abstract class AutoSearchAdapter extends BaseAdapter {
         tv_auto_search = (TextView) rootView.findViewById(R.id.tv_auto_search);
         tv_auto_search.setText(data.get(position).get("title"));
 
+        rootView.setOnClickListener(onRowClickListener);
 
         return rootView;
     }

@@ -19,6 +19,9 @@ import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 import com.sparsh.smartparkingsystem.R;
+import com.sparsh.smartparkingsystem.booking.Parking_Selection_Activity;
+import com.sparsh.smartparkingsystem.common.Constants;
+import com.sparsh.smartparkingsystem.common.Preferences;
 
 import org.json.JSONException;
 
@@ -35,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
     // private static final String CONFIG_CLIENT_ID = "credentials from developer.paypal.com";
     private static final String CONFIG_CLIENT_ID = "Acm1Vyp4chOg5pOjDO935sb2pWDLNNnfUMCy09Kew4SXpwK4hhcSITq9yh3bODqJrATHh9XXqP9Cqai4";
 
+// ******* Declaring Class Objects *******
 
+    Preferences pref;
 
     private static final int REQUEST_CODE_PAYMENT = 1;
     private static final int REQUEST_CODE_FUTURE_PAYMENT = 2;
@@ -55,8 +60,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        pref = new Preferences(MainActivity.this);
+
+        Intent intent = new Intent(MainActivity.this, PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+        startService(intent);
+
+        getPayment();
+
         btn_paypal = (Button)findViewById(R.id.btn_paypal);
-        btn_paypal.setOnClickListener(new View.OnClickListener() {
+        btn_paypal.setVisibility(View.GONE);
+        /*btn_paypal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -67,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 getPayment();
 
             }
-        });
+        });*/
     }
 
 
@@ -76,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
        // paymentAmount = editTextAmount.getText().toString();
 
         //Creating a paypalpayment
-        PayPalPayment payment = new PayPalPayment(new BigDecimal(String.valueOf(01.00)), "USD", "Simplified Coding Fee", PayPalPayment.PAYMENT_INTENT_SALE);
+        //PayPalPayment payment = new PayPalPayment(new BigDecimal(String.valueOf(01.00)), "USD", "Simplified Coding Fee", PayPalPayment.PAYMENT_INTENT_SALE);
+        PayPalPayment payment = new PayPalPayment(new BigDecimal(String.valueOf(pref.get(Constants.kParking_amount))), "USD", "Simplified Coding Fee", PayPalPayment.PAYMENT_INTENT_SALE);
 
         //Creating Paypal Payment activity intent
         Intent intent = new Intent(this, PaymentActivity.class);
