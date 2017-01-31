@@ -13,12 +13,25 @@ public class Constants {
 
     public static final String kZone_Id          = "zone_id";
     public static final String kZone_Name        = "zone_name";
+    public static final String kLevel_Id         = "level_id";
     public static final String kVehicleTypeId    = "vehicle_type_id";
     public static final String kVehicleTypeName  = "vehicle_type_name";
     public static final String kSlotTypeId       = "slot_type_id";
     public static final String kSlotTypeName     = "slot_type_name";
     public static final String kDuration         = "duration";
     public static final String kParking_amount   = "amount";
+    public static final String kTimeZone         = "timezone";
+    public static final String kBooking_Id       = "booking_id";
+
+    public static final String kStartDateTime    = "start_date_time";
+    public static final String kEndDateTime      = "end_date_time";
+
+    public static final String kStartDateTime1   = "start_date_time1";
+    public static final String kEndDateTime1     = "end_date_time1";
+
+
+    public static final String kPay_Screen       = "pay_screen";
+
 
     public static final String kDOBFormat	= "yyyy-MM-dd";
 }

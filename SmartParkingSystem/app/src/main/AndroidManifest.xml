@@ -34,26 +34,37 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".registration.RegistrationActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
         <activity
             android:name=".registration.LoginActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
         <activity
             android:name=".registration.VerificationActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
         <activity
             android:name=".dashboard.MainActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
+        <activity
+            android:name=".payment.Payment_Activity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
         <activity
             android:name=".dashboard.DashboardActivity1"
             android:configChanges="keyboardHidden|orientation"
@@ -61,16 +72,19 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
         <activity
             android:name=".dashboard.DashboardActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
         <activity
             android:name=".profile.ProfileActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
         <activity
             android:name=".profile.ChangePswdActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -84,12 +98,29 @@
             android:name="com.here.android.maps.apptoken"
             android:value="@string/here_map_app_code" />
 
-        <activity android:name=".profile.Forget_Pswd_Activity" />
-        <activity android:name=".booking.Booking_Availability" />
+        <activity
+            android:name=".profile.Forget_Pswd_Activity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
+        <activity
+            android:name=".booking.Booking_Availability"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
         <activity
             android:name=".booking.Parking_Selection_Activity"
-            android:label="@string/title_activity_parking__selection_"
-            android:theme="@style/AppTheme"></activity>
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
+        <activity android:name=".QRcode.QR_Code_Activity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+
     </application>
 
 </manifest>

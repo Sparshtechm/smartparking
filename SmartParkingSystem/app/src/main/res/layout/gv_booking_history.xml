@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:layout_margin="5dp"
         android:background="@drawable/shape">
 
@@ -67,5 +67,15 @@
             android:layout_alignParentRight="true"
             android:layout_marginEnd="15dp"
             android:id="@+id/tv_booking_status" />
+
+        <Button
+            android:text="Get pass"
+            style="@style/Reg_btnStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/tv_booking_status"
+            android:layout_alignParentRight="true"
+            android:id="@+id/btn_pass" />
     </RelativeLayout>
 </LinearLayout>

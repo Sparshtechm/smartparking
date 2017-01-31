@@ -212,12 +212,22 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
                 if (Common.isConnectingToInternet(Parking_Selection_Activity.this)) {
 
                     //get_availability_api("1", "1", "1", "2017-01-05" + "15:00:00", "2017-01-05" + "15:00:00");
-                    get_availability_api(pref.get(Constants.kZone_Id), pref.get(Constants.kVehicleTypeId), pref.get(Constants.kSlotTypeId), tv_start_date.getText().toString().trim() + tv_start_time.getText().toString().trim(), tv_end_date.getText().toString().trim() + tv_end_time.getText().toString().trim());
+                    if(Validate()) {
 
+                        pref.set(Constants.kStartDateTime,  tv_start_date.getText().toString().trim() + "%20" + tv_start_time.getText().toString().trim());
+                        pref.set(Constants.kEndDateTime,    tv_end_date.getText().toString().trim() + "%20" + tv_end_time.getText().toString().trim());
+                        pref.set(Constants.kDuration,       tv_start_date.getText().toString().trim() + " " + tv_start_time.getText().toString().trim() + " - "+ tv_end_date.getText().toString().trim() + " " + tv_end_time.getText().toString().trim());
+                        pref.set(Constants.kStartDateTime1, tv_start_date.getText().toString().trim() + " " + tv_start_time.getText().toString().trim());
+                        pref.set(Constants.kEndDateTime1,   tv_end_date.getText().toString().trim() + " " + tv_end_time.getText().toString().trim());
+
+
+                        pref.commit();
+
+                        get_availability_api(pref.get(Constants.kZone_Id), pref.get(Constants.kVehicleTypeId), pref.get(Constants.kSlotTypeId), tv_start_date.getText().toString().trim() + "%20" + tv_start_time.getText().toString().trim(), tv_end_date.getText().toString().trim() + "%20" + tv_end_time.getText().toString().trim(), pref.get(Constants.kTimeZone));
+                    }
                 } else {
                     Common.alert(Parking_Selection_Activity.this, getResources().getString(R.string.no_internet_txt));
                 }
-
                 break;
 
             default:
@@ -253,14 +263,44 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
                      /*   SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
                         String formattedDate = sdf.format(c.getTime());
 */
+
+                        String sel_day = "";
+                        if(dayOfMonth<10){
+
+                            sel_day =  "-0" + String.valueOf(dayOfMonth);
+                        }else{
+                            sel_day =  "-" + String.valueOf(dayOfMonth);
+                        }
+
+                        String sel_month = "";
+                        if(monthOfYear + 1 < 10){
+
+                            sel_month =  "-0" + String.valueOf((monthOfYear + 1));
+                        }
+                        else{
+                            sel_month =  "-" + String.valueOf((monthOfYear + 1));
+                        }
+
+
                         if(val == 1){
+                            // tv_start_date.setText(dayOfMonth + "-"  + (monthOfYear + 1) + "-" + year);
+                            tv_start_date.setText( year + sel_month + sel_day);
+                        }
+                        else{
+                            // tv_end_date.setText(dayOfMonth + "-"  + (monthOfYear + 1) + "-" + year);
+                            tv_end_date.setText( year + sel_month + sel_day);
+                        }
+
+
+
+                        /*if(val == 1){
                            // tv_start_date.setText(dayOfMonth + "-"  + (monthOfYear + 1) + "-" + year);
                             tv_start_date.setText( year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                         }
                         else{
                            // tv_end_date.setText(dayOfMonth + "-"  + (monthOfYear + 1) + "-" + year);
                             tv_end_date.setText( year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-                        }
+                        }*/
                     }
                 }, mYear, mMonth, mDay);
         dpd.show();
@@ -280,13 +320,42 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
 
+
+                String sel_hour = "";
+                if(selectedHour < 10){
+
+                    sel_hour =  "0" + String.valueOf(selectedHour);
+                }
+                else{
+                    sel_hour =   String.valueOf(selectedHour);
+                }
+
+
+                String sel_min = "";
+                if(selectedMinute < 10){
+
+                    sel_min =  "0" + String.valueOf(selectedMinute);
+                }
+                else{
+                    sel_min =   String.valueOf(selectedMinute);
+                }
+
+
                 if(val == 1){
+                    tv_start_time.setText(sel_hour + ":" + sel_min + ":00");
+                }
+                else{
+
+                    tv_end_time.setText(sel_hour + ":" + sel_min + ":00");
+                }
+
+                /*if(val == 1){
                     tv_start_time.setText(selectedHour + ":" + selectedMinute + ":00");
                 }
                 else{
 
                     tv_end_time.setText(selectedHour + ":" + selectedMinute + ":00");
-                }
+                }*/
 
             }
         }, hour, minute, true);//Yes 24 hour time
@@ -427,7 +496,7 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
 
 // ******* CHECK AVAILABILITY API *******
 
-    public void get_availability_api(String zone_id, String vehicle_type_id, String Slot_type_id, String start_time, String end_time) {
+    public void get_availability_api(String zone_id, String vehicle_type_id, String Slot_type_id, String start_time, String end_time, String timezone) {
 
         pDialog = new ProgressDialog(Parking_Selection_Activity.this);
         pDialog.setMessage("Loading...");
@@ -435,9 +504,10 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
         pDialog.setCancelable(false);
         pDialog.show();
 
+
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, getResources().getString(R.string.get_availability_api) +
                 "zoneId=" + zone_id + "&vehicleTypeId=" + vehicle_type_id + "&slotTypeId=" + Slot_type_id
-                + "&toTime=" + start_time + "&fromTime=" + end_time, null, new Response.Listener<JSONObject>() {
+                + "&toTime=" + end_time  + "&fromTime=" + start_time + "&timeZone=" + timezone, null, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -450,6 +520,8 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
                     resMsg  = header_Obj.get("statusMessage").toString();
 
                     if (resCode.equals("200")) {
+
+                        arr_levels_map_List.clear();
 
                         // LEVEL LIST
 
@@ -495,20 +567,13 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
                                 }
                             }
                         }
+
+                        startActivity(new Intent(Parking_Selection_Activity.this, Booking_Availability.class));
+                        finish();
                     }
 
-                    startActivity(new Intent(Parking_Selection_Activity.this, Booking_Availability.class));
-                    finish();
-                    /*if(!arr_levels_map_List.isEmpty()){
-                        startActivity(new Intent(Parking_Selection_Activity.this, Parking_Selection_Activity.class));
-                        finish();
-                    }else{
-                        Common.alert(Parking_Selection_Activity.this, "");
-                    }*/
 
-                    /*else if (resCode.equals("411")) {
-                        Common.alert(Parking_Selection_Activity.this, resMsg);
-                    }*/
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -524,5 +589,57 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
             }
         });
         Volley.newRequestQueue(Parking_Selection_Activity.this).add(jsObjRequest);
+    }
+
+// ******* VALIDATE FIELDS *******
+
+    public boolean Validate() {
+
+        boolean status = true;
+
+        if (tv_start_date.getText().toString().trim().equals("") && tv_start_time.getText().toString().trim().equals("")
+                && tv_end_date.getText().toString().trim().equals("") && tv_end_time.getText().toString().trim().equals("")) {
+
+            status = false;
+
+            tv_start_date.startAnimation(anim_shake);
+            tv_end_date.startAnimation(anim_shake);
+            tv_start_time.startAnimation(anim_shake);
+            tv_end_time.startAnimation(anim_shake);
+
+            Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_msg_all_fields));
+        }
+        else {
+
+            if (tv_start_date.getText().toString().trim().equals("")) {
+                status = false;
+                tv_start_date.startAnimation(anim_shake);
+                Common.alert(Parking_Selection_Activity.this, getString(R.string.blank_txt_start_date));
+            }
+            else if (tv_end_date.getText().toString().trim().equals("")) {
+                status = false;
+                tv_start_time.startAnimation(anim_shake);
+                Common.alert(Parking_Selection_Activity.this, getString(R.string.blank_txt_end_date));
+            }
+            else if (tv_start_time.getText().toString().trim().equals("")) {
+                status = false;
+                tv_start_time.startAnimation(anim_shake);
+                Common.alert(Parking_Selection_Activity.this, getString(R.string.blank_txt_start_time));
+            }
+            else if (tv_end_time.getText().toString().trim().equals("")) {
+                status = false;
+                tv_start_time.startAnimation(anim_shake);
+                Common.alert(Parking_Selection_Activity.this, getString(R.string.blank_txt_end_time));
+            }
+
+
+// add date validation
+
+
+
+
+
+        }
+        return status;
     }
 }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -31,10 +32,15 @@ import com.android.volley.toolbox.Volley;
 import com.here.android.mpa.common.GeoCoordinate;
 import com.here.android.mpa.common.Image;
 import com.here.android.mpa.common.OnEngineInitListener;
+import com.here.android.mpa.common.ViewObject;
 import com.here.android.mpa.mapping.Map;
 import com.here.android.mpa.mapping.MapFragment;
+import com.here.android.mpa.mapping.MapGesture;
 import com.here.android.mpa.mapping.MapMarker;
+import com.sparsh.smartparkingsystem.QRcode.QR_Code_Activity;
 import com.sparsh.smartparkingsystem.R;
+import com.sparsh.smartparkingsystem.booking.Booking_Availability;
+import com.sparsh.smartparkingsystem.booking.Booking_Availability_Adapter;
 import com.sparsh.smartparkingsystem.booking.Parking_Selection_Activity;
 import com.sparsh.smartparkingsystem.common.Common;
 import com.sparsh.smartparkingsystem.common.Constants;
@@ -43,7 +49,6 @@ import com.sparsh.smartparkingsystem.common.Preferences;
 import com.sparsh.smartparkingsystem.profile.ChangePswdActivity;
 import com.sparsh.smartparkingsystem.profile.ProfileActivity;
 import com.sparsh.smartparkingsystem.registration.LoginActivity;
-import com.sparsh.smartparkingsystem.registration.RegistrationActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,7 +63,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
 // ******* Declaring Variables *******
 
-    String resMsg, resCode;
+    String resMsg, resCode, pay_screen_chk = "0", booking_msg;
     double latitude;   // latitude
     double longitude;  // longitude
 
@@ -86,6 +91,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 // ******* Declaring Map Variables *******
 
     Map map = null;
+    MapFragment mapFragment;
 
 // ******* Declaring Progress Bar *******
 
@@ -103,6 +109,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     ArrayList <HashMap <String, String>> arr_search_details_map_List = new ArrayList <HashMap<String,String>>();
     ArrayList <HashMap <String, String>> arr_parking_zones_map_List = new ArrayList<HashMap<String, String>>();
+    ArrayList <HashMap <String, String>> arr_booking_history_map_List = new ArrayList<HashMap<String, String>>();
 
 // ******* DECLARING CLASS OBJECT *******
 
@@ -156,6 +163,12 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void afterTextChanged(Editable s) {
 
+                /* if (Common.isConnectingToInternet(DashboardActivity.this)) {
+
+                    auto_search_places_api(String.valueOf(s));
+                } else {
+                    Common.alert(DashboardActivity.this, getResources().getString(R.string.no_internet_txt));
+                }*/
             }
         });
 
@@ -201,6 +214,53 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         rl_settings_notify.setOnClickListener(this);
         rl_settings_change_pswd.setOnClickListener(this);
         rl_settings_logout.setOnClickListener(this);
+
+    // ******* Check screens *******
+
+        try {
+            Intent intent = getIntent();
+           if(intent.hasExtra("CHK")){
+               pay_screen_chk = intent.getStringExtra("CHK");
+               booking_msg = intent.getStringExtra("MSG");
+           }else{
+               pay_screen_chk = "0";//intent.getStringExtra("CHK");
+               booking_msg = "Booking history";//intent.getStringExtra("MSG");
+           }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(pay_screen_chk.equals("1")){
+
+            tv_title.setText(getResources().getString(R.string.txt_booking_lbl));
+
+            rl_home.setVisibility(View.GONE);
+            rl_bookings.setVisibility(View.VISIBLE);
+            rl_settings.setVisibility(View.GONE);
+            rl_contact.setVisibility(View.GONE);
+
+            iv_search_icon.setVisibility(View.GONE);
+            iv_home.setImageResource(R.drawable.home_g);
+            iv_booking.setImageResource(R.drawable.info_w);
+            iv_setting.setImageResource(R.drawable.ic_menu_manage);
+            iv_cnt.setImageResource(R.drawable.contact_g);
+
+            Common.alert(DashboardActivity.this, booking_msg);
+
+            // Show booking history list
+            HashMap <String, String> book_history_list_Map = new HashMap<String, String>();
+            book_history_list_Map.put("sdgs","sdg");
+
+            arr_booking_history_map_List.add(book_history_list_Map);
+            lv_booking_list.setAdapter(new Booking_History_Adapter(DashboardActivity.this, arr_booking_history_map_List) {
+                @Override
+                protected void onGetPassBtnClick(View v, String position) {
+                     startActivity(new Intent(DashboardActivity.this, QR_Code_Activity.class));
+                     finish();
+                }
+            });
+        }
     }
 
 // ******* Get Location Method *******
@@ -212,16 +272,17 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         if (gpsTracker.canGetLocation()){
 
-
             latitude  = gpsTracker.getLatitude();
             longitude = gpsTracker.getLongitude();
-           /* latitude = 23.464311;
+
+            /* latitude = 23.464311;
             longitude = 17.345611;*/
 
-           /* latitude = 1.00;
+            /* latitude = 1.00;
             longitude = 1.00;
-*/
-         //  String stringLatitude = String.valueOf(gpsTracker.latitude);
+
+           */
+            //  String stringLatitude = String.valueOf(gpsTracker.latitude);
            /* textview = (TextView)findViewById(R.id.fieldLatitude);
             textview.setText(stringLatitude);*/
 
@@ -299,6 +360,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 iv_setting.setImageResource(R.drawable.ic_menu_manage);
                 iv_cnt.setImageResource(R.drawable.contact_g);
 
+                /*startActivity(new Intent(DashboardActivity.this, QR_Code_Activity.class));
+                finish();*/
+
                 break;
 
             case R.id.rl_settings_btn:
@@ -332,12 +396,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 iv_booking.setImageResource(R.drawable.info_g);
                 iv_setting.setImageResource(R.drawable.ic_menu_manage);
                 iv_cnt.setImageResource(R.drawable.contact_g);
-
-                pref.set(Constants.kZone_Id,   "1");
-                pref.set(Constants.kZone_Name, "Tech Mahindra (NSEZ).");
-                pref.commit();
-                startActivity(new Intent(DashboardActivity.this, Parking_Selection_Activity.class));
-                finish();
 
                 break;
 
@@ -418,7 +476,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     private void initialize(final double latitude, final double longitude) {
 
-        final MapFragment mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.mapfragment);
+         mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.mapfragment);
+
+         //map = mapFragment.getMap();
 
          mapFragment.init(new OnEngineInitListener() {
             @Override
@@ -427,24 +487,61 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 if (error == OnEngineInitListener.Error.NONE) {
                     // retrieve a reference of the map from the map fragment
                     map = mapFragment.getMap();
-                    // Set the map center to the Vancouver region (no animation)
-                    //map.setCenter(new GeoCoordinate(49.196261, -123.004773, 0.0), Map.Animation.NONE);
+
+                    // map.setCenter(new GeoCoordinate(49.196261, -123.004773, 0.0), Map.Animation.NONE);
                     map.setCenter(new GeoCoordinate(latitude, longitude, 0.0), Map.Animation.NONE);
                     // Set the zoom level to the average between min and max
-                    //map.setZoomLevel((map.getMaxZoomLevel() + map.getMinZoomLevel()) / 2);
+                    // map.setZoomLevel((map.getMaxZoomLevel() + map.getMinZoomLevel()) / 2);
                     map.setZoomLevel(16);
-                    map.getPositionIndicator().setVisible(true);
-                    //Image icon = (R.drawable.home_g);
+
                     Image icon = new Image();
                     Bitmap bit_icon = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable.marker_icon64);
                     icon.setBitmap(bit_icon);
                     map.getPositionIndicator().setMarker(icon);
+                    map.getPositionIndicator().setVisible(true);
+
+                    set_markers_on_zones();
+                    mapFragment.getMapGesture().addOnGestureListener(new MyOnGestureListener());
+
+
 
                 } else {
                     System.out.println("ERROR: Cannot initialize Map Fragment");
                 }
             }
         });
+
+
+        // set all nearest parking zones... with markers.
+
+       //set_markers_on_zones();
+
+
+       // mapFragment.getMapGesture().addOnGestureListener(mMyGestureHandler);
+    }
+
+// ******* SET ALL NEAREST PARKING ZONES WITH MARKERS *******
+
+    public void set_markers_on_zones(){
+
+
+        Image icon = new Image();
+        Bitmap bit_icon = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable.mobile_icon);
+        icon.setBitmap(bit_icon);
+        //mm.setIcon(icon);
+      //  mm.setCoordinate(new GeoCoordinate(24.984311,17.345611));
+       // mm.setDescription("Hello...!!!");
+      //  map.getPositionIndicator().setMarker(icon);
+
+        //map.addMapObject(mm);
+
+        try {
+            MapMarker myMapMarker = new MapMarker(new GeoCoordinate(24.984311, 17.345611), icon);
+            myMapMarker.setDescription("Hello...!!!");
+            map.addMapObject(myMapMarker);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 // ******* AUTO SEARCH PLACES API *******
@@ -456,13 +553,14 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         pDialog.setCanceledOnTouchOutside(false);
         pDialog.setCancelable(false);
         pDialog.show();
-/*
+
+        /*
         java.util.Map<String, String> postParam = new HashMap<String, String>();
         postParam.put("email",        "");
         postParam.put("password",     "");*/
 
         String search_url = "https://places.cit.api.here.com/places/v1/autosuggest?at=0.0,0.0&q=" + auto_search_txt +
-                "&app_id=wCs1E0fTbD5AEF2v60WW&app_code=o0Kuom5cmlz3udm3SrEPvg&tf=plain&pretty=true";
+                            "&app_id=wCs1E0fTbD5AEF2v60WW&app_code=o0Kuom5cmlz3udm3SrEPvg&tf=plain&pretty=true";
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, search_url, null, new Response.Listener<JSONObject>() {
 
@@ -484,19 +582,21 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
                         auto_search_Map.put("title",     auto_search_Obj.getString("title"));
 
-                       //JSONArray arr_location_Json = auto_search_Obj.getJSONArray("position");
+                        //JSONArray arr_location_Json = auto_search_Obj.getJSONArray("position");
 
-                        auto_search_Map.put("latitude",  String.valueOf(auto_search_Obj.getJSONArray("position").get(0)));
-                        auto_search_Map.put("longitude", String.valueOf(auto_search_Obj.getJSONArray("position").get(1)));
+                        if(auto_search_Obj.has("position")){
+                            auto_search_Map.put("latitude",  String.valueOf(auto_search_Obj.getJSONArray("position").get(0)));
+                            auto_search_Map.put("longitude", String.valueOf(auto_search_Obj.getJSONArray("position").get(1)));
 
-                        // auto_search_Map.put("id",                   auto_search_Obj.getString("id"));
-                        // auto_search_Map.put("highlightedTitle",     auto_search_Obj.getString("highlightedTitle"));
-                        // auto_search_Map.put("vicinity",             auto_search_Obj.getString("vicinity"));
-                        // auto_search_Map.put("highlightedVicinity",  auto_search_Obj.getString("highlightedVicinity"));
-                        // auto_search_Map.put("category",             auto_search_Obj.getString("category"));
-                        // auto_search_Map.put("type",                 auto_search_Obj.getString("type"));
+                            // auto_search_Map.put("id",                   auto_search_Obj.getString("id"));
+                            // auto_search_Map.put("highlightedTitle",     auto_search_Obj.getString("highlightedTitle"));
+                            // auto_search_Map.put("vicinity",             auto_search_Obj.getString("vicinity"));
+                            // auto_search_Map.put("highlightedVicinity",  auto_search_Obj.getString("highlightedVicinity"));
+                            // auto_search_Map.put("category",             auto_search_Obj.getString("category"));
+                            // auto_search_Map.put("type",                 auto_search_Obj.getString("type"));
 
-                        arr_search_details_map_List.add(auto_search_Map);
+                            arr_search_details_map_List.add(auto_search_Map);
+                        }
                     }
 
                     if(!arr_search_details_map_List.isEmpty()){
@@ -514,7 +614,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                             }
                         };
                         lv_auto_search_list.setAdapter(autoSearchAdapter);
-                    }else{
+                    }
+                    else{
                         lv_auto_search_list.setVisibility(View.GONE);
                     }
 
@@ -523,7 +624,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
 
 
-                  //  resMsg = response.get("success").toString();
+                    //  resMsg = response.get("success").toString();
 
                    /* if (resMsg.equals("true")) {
 
@@ -575,7 +676,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             public void onClick(DialogInterface dialog, int which) {
 
                 // Write your code here to invoke YES event
-              //  Toast.makeText(getApplicationContext(), "You clicked on YES", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getApplicationContext(), "You clicked on YES", Toast.LENGTH_SHORT).show();
 
                 pref.set(Constants.kcust_id, "");
                 pref.commit();
@@ -591,7 +692,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 // Write your code here to invoke NO event
-              //  Toast.makeText(getApplicationContext(), "You clicked on NO", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getApplicationContext(), "You clicked on NO", Toast.LENGTH_SHORT).show();
                 dialog.cancel();
             }
         });
@@ -639,6 +740,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                             zones_list_Map.put("latitude",     zones_list_Obj.getString("latitude"));
                             zones_list_Map.put("longitude",    zones_list_Obj.getString("longitude"));
                             zones_list_Map.put("distance",     zones_list_Obj.getString("distance"));
+                            zones_list_Map.put("timeZone",     zones_list_Obj.getString("timeZone"));
 
                             arr_parking_zones_map_List.add(zones_list_Map);
                         }
@@ -660,5 +762,87 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             }
         });
         Volley.newRequestQueue(DashboardActivity.this).add(jsObjRequest);
+    }
+
+// ******* GESTURES LISTENER *******
+
+    private class MyOnGestureListener implements MapGesture.OnGestureListener {
+
+        @Override
+        public void onPanStart() {
+        }
+
+        @Override
+        public void onPanEnd() {
+        }
+
+        @Override
+        public void onMultiFingerManipulationStart() {
+        }
+
+        @Override
+        public void onMultiFingerManipulationEnd() {
+        }
+
+        @Override
+        public boolean onMapObjectsSelected(List<ViewObject> objects) {
+
+            //Common.alert(DashboardActivity.this, "Welcom to here map...!!!");
+
+            pref.set(Constants.kZone_Id,   "1");
+            pref.set(Constants.kZone_Name, "Tech Mahindra (NSEZ).");
+            pref.set(Constants.kTimeZone,  "IST");
+            pref.commit();
+            startActivity(new Intent(DashboardActivity.this, Parking_Selection_Activity.class));
+            finish();
+            return false;
+        }
+
+        @Override
+        public boolean onTapEvent(PointF p) {
+            return false;
+        }
+
+        @Override
+        public boolean onDoubleTapEvent(PointF p) {
+            return false;
+        }
+
+        @Override
+        public void onPinchLocked() {
+        }
+
+        @Override
+        public boolean onPinchZoomEvent(float scaleFactor, PointF p) {
+            return false;
+        }
+
+        @Override
+        public void onRotateLocked() {
+        }
+
+        @Override
+        public boolean onRotateEvent(float rotateAngle) {
+            return false;
+        }
+
+        @Override
+        public boolean onTiltEvent(float angle) {
+            return false;
+        }
+
+        @Override
+        public boolean onLongPressEvent(PointF p) {
+            return false;
+        }
+
+        @Override
+        public void onLongPressRelease() {
+        }
+
+        @Override
+        public boolean onTwoFingerTapEvent(PointF p) {
+            return false;
+        }
     }
 }

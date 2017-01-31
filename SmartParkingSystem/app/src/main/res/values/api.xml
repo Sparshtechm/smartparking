@@ -39,10 +39,24 @@
 
     <!-- GET PARKING VEHICLE AND SLOT TYPES API -->
 
-    <string name="get_vehicle_slot_type_api">http://smartparking.cloudapp.net:8080/smartparking/zone/slotAndVehicleType</string>
+    <string name="get_vehicle_slot_type_api">http://smartparking.cloudapp.net:8080/smartparking/booking/slotAndVehicleType</string>
 
     <!-- GET AVAILABILITY API -->
 
-    <string name="get_availability_api">http://smartparking.cloudapp.net:8080/smartparking/zone/levelDetailList?</string>
+    <string name="get_availability_api">http://smartparking.cloudapp.net:8080/smartparking/booking/levelDetailList?</string>
+
+    <!-- GET PARKING COST API -->
+
+    <string name="get_parking_cost_api">http://smartparking.cloudapp.net:8080/smartparking/booking/cost?</string>
+
+    <!-- PARKING SLOT BLOCKING API -->
+
+    <string name="parking_slot_blocking_api">http://smartparking.cloudapp.net:8080/smartparking/booking/block</string>
+
+    <!-- PAYMENT API -->
+
+    <string name="payment_api">http://smartparking.cloudapp.net:8080/smartparking/booking/payment</string>
+
+
 
 </resources>

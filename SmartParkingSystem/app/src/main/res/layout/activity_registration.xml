@@ -116,7 +116,7 @@
                 android:paddingEnd="8dp"
                 android:background="@color/bg_txt_blue"
                 android:hint="@string/hint_mobile"
-                android:maxLength="10"
+                android:maxLength="16"
                 android:inputType="number"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white" />

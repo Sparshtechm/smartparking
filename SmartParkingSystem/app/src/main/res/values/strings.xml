@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">SmartParkingSystem</string>
-    <string name="app_name_splash">Smart Parking System</string>
+    <string name="app_name_splash">Nokia Smart Parking</string>
 
     <!-- Title Text Labels -->
 
@@ -16,6 +16,8 @@
     <string name="txt_title_reset_pswd">Reset Password</string>
     <string name="txt_title_parking_availability">Parking Availability</string>
     <string name="txt_title_parking_confirmation">Booking Confirmation</string>
+    <string name="txt_title_pass">Gate Pass</string>
+
     <!-- Text Labels -->
 
     <!-- <string name="txt_sign_up">Don't have an account? Sign Up!</string>-->
@@ -38,7 +40,14 @@
     <string name="txt_end_time_lbl">End time</string>
     <string name="txt_vehicle_type_lbl">Vehicle type</string>
     <string name="txt_slot_type_lbl">Slot type</string>
+    <string name="txt_mobile_length">Please enter valid mobile number. Mobile number length must be between 10-16 digits.</string>
 
+
+    <string name="txt_back_date">Please enter valid date. You should not booked parking on back dates.</string>
+    <string name="txt_less_date">End date should not be less than start date.</string>
+
+    <string name="txt_back_time">Please enter valid time.</string>
+    <string name="txt_less_time">End time should not be less than start time.</string>
 
     <!-- Alert Msgs -->
 
@@ -82,6 +91,11 @@
     <string name="blank_txt_cnf_pswd">Confirm Password can not be blank.</string>
     <string name="blank_txt_crnt_pswd">Current Password can not be blank.</string>
     <string name="blank_txt_new_pswd">New Password can not be blank.</string>
+
+    <string name="blank_txt_start_date">Start date can not be blank.</string>
+    <string name="blank_txt_end_date">End date can not be blank.</string>
+    <string name="blank_txt_start_time">Start time can not be blank.</string>
+    <string name="blank_txt_end_time">End time can not be blank.</string>
 
 
     <!-- To be deleted -->

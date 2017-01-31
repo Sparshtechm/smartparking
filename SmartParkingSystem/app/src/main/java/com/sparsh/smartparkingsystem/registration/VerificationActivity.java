@@ -60,9 +60,6 @@ public class VerificationActivity extends AppCompatActivity {
     Preferences pref;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -85,11 +82,15 @@ public class VerificationActivity extends AppCompatActivity {
 
         vfy_edt_user_code = (EditText)findViewById(R.id.vfy_edt_user_code);
 
-        Intent intent = getIntent();
-        String otp = intent.getStringExtra("OTP");
-        vfy_edt_user_code.setText(otp);
+        try {
+            Intent intent = getIntent();
+            String otp = intent.getStringExtra("OTP");
+            vfy_edt_user_code.setText(otp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-    // ******* Button Verify *******
+        // ******* Button Verify *******
 
         btn_verify = (Button)findViewById(R.id.btn_verify);
         btn_verify.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +146,7 @@ public class VerificationActivity extends AppCompatActivity {
                         pref.set(Constants.kType,       gender_type);
                         pref.commit();
                         */
+
                         startActivity(new Intent(VerificationActivity.this, DashboardActivity.class));
                         finish();
 

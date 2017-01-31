@@ -28,8 +28,6 @@ import com.sparsh.smartparkingsystem.R;
 import com.sparsh.smartparkingsystem.common.Common;
 import com.sparsh.smartparkingsystem.common.Constants;
 import com.sparsh.smartparkingsystem.common.Preferences;
-import com.sparsh.smartparkingsystem.dashboard.DashboardActivity1;
-import com.sparsh.smartparkingsystem.profile.ProfileActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +44,8 @@ public class RegistrationActivity extends AppCompatActivity {
 // ******* Declaring Progress Bar *******
 
     ProgressDialog pDialog;
+
+// ******* Declaring Text View *******
 
     TextView tv_login_here;
 
@@ -136,7 +136,6 @@ public class RegistrationActivity extends AppCompatActivity {
         pDialog.show();
 
         Map <String, String> postParam = new HashMap<String, String>();
-        // the POST parameters:
 
         postParam.put("mobileNumber", mob);
         postParam.put("email",        email);
@@ -161,17 +160,32 @@ public class RegistrationActivity extends AppCompatActivity {
 
                     if (resCode.equals("200")) {
 
-                        //Common.alert(RegistrationActivity.this, resMsg);
-                        /*String verificationCode = response.get("verificationCode").toString();*/
-                        String customerId = response.get("customerId").toString();
-                        pref.set(Constants.kcust_id, customerId);
-                        pref.set(Constants.kemail, email);
+                        pref.set(Constants.kcust_id,    response.get("customerId").toString());
+                        pref.set(Constants.kemail,      email);
                         pref.set(Constants.kContact_no, mob);
                         pref.commit();
 
+                        // Call api for getting verification code
                         OTP_request_api(resMsg, email);
+                    }
+                    /*else if(resCode.equals("401")){
 
-                    } else {
+                        JSONObject validation_errors_Obj = response.getJSONObject("errors");
+                        JSONArray arr_validation_errors_list_Json = validation_errors_Obj.getJSONArray("validationErrors");
+
+                        for (int i = 0; i < arr_validation_errors_list_Json.length(); i++) {
+
+                            JSONObject error_list_Obj = arr_validation_errors_list_Json.getJSONObject(i);
+
+                            HashMap<String, String> valid_error_list_Map = new HashMap<String, String>();
+                            valid_error_list_Map.put("param", error_list_Obj.getString("param"));
+                            valid_error_list_Map.put("msg",   error_list_Obj.getString("msg"));
+                        }
+                        resMsg  = header_Obj.get("statusMessage").toString();
+                        Common.alert(RegistrationActivity.this, resMsg);
+                    }*/
+
+                    else {
                         pDialog.cancel();
                         Common.alert(RegistrationActivity.this, resMsg);
                     }
@@ -196,14 +210,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     public void OTP_request_api(final String registration_msg, final String user_email) {
 
-       /* pDialog = new ProgressDialog(RegistrationActivity.this);
-        pDialog.setMessage("Loading...");
-        pDialog.setCanceledOnTouchOutside(false);
-        pDialog.setCancelable(false);
-        pDialog.show();*/
-
         Map <String, String> postParam = new HashMap<String, String>();
-        // the POST parameters:
         postParam.put("email",     user_email);
         postParam.put("nonceType", "R");
 
@@ -217,25 +224,24 @@ public class RegistrationActivity extends AppCompatActivity {
 
                     resCode = header_Obj.get("statusCode").toString();
                     resMsg  = header_Obj.get("statusMessage").toString();
+
                     pDialog.cancel();
+
                     if (resCode.equals("200")) {
 
-                        // Common.alert(RegistrationActivity.this, resMsg);
-                        Toast.makeText(RegistrationActivity.this,registration_msg, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrationActivity.this, registration_msg, Toast.LENGTH_SHORT).show();
 
                         String OTP_code   = response.get("verificationCode").toString();
                         String customerId = response.get("customerId").toString();
 
-                        // pref.set(Constants.kcode,    OTP_code);
                         pref.set(Constants.kcust_id, customerId);
-
                         pref.commit();
 
                         startActivity(new Intent(RegistrationActivity.this, VerificationActivity.class).putExtra("OTP", OTP_code));
                         finish();
 
                     } else {
-                        Common.alert(RegistrationActivity.this, response.get("message").toString());
+                        Common.alert(RegistrationActivity.this, resMsg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -280,27 +286,49 @@ public class RegistrationActivity extends AppCompatActivity {
             if (edt_reg_name.getText().toString().trim().equals("")) {
                 status = false;
                 edt_reg_name.startAnimation(anim_shake);
+                edt_reg_name.requestFocus();
                 Common.alert(RegistrationActivity.this, getString(R.string.blank_txt_name));
             } else if (edt_reg_mobile.getText().toString().trim().equals("")) {
                 status = false;
                 edt_reg_mobile.startAnimation(anim_shake);
+                edt_reg_mobile.requestFocus();
                 Common.alert(RegistrationActivity.this, getString(R.string.blank_txt_mobile));
             } else if (edt_reg_email.getText().toString().trim().equals("")) {
                 status = false;
                 edt_reg_email.startAnimation(anim_shake);
+                edt_reg_email.requestFocus();
                 Common.alert(RegistrationActivity.this, getString(R.string.blank_txt_email));
             } else if (edt_reg_pswd.getText().toString().trim().equals("")) {
                 status = false;
                 edt_reg_pswd.startAnimation(anim_shake);
+                edt_reg_pswd.requestFocus();
                 Common.alert(RegistrationActivity.this, getString(R.string.blank_txt_pswd));
             } else if (edt_reg_cnf_pswd.getText().toString().trim().equals("")) {
                 status = false;
                 edt_reg_cnf_pswd.startAnimation(anim_shake);
+                edt_reg_cnf_pswd.requestFocus();
                 Common.alert(RegistrationActivity.this, getString(R.string.blank_txt_cnf_pswd));
             } else if (!Common.isEmailValid(edt_reg_email.getText().toString().trim())) {
                 status = false;
                 edt_reg_email.startAnimation(anim_shake);
+                edt_reg_email.setText("");
+                edt_reg_email.requestFocus();
                 Common.alert(RegistrationActivity.this, getString(R.string.txt_valid_email));
+            }
+            else if (edt_reg_mobile.getText().toString().trim().length()<10 || edt_reg_mobile.getText().toString().trim().length()>16) {
+                status = false;
+                edt_reg_mobile.startAnimation(anim_shake);
+                edt_reg_mobile.requestFocus();
+                Common.alert(RegistrationActivity.this, getString(R.string.txt_mobile_length));
+            }
+            else if (!edt_reg_pswd.getText().toString().trim().equals(edt_reg_cnf_pswd.getText().toString().trim())) {
+                status = false;
+                edt_reg_pswd.setText("");
+                edt_reg_cnf_pswd.setText("");
+                edt_reg_pswd.startAnimation(anim_shake);
+                edt_reg_cnf_pswd.startAnimation(anim_shake);
+                edt_reg_pswd.requestFocus();
+                Common.alert(RegistrationActivity.this, getString(R.string.txt_msg_pswd_not_match));
             }
         }
         return status;

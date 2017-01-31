@@ -31,4 +31,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/HERE-sdk.jar')
     compile files('libs/jts-1.14.jar')
+    compile files('libs/core-3.2.1.jar')
 }

@@ -33,13 +33,13 @@ public class SplashActvity extends AppCompatActivity {
             @Override
             public void run() {
 
-                if(!pref.get(Constants.kcust_id).equals("")){
-                    startActivity(new Intent(SplashActvity.this, DashboardActivity.class));
-                    finish();
-                }else {
+                // if(!pref.get(Constants.kcust_id).equals("")){
+                startActivity(new Intent(SplashActvity.this, DashboardActivity.class));
+                finish();
+                /*}else {
                     startActivity(new Intent(SplashActvity.this, LoginActivity.class));
                     finish();
-                }
+                }*/
             }
         }, SPLASH_TIME_OUT);
     }
