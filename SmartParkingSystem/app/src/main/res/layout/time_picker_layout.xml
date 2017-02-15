@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/app_theme_color">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/roundedcorner">
+
+
+        <TextView
+            android:text="Select time"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:layout_margin="5dp"
+            android:textColor="@color/app_theme_color"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:id="@+id/tv_header_lbl" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:id="@+id/div1"
+            android:layout_below="@+id/tv_header_lbl"
+            android:background="@color/grey" />
+
+
+        <TimePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/div1"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:timePickerMode="spinner"
+            android:id="@+id/timePicker" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:id="@+id/div2"
+            android:layout_below="@+id/timePicker"
+            android:background="@color/grey" />
+
+        <TextView
+            android:text="Set"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/div2"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:layout_margin="5dp"
+            android:textColor="@color/app_theme_color"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:id="@+id/tv_set" />
+
+
+    </RelativeLayout>
+</LinearLayout>

@@ -261,9 +261,10 @@ public class Payment_Activity extends AppCompatActivity {
         pDialog.show();
 
         Map<String, String> postParam = new HashMap<String, String>();
-        postParam.put("bookingId",      pref.get(Constants.kBooking_Id));
-        postParam.put("cost",           pref.get(Constants.kParking_amount));
-        postParam.put("customerId",     pref.get(Constants.kcust_id));
+        postParam.put("bookingId",       pref.get(Constants.kBooking_Id));
+        postParam.put("cost",            pref.get(Constants.kParking_amount));
+        postParam.put("customerId",      pref.get(Constants.kcust_id));
+        postParam.put("extendedStatus",  "false");
 
         if(status.equals("approved")){
             postParam.put("paymentStatus",  "true");

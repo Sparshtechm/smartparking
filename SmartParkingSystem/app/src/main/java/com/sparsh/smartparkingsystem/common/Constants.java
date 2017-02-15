@@ -18,7 +18,8 @@ public class Constants {
     public static final String kVehicleTypeName  = "vehicle_type_name";
     public static final String kSlotTypeId       = "slot_type_id";
     public static final String kSlotTypeName     = "slot_type_name";
-    public static final String kDuration         = "duration";
+    public static final String kStart_Duration   = "start_duration";
+    public static final String kEnd_Duration     = "end_duration";
     public static final String kParking_amount   = "amount";
     public static final String kTimeZone         = "timezone";
     public static final String kBooking_Id       = "booking_id";

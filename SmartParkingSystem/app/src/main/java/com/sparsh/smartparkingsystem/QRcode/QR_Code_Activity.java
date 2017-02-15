@@ -35,14 +35,23 @@ public class QR_Code_Activity extends AppCompatActivity {
                 finish();
             }
         });
-        generate_qr_code();
+
+        try {
+            Intent intent = getIntent();
+            if(intent.hasExtra("b_id")){
+
+                generate_qr_code(intent.getStringExtra("b_id"), intent.getStringExtra("cst_id"), intent.getStringExtra("st"), intent.getStringExtra("et"), intent.getStringExtra("tz"));
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
+    public void generate_qr_code(String bookingId, String cust_id, String startTime, String endTime, String timeZone){
 
-    public void generate_qr_code(){
-
-        // EditText qrInput = (EditText) findViewById(R.id.qrInput);
-        String qrInputText = "Sparsh Saxena";//qrInput.getText().toString();
+        String qrInputText = bookingId + "," + cust_id + "," + startTime + "," + endTime + "," + timeZone;
         // Log.v(LOG_TAG, qrInputText);
 
         //Find screen size
@@ -63,7 +72,6 @@ public class QR_Code_Activity extends AppCompatActivity {
                 smallerDimension);
         try {
             Bitmap bitmap = qrCodeEncoder.encodeAsBitmap();
-           // ImageView myImage = (ImageView) findViewById(R.id.imageView1);
             iv_qr_code.setImageBitmap(bitmap);
 
         } catch (WriterException e) {

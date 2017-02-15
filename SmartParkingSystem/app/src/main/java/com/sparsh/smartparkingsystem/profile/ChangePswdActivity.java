@@ -21,6 +21,7 @@ import com.sparsh.smartparkingsystem.common.Common;
 import com.sparsh.smartparkingsystem.common.Constants;
 import com.sparsh.smartparkingsystem.common.Preferences;
 import com.sparsh.smartparkingsystem.dashboard.DashboardActivity;
+import com.sparsh.smartparkingsystem.payment.Payment_Activity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,8 +79,8 @@ public class ChangePswdActivity extends AppCompatActivity {
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ChangePswdActivity.this, DashboardActivity.class));
-                finish();
+               startActivity(new Intent(ChangePswdActivity.this, DashboardActivity.class).putExtra("CHK", "2"));
+               finish();
             }
         });
 

@@ -3,11 +3,15 @@ package com.sparsh.smartparkingsystem.common;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.sparsh.smartparkingsystem.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -74,7 +78,12 @@ public class Common {
 
     public static void alert(Context c, int titleRes, String message) {
 
-        alert = new AlertDialog.Builder(c)/*setIcon(R.drawable.app_icon)*/.setTitle(titleRes).setMessage(message).create();// .setIcon(R.drawable.error)
+        alert = new AlertDialog.Builder(c)/*setIcon(R.drawable.app_icon)*/.setTitle(titleRes).setMessage(message).setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // continue with delete
+                dialog.cancel();
+            }
+        }).create();// .setIcon(R.drawable.error)
         alert.setCanceledOnTouchOutside(true);
         alert.show();
     }
@@ -84,6 +93,26 @@ public class Common {
     public static void alert(Context c, String message) {
 
         alert(c, R.string.app_name, message);
+    }
+
+// ******* CONVERT FORMAT in 12 hours  *******
+
+    public static String change_in_am_pm_format(String sel_time){
+
+        String f ="";
+
+        // convert time in 24 hrs format
+        try {
+            SimpleDateFormat displayFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+            SimpleDateFormat parseFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            Date date = parseFormat.parse(sel_time);
+            f = displayFormat.format(date);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return f;
     }
 
 }

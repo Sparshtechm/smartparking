@@ -37,7 +37,7 @@ public class VerificationActivity extends AppCompatActivity {
 
 // ******* Declaring Text View *******
 
-    TextView tv_vfy_user_mob;
+    TextView tv_vfy_user_mob, tv_resend;
 
 // ******* Declaring Edit Text View *******
 
@@ -78,6 +78,20 @@ public class VerificationActivity extends AppCompatActivity {
         tv_vfy_user_mob   = (TextView)findViewById(R.id.tv_vfy_user_mob);
         tv_vfy_user_mob.setText(pref.get(Constants.kContact_no));
 
+        tv_resend = (TextView)findViewById(R.id.tv_resend);
+        tv_resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Common.isConnectingToInternet(VerificationActivity.this)) {
+
+                    OTP_request_api(pref.get(Constants.kemail));
+                }
+                else {
+                    Common.alert(VerificationActivity.this, getResources().getString(R.string.no_internet_txt));
+                }
+            }
+        });
+
     // ******* EDIT TEXT VIEW *******
 
         vfy_edt_user_code = (EditText)findViewById(R.id.vfy_edt_user_code);
@@ -90,7 +104,7 @@ public class VerificationActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // ******* Button Verify *******
+    // ******* Button Verify *******
 
         btn_verify = (Button)findViewById(R.id.btn_verify);
         btn_verify.setOnClickListener(new View.OnClickListener() {
@@ -137,15 +151,7 @@ public class VerificationActivity extends AppCompatActivity {
 
                     if (resCode.equals("200")) {
 
-                        Toast.makeText(VerificationActivity.this, resMsg,Toast.LENGTH_SHORT).show();
-                        /*  Common.alert(RegistrationActivity.this, getResources().getString(R.string.msg_success));
-
-                        pref.set(Constants.kF_name,     edt_fname.getText().toString().trim());
-                        pref.set(Constants.kL_name,     edt_lname.getText().toString().trim());
-                        pref.set(Constants.kContact_no, edt_cnt_no.getText().toString().trim());
-                        pref.set(Constants.kType,       gender_type);
-                        pref.commit();
-                        */
+                        Toast.makeText(VerificationActivity.this, resMsg, Toast.LENGTH_SHORT).show();
 
                         startActivity(new Intent(VerificationActivity.this, DashboardActivity.class));
                         finish();
@@ -153,6 +159,56 @@ public class VerificationActivity extends AppCompatActivity {
                     } else {
 
                         Common.alert(VerificationActivity.this, response.get("message").toString());
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                pDialog.cancel();
+                error.printStackTrace();
+            }
+        });
+        Volley.newRequestQueue(VerificationActivity.this).add(jsObjRequest);
+    }
+
+// ******* RESEND VERIFICATION CODE API *******
+
+    public void OTP_request_api(final String user_email) {
+
+        Map <String, String> postParam = new HashMap<String, String>();
+        postParam.put("email",     user_email);
+        postParam.put("nonceType", "R");
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, getResources().getString(R.string.otp_request_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
+                    JSONObject header_Obj = response.getJSONObject("appHeader");
+
+                    resCode = header_Obj.get("statusCode").toString();
+                    resMsg  = header_Obj.get("statusMessage").toString();
+
+                    pDialog.cancel();
+
+                    if (resCode.equals("200")) {
+
+                        String OTP_code   = response.get("verificationCode").toString();
+                        String customerId = response.get("customerId").toString();
+
+                        pref.set(Constants.kcust_id, customerId);
+                        pref.commit();
+
+                        vfy_edt_user_code.setText(OTP_code);
+                    }
+                    else {
+                        Common.alert(VerificationActivity.this, resMsg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

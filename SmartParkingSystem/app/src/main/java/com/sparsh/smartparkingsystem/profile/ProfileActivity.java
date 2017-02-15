@@ -68,7 +68,7 @@ public class ProfileActivity extends AppCompatActivity {
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfileActivity.this, DashboardActivity.class));
+                startActivity(new Intent(ProfileActivity.this, DashboardActivity.class).putExtra("CHK", "2"));
                 finish();
             }
         });

@@ -35,7 +35,7 @@
 
     <!-- GET PARKING ZONES API -->
 
-    <string name="get_parking_zones_api">http://smartparking.cloudapp.net:8080/smartparking/zone/proximitylist?</string>
+    <string name="get_parking_zones_api">http://smartparking.cloudapp.net:8080/smartparking/booking/proximitylist?</string>
 
     <!-- GET PARKING VEHICLE AND SLOT TYPES API -->
 
@@ -52,6 +52,18 @@
     <!-- PARKING SLOT BLOCKING API -->
 
     <string name="parking_slot_blocking_api">http://smartparking.cloudapp.net:8080/smartparking/booking/block</string>
+
+    <!-- BOOKING HISTORY API -->
+
+    <string name="get_booking_history_api">http://smartparking.cloudapp.net:8080/smartparking/booking/history?</string>
+
+    <!-- CANCEL BOOKING API -->
+
+    <string name="cancel_booking_api">http://smartparking.cloudapp.net:8080/smartparking/booking/cancel/</string>
+
+    <!-- GATE PASS VALIDATION API -->
+
+    <string name="gate_pass_validation_api">http://smartparking.cloudapp.net:8080/smartparking/booking/extended/verify</string>
 
     <!-- PAYMENT API -->
 

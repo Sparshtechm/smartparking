@@ -5,7 +5,7 @@
     android:id="@+id/activity_splash_actvity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_splash"
+    android:background="@drawable/splash"
     tools:context="com.sparsh.smartparkingsystem.registration.SplashActvity">
 
     <TextView
@@ -16,11 +16,11 @@
         android:layout_centerHorizontal="true"
         android:textColor="@color/app_theme_color"
         android:textStyle="bold"
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/tv_header_lbl"
         android:textSize="34sp" />
 
-    <ImageView
+   <!-- <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:srcCompat="@drawable/p_logo"
@@ -29,9 +29,9 @@
         android:layout_marginRight="15dp"
         android:layout_above="@+id/rl_footer"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp" />-->
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:id="@+id/rl_footer"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
@@ -58,7 +58,7 @@
             android:textSize="16sp"
             android:id="@+id/tv_copyright_lbl" />
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
 
 </RelativeLayout>

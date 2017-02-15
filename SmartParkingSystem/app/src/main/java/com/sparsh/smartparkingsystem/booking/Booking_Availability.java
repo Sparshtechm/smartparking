@@ -2,10 +2,14 @@ package com.sparsh.smartparkingsystem.booking;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -20,13 +24,9 @@ import com.sparsh.smartparkingsystem.R;
 import com.sparsh.smartparkingsystem.common.Common;
 import com.sparsh.smartparkingsystem.common.Constants;
 import com.sparsh.smartparkingsystem.common.Preferences;
-import com.sparsh.smartparkingsystem.dashboard.DashboardActivity;
-import com.sparsh.smartparkingsystem.dashboard.MainActivity;
 import com.sparsh.smartparkingsystem.payment.Payment_Activity;
 import com.sparsh.smartparkingsystem.registration.LoginActivity;
-import com.sparsh.smartparkingsystem.registration.SplashActvity;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,6 +40,8 @@ public class Booking_Availability extends AppCompatActivity {
     String resMsg, resCode;
 
     ImageView iv_back;
+
+    TextView tv_zone_name;
 
 // ******* DECLARING LIST VIEWS *******
 
@@ -78,6 +80,9 @@ public class Booking_Availability extends AppCompatActivity {
             }
         });
 
+        tv_zone_name = (TextView)findViewById(R.id.tv_zone_name);
+        tv_zone_name.setText(pref.get(Constants.kZone_Name));
+
         lv_availability_list = (ListView)findViewById(R.id.lv_availability_list);
         lv_availability_list.setAdapter(new Booking_Availability_Adapter(Booking_Availability.this, Parking_Selection_Activity.arr_levels_map_List) {
             @Override
@@ -90,8 +95,6 @@ public class Booking_Availability extends AppCompatActivity {
 
             }
         });
-
-
     }
 
 // ******* CONFIRMATION DIALOG *******
@@ -101,14 +104,16 @@ public class Booking_Availability extends AppCompatActivity {
         dialog = new Dialog(Booking_Availability.this);
         dialog.setContentView(R.layout.confirmation_dialog);
 
-        TextView tv_zone_name    = (TextView)dialog.findViewById(R.id.tv_zone_name);
-        TextView tv_duration     = (TextView)dialog.findViewById(R.id.tv_duration);
-        TextView tv_vehicle_type = (TextView)dialog.findViewById(R.id.tv_vehicle_type);
-        TextView tv_slot_type    = (TextView)dialog.findViewById(R.id.tv_slot_type);
-        TextView tv_amount       = (TextView)dialog.findViewById(R.id.tv_amount);
+        TextView tv_zone_name      = (TextView)dialog.findViewById(R.id.tv_zone_name);
+        TextView tv_start_duration = (TextView)dialog.findViewById(R.id.tv_start_duration);
+        TextView tv_end_duration   = (TextView)dialog.findViewById(R.id.tv_end_duration);
+        TextView tv_vehicle_type   = (TextView)dialog.findViewById(R.id.tv_vehicle_type);
+        TextView tv_slot_type      = (TextView)dialog.findViewById(R.id.tv_slot_type);
+        TextView tv_amount         = (TextView)dialog.findViewById(R.id.tv_amount);
 
         tv_zone_name.setText(pref.get(Constants.kZone_Name));
-        tv_duration.setText(pref.get(Constants.kDuration));
+        tv_start_duration.setText(pref.get(Constants.kStart_Duration));
+        tv_end_duration.setText(pref.get(Constants.kEnd_Duration));
         tv_vehicle_type.setText(pref.get(Constants.kVehicleTypeName));
         tv_slot_type.setText(pref.get(Constants.kSlotTypeName));
         tv_amount.setText("$" + price);
@@ -227,7 +232,6 @@ public class Booking_Availability extends AppCompatActivity {
                         String BookingId = response.get("bookingId").toString();
                         pref.set(Constants.kBooking_Id, BookingId);
                         pref.commit();
-
                         dialog.cancel();
 
                         startActivity(new Intent(Booking_Availability.this, Payment_Activity.class));

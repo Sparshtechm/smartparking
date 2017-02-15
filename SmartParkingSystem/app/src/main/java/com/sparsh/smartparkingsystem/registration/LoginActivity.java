@@ -99,7 +99,6 @@ public class LoginActivity extends AppCompatActivity {
     // ******* Sign up  *******
 
         tv_sign_up = (TextView) findViewById(R.id.tv_sign_up);
-        Spannable wordtoSpan = new SpannableString("Don't have an account? Sign Up!");
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View textView) {
@@ -107,6 +106,8 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         };
+
+        Spannable wordtoSpan = new SpannableString("Don't have an account? Sign Up!");
         wordtoSpan.setSpan(clickableSpan, 23, 31, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.app_theme_color)), 23, 31, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         wordtoSpan.setSpan(new StyleSpan(android.graphics.Typeface.BOLD_ITALIC), 23,31, 0);
@@ -164,30 +165,33 @@ public class LoginActivity extends AppCompatActivity {
 
                         String customerId = response.get("customerId").toString();
 
-                        //pref.set(Constants.kcode,    OTP_code);
+                        // pref.set(Constants.kcode,    OTP_code);
                         pref.set(Constants.kcust_id, customerId);
                         pref.commit();
 
                         startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
                         finish();
 
-                          /*  Common.alert(RegistrationActivity.this, getResources().getString(R.string.msg_success));
+                    }
+                    // If email id is not verified
+                    else if(resCode.equals("410")){
 
-                            pref.set(Constants.kF_name,     edt_fname.getText().toString().trim());
-                            pref.set(Constants.kL_name,     edt_lname.getText().toString().trim());
-                            pref.set(Constants.kContact_no, edt_cnt_no.getText().toString().trim());
-                            pref.set(Constants.kType,       gender_type);
-                            pref.commit();
-                          */
+                       /* String customerId = response.get("customerId").toString();
+                        String OTP_code   = response.get("verificationCode").toString();
 
-                    } else {
+                        pref.set(Constants.kcust_id, customerId);
+                        pref.commit();
+                       */
+                        startActivity(new Intent(LoginActivity.this, VerificationActivity.class));//.putExtra("OTP", OTP_code));
+                        finish();
+                    }
+                    else {
 
                         Common.alert(LoginActivity.this, resMsg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
 
@@ -228,7 +232,7 @@ public class LoginActivity extends AppCompatActivity {
                 edt_login_pswd.requestFocus();
                 Common.alert(LoginActivity.this, getString(R.string.blank_txt_pswd));
             }
-            else if (edt_login_pswd.getText().toString().trim().length()<8) {
+            else if (edt_login_pswd.getText().toString().trim().length()<8 || edt_login_pswd.getText().toString().trim().length()>16) {
                 status = false;
                 edt_login_pswd.setText("");
                 edt_login_pswd.requestFocus();

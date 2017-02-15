@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -113,10 +114,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 if (Common.isConnectingToInternet(RegistrationActivity.this)) {
 
                     if (Validate()) {
-                        user_registration_api(edt_reg_name.getText().toString().trim(),
-                                              edt_reg_mobile.getText().toString().trim(),
-                                              edt_reg_email.getText().toString().trim(),
-                                              edt_reg_pswd.getText().toString().trim());
+                        user_registration_api(edt_reg_name.getText().toString().trim(),  edt_reg_mobile.getText().toString().trim(), edt_reg_email.getText().toString().trim(), edt_reg_pswd.getText().toString().trim());
                     }
                 } else {
                     Common.alert(RegistrationActivity.this, getResources().getString(R.string.no_internet_txt));
@@ -203,7 +201,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 error.printStackTrace();
             }
         });
-        Volley.newRequestQueue(RegistrationActivity.this).add(jsObjRequest);
+        Volley.newRequestQueue(RegistrationActivity.this).add(jsObjRequest).setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
 // ******* OTP REQUEST API *******
@@ -246,7 +244,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
 
@@ -288,17 +285,20 @@ public class RegistrationActivity extends AppCompatActivity {
                 edt_reg_name.startAnimation(anim_shake);
                 edt_reg_name.requestFocus();
                 Common.alert(RegistrationActivity.this, getString(R.string.blank_txt_name));
-            } else if (edt_reg_mobile.getText().toString().trim().equals("")) {
+            }
+            else if (edt_reg_mobile.getText().toString().trim().equals("")) {
                 status = false;
                 edt_reg_mobile.startAnimation(anim_shake);
                 edt_reg_mobile.requestFocus();
                 Common.alert(RegistrationActivity.this, getString(R.string.blank_txt_mobile));
-            } else if (edt_reg_email.getText().toString().trim().equals("")) {
+            }
+            else if (edt_reg_email.getText().toString().trim().equals("")) {
                 status = false;
                 edt_reg_email.startAnimation(anim_shake);
                 edt_reg_email.requestFocus();
                 Common.alert(RegistrationActivity.this, getString(R.string.blank_txt_email));
-            } else if (edt_reg_pswd.getText().toString().trim().equals("")) {
+            }
+            else if (edt_reg_pswd.getText().toString().trim().equals("")) {
                 status = false;
                 edt_reg_pswd.startAnimation(anim_shake);
                 edt_reg_pswd.requestFocus();
@@ -315,12 +315,22 @@ public class RegistrationActivity extends AppCompatActivity {
                 edt_reg_email.requestFocus();
                 Common.alert(RegistrationActivity.this, getString(R.string.txt_valid_email));
             }
+
             else if (edt_reg_mobile.getText().toString().trim().length()<10 || edt_reg_mobile.getText().toString().trim().length()>16) {
                 status = false;
                 edt_reg_mobile.startAnimation(anim_shake);
                 edt_reg_mobile.requestFocus();
                 Common.alert(RegistrationActivity.this, getString(R.string.txt_mobile_length));
             }
+
+            else if (edt_reg_pswd.getText().toString().trim().length()<8 || edt_reg_pswd.getText().toString().trim().length()>16) {
+                status = false;
+                edt_reg_pswd.setText("");
+                edt_reg_pswd.requestFocus();
+                edt_reg_pswd.startAnimation(anim_shake);
+                Common.alert(RegistrationActivity.this, getString(R.string.txt_pswd_length));
+            }
+
             else if (!edt_reg_pswd.getText().toString().trim().equals(edt_reg_cnf_pswd.getText().toString().trim())) {
                 status = false;
                 edt_reg_pswd.setText("");

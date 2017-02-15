@@ -43,7 +43,6 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
         android:layout_below="@+id/rl_header"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
@@ -51,10 +50,14 @@
 
     <TextView
         android:text="Please use this QR Code at boom barrier as gate pass"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_qr_code"
-        android:layout_alignEnd="@+id/iv_qr_code"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textStyle="bold"
+        android:textColor="@color/app_theme_color"
+        android:textSize="18sp"
         android:id="@+id/textView2" />
 </RelativeLayout>

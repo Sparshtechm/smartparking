@@ -22,7 +22,7 @@ public abstract class Booking_Availability_Adapter extends BaseAdapter {
 
 // ******* DECLARING TEXT VIEW *******
 
-    TextView tv_level_lbl, tv_capacity_lbl, tv_availability_lbl, tv_price, tv_over_delayed, tv_long_hours;
+    TextView tv_level_lbl, tv_capacity, tv_availability, tv_price, tv_over_delayed, tv_long_hours;
 
 // ******* DECLARING BUTTON *******
 
@@ -72,22 +72,23 @@ public abstract class Booking_Availability_Adapter extends BaseAdapter {
         btn_book_now.setTag(position);
 
         tv_level_lbl        = (TextView) rootView.findViewById(R.id.tv_level_lbl);
-        tv_capacity_lbl     = (TextView) rootView.findViewById(R.id.tv_capacity_lbl);
-        tv_availability_lbl = (TextView) rootView.findViewById(R.id.tv_availability_lbl);
+        tv_capacity     = (TextView) rootView.findViewById(R.id.tv_capacity);
+        tv_availability     = (TextView) rootView.findViewById(R.id.tv_availability);
         tv_price            = (TextView) rootView.findViewById(R.id.tv_price);
         tv_over_delayed     = (TextView) rootView.findViewById(R.id.tv_over_delayed);
         tv_long_hours       = (TextView) rootView.findViewById(R.id.tv_long_hours);
 
-        tv_level_lbl.setText("Level " + data.get(position).get("levelId"));
-        tv_capacity_lbl.setText("Capacity " + data.get(position).get("capacity"));
+        tv_level_lbl.setText("Level " + data.get(position).get("floorId"));
+        tv_capacity.setText(data.get(position).get("capacity"));
+        tv_availability.setText(data.get(position).get("capacityRemaning"));
 
         if(!data.get(position).get("capacityRemaning").equals("0")){
-            tv_availability_lbl.setText("Available " + data.get(position).get("capacityRemaning"));
-            tv_availability_lbl.setBackgroundColor(context.getResources().getColor(R.color.green));
+            //tv_availability.setText(data.get(position).get("capacityRemaning"));
+            //tv_availability.setBackgroundColor(context.getResources().getColor(R.color.green));
             btn_book_now.setVisibility(View.VISIBLE);
         }else{
-            tv_availability_lbl.setText("Not Available ");
-            tv_availability_lbl.setBackgroundColor(context.getResources().getColor(R.color.red));
+           // tv_availability.setText("Not Available ");
+            //tv_availability.setBackgroundColor(context.getResources().getColor(R.color.red));
             btn_book_now.setVisibility(View.GONE);
         }
 
