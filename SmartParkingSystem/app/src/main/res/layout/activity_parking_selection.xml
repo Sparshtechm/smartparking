@@ -444,17 +444,10 @@
     <RelativeLayout
         android:id="@+id/rl_vehicle_type"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:layout_below="@+id/rl_end_date"
         android:layout_margin="10dp"
         android:background="@drawable/shape_b">
-
-        <Spinner
-            android:id="@+id/spnr_vehicle_type"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/tv_vehicle_type_lbl" />
 
         <TextView
             android:id="@+id/tv_vehicle_type_lbl"
@@ -469,6 +462,50 @@
             android:textStyle="bold"
             android:textSize="18sp"  />
 
+        <Spinner
+            android:id="@+id/spnr_vehicle_type"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/tv_vehicle_type_lbl"
+            android:visibility="visible"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:weightSum="3"
+            android:visibility="gone"
+            android:layout_toEndOf="@+id/tv_vehicle_type_lbl">
+
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/icon_two_wheeler"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/iv_two_wheeler"
+                android:layout_weight="1" />
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/icon_four_wheeler"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/iv_four_wheeler"
+                android:background="@color/bg_selected"
+                android:layout_weight="1" />
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/icon_van"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/iv_lmv"
+                android:layout_weight="1" />
+        </LinearLayout>
+
     </RelativeLayout>
 
     <!-- Slot Type -->
@@ -476,7 +513,7 @@
     <RelativeLayout
         android:id="@+id/rl_slot_type"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/rl_vehicle_type"
         android:layout_margin="10dp"
         android:background="@drawable/shape_b">
@@ -500,7 +537,45 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/tv_slot_type_lbl" />
+            android:layout_toEndOf="@+id/tv_slot_type_lbl"
+            android:visibility="visible"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:weightSum="3"
+            android:visibility="gone"
+            android:layout_toEndOf="@+id/tv_slot_type_lbl">
+
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/icon_slot_type"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/iv_public"
+                android:background="@color/bg_selected"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/icon_slot_type"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/iv_reserved"
+                android:layout_weight="1" />
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/icon_handicap"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/iv_handicapped"
+                android:layout_weight="1" />
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -509,7 +584,9 @@
         style="@style/Reg_btnStyle"
         android:layout_below="@+id/rl_slot_type"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:text="@string/btn_chk_availability" />
 
 

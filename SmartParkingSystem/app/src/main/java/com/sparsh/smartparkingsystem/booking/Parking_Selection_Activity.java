@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -629,7 +630,7 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
                 error.printStackTrace();
             }
         });
-        Volley.newRequestQueue(Parking_Selection_Activity.this).add(jsObjRequest);
+        Volley.newRequestQueue(Parking_Selection_Activity.this).add(jsObjRequest).setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
 // ******* CHECK AVAILABILITY API *******
@@ -642,6 +643,9 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
         pDialog.setCancelable(false);
         pDialog.show();
 
+        String url = getResources().getString(R.string.get_availability_api) +
+                "zoneId=" + zone_id + "&vehicleTypeId=" + vehicle_type_id + "&slotTypeId=" + Slot_type_id
+                + "&toTime=" + end_time  + "&fromTime=" + start_time + "&timeZone=" + timezone;
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, getResources().getString(R.string.get_availability_api) +
                 "zoneId=" + zone_id + "&vehicleTypeId=" + vehicle_type_id + "&slotTypeId=" + Slot_type_id
@@ -709,9 +713,9 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
                         startActivity(new Intent(Parking_Selection_Activity.this, Booking_Availability.class));
                         finish();
                     }
-
-
-
+                    else if (resCode.equals("412")) {
+                        Common.alert(Parking_Selection_Activity.this, resMsg);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -726,7 +730,8 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
                 error.printStackTrace();
             }
         });
-        Volley.newRequestQueue(Parking_Selection_Activity.this).add(jsObjRequest);
+        //Volley.newRequestQueue(Parking_Selection_Activity.this).add(jsObjRequest);
+        Volley.newRequestQueue(Parking_Selection_Activity.this).add(jsObjRequest).setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
 // ******* VALIDATE FIELDS *******

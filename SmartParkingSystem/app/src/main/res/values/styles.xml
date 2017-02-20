@@ -40,7 +40,7 @@
     <style name="Reg_btnStyle" parent="@android:style/Widget.Button">
         <item name="android:background">@drawable/rounded_buttons</item>
         <item name="android:layout_height">50dip</item>
-        <item name="android:layout_width">250dip</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">18sp</item>

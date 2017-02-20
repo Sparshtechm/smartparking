@@ -13,7 +13,6 @@
         android:id="@+id/rl_header"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="@color/app_theme_color">
 
@@ -31,9 +30,9 @@
             android:id="@+id/iv_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:contentDescription="@null"
             android:src="@drawable/back_button"
             android:visibility="visible" />
@@ -43,6 +42,7 @@
         android:id="@+id/rl_prf_name"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/rl_header">
 
         <TextView
@@ -64,32 +64,23 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_toEndOf="@+id/tv_name_lbl"
-            android:background="@color/bg_txt_blue"
+            android:background="@drawable/shape_blue"
             android:ems="10"
             android:hint="@string/hint_name"
             android:inputType="textPersonName"
             android:maxLines="1"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white" />
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
 
-        <!--<EditText
-            android:id="@+id/edt_prf_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="56dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Sparsh Saxena" />-->
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rl_prf_email"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/rl_prf_name">
 
         <TextView
@@ -111,32 +102,24 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_toEndOf="@+id/tv_email_lbl"
-            android:background="@color/bg_txt_blue"
+            android:background="@drawable/shape_blue"
             android:ems="10"
             android:hint="@string/hint_email"
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white" />
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
 
-       <!-- <EditText
-            android:id="@+id/edt_prf_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="56dp"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:text="abc@gmail.com" />-->
+
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rl_prf_mob"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/rl_prf_email">
 
         <TextView
@@ -158,7 +141,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_toEndOf="@+id/tv_mob_lbl"
-            android:background="@color/bg_txt_blue"
+            android:background="@drawable/shape_blue"
             android:ems="10"
             android:hint="@string/hint_mobile"
             android:inputType="number"
@@ -166,29 +149,19 @@
             android:maxLines="1"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white" />
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
 
-       <!-- <EditText
-            android:id="@+id/edt_prf_mob"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="56dp"
-            android:ems="10"
-            android:inputType="number"
-            android:maxLength="10"
-            android:text="9876543212" />-->
     </RelativeLayout>
 
     <Button
         android:id="@+id/btn_prf_update"
         style="@style/Reg_btnStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/rl_prf_mob"
         android:text="@string/btn_update" />
 
 </RelativeLayout>

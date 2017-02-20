@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -53,6 +54,7 @@ import com.sparsh.smartparkingsystem.payment.Payment_Activity;
 import com.sparsh.smartparkingsystem.profile.ChangePswdActivity;
 import com.sparsh.smartparkingsystem.profile.ProfileActivity;
 import com.sparsh.smartparkingsystem.registration.LoginActivity;
+import com.sparsh.smartparkingsystem.registration.RegistrationActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -120,7 +122,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
     ArrayList <HashMap <String, String>> arr_search_details_map_List  = new ArrayList <HashMap<String,String>>();
     ArrayList <HashMap <String, String>> arr_parking_zones_map_List   = new ArrayList<HashMap<String, String>>();
     ArrayList <HashMap <String, String>> arr_booking_history_map_List = new ArrayList<HashMap<String, String>>();
-    ArrayList <HashMap <String, String>> arr_upcoming_booking_history_map_List = new ArrayList <HashMap <String, String>>();
+    ArrayList <HashMap <String, String>> arr_upcoming_booking_history_map_List  = new ArrayList <HashMap <String, String>>();
     ArrayList <HashMap <String, String>> arr_cancelled_booking_history_map_List = new ArrayList <HashMap <String, String>>();
 
 // ******* DECLARING CLASS OBJECT *******
@@ -147,17 +149,13 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
 
         setContentView(R.layout.activity_dashboard);
 
-        mGoogleApiClient = new GoogleApiClient
-                .Builder(this)
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        mGoogleApiClient = new GoogleApiClient.Builder(this).addApi(Places.GEO_DATA_API).addApi(Places.PLACE_DETECTION_API)
+            .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                @Override
+                public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-                    }
-                })
-                .build();
+                }
+            }).build();
 
         pref = new Preferences(DashboardActivity.this);
 
@@ -231,10 +229,9 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
         if(pref.get(Constants.kcust_id).equals("")){
 
             tv_logout_lbl.setText("Login");
-            //rl_settings_logout.setVisibility(View.GONE);
-        }else{
+        }
+        else{
             tv_logout_lbl.setText("Logout");
-            //rl_settings_logout.setVisibility(View.VISIBLE);
         }
 
     // ******* AutoSearch ListView *******
@@ -261,7 +258,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
         tv_upcoming_tab.setOnClickListener(this);
         tv_cancelled_tab.setOnClickListener(this);
 
-        // ******* Check Manifest Permissions *******
+    // ******* Check Manifest Permissions *******
 
         checkPermissions();
 
@@ -306,10 +303,10 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
             iv_home.setImageResource(R.drawable.home_g);
             iv_booking.setImageResource(R.drawable.info_w);
             iv_setting.setImageResource(R.drawable.ic_menu_manage);
-            iv_cnt.setImageResource(R.drawable.contact_g);
-*/
+            iv_cnt.setImageResource(R.drawable.contact_g);*/
+
             if (Common.isConnectingToInternet(DashboardActivity.this)) {
-                Common.alert(DashboardActivity.this, booking_msg);
+                //Common.alert(DashboardActivity.this, booking_msg);
                 get_booking_history_list_api();
             }
             else {
@@ -825,7 +822,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                 error.printStackTrace();
             }
         });
-        Volley.newRequestQueue(DashboardActivity.this).add(jsObjRequest);
+        Volley.newRequestQueue(DashboardActivity.this).add(jsObjRequest).setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
 // ******* GET BOOKING HISTORY LIST API *******
@@ -964,7 +961,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                 error.printStackTrace();
             }
         });
-        Volley.newRequestQueue(DashboardActivity.this).add(jsObjRequest);
+        Volley.newRequestQueue(DashboardActivity.this).add(jsObjRequest).setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
 // ******* CANCEL BOOKING API *******
@@ -1011,7 +1008,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                 error.printStackTrace();
             }
         });
-        Volley.newRequestQueue(DashboardActivity.this).add(jsObjRequest);
+        Volley.newRequestQueue(DashboardActivity.this).add(jsObjRequest).setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
 // ******* CHECK GATE PASS VALIDATION API *******
@@ -1073,7 +1070,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                 error.printStackTrace();
             }
         });
-        Volley.newRequestQueue(DashboardActivity.this).add(jsObjRequest);
+        Volley.newRequestQueue(DashboardActivity.this).add(jsObjRequest).setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
 // ******* AUTO SEARCH PLACES GOOGLE MAP API *******
@@ -1085,9 +1082,9 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
         String sensor = "sensor=false";
 
         // Building the parameters to the web service
-        String parameters = auto_search_txt+"&"+types+"&"+sensor+"&"+key;
+        String parameters = auto_search_txt + "&" + types + "&" + sensor + "&" + key;
         String search_url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input="+ parameters;
-      //  https://maps.googleapis.com/maps/api/place/autocomplete/json?input=noida+&types=geocode&sensor=false&key=AIzaSyAYkRcA0wfHLgbsMKWivzl13OzAv5f-P_A
+        // https://maps.googleapis.com/maps/api/place/autocomplete/json?input=noida+&types=geocode&sensor=false&key=AIzaSyAYkRcA0wfHLgbsMKWivzl13OzAv5f-P_A
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, search_url, null, new Response.Listener<JSONObject>() {
 
@@ -1218,25 +1215,9 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
         dialog.show();
     }
 
-/*// ******* CONVERT FORMAT in 12 hours  *******
 
-    public String change_format(String sel_time){
 
-        String f ="";
 
-        // convert time in 24 hrs format
-        try {
-            SimpleDateFormat displayFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
-            SimpleDateFormat parseFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            Date date = parseFormat.parse(sel_time);
-            f = displayFormat.format(date);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return f;
-    }*/
 
 
 

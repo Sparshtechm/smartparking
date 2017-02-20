@@ -59,6 +59,19 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tv_booking_id_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/div1"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:text="booking id - 1"
+            android:textColor="@color/app_theme_color"
+            android:textSize="18sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
             android:id="@+id/tv_start_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,9 +95,9 @@
         <RelativeLayout
             android:id="@+id/rl_price"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/div1"
+            android:layout_below="@+id/tv_booking_id_lbl"
             android:layout_margin="10dp"
             android:background="@drawable/shape_y"
             android:orientation="horizontal">

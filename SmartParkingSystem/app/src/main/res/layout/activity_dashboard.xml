@@ -63,7 +63,7 @@
             android:id="@+id/rl_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <!-- here map -->
 
@@ -71,7 +71,7 @@
                  android:id="@+id/mapfragment"
                  class="com.here.android.mpa.mapping.MapFragment"
                  android:layout_width="match_parent"
-                 android:layout_height="match_parent" />-->
+                 android:layout_height="match_parent" /> -->
 
             <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -192,7 +192,7 @@
             android:id="@+id/rl_settings"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <RelativeLayout
                 android:id="@+id/rl_settings_profile"
@@ -253,7 +253,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="10dp"
-                    android:background="@drawable/toggle_btn_style"
+                    android:background="@drawable/on"
                     android:checked="true"
                     android:enabled="false"
                     android:text="@null"

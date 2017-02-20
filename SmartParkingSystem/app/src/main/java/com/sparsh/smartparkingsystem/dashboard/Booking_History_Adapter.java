@@ -23,7 +23,7 @@ public abstract class Booking_History_Adapter extends BaseAdapter {
 
 // ******* DECLARING TEXT VIEW *******
 
-    TextView tv_zone_name, tv_start_duration, tv_end_duration, tv_parking_amount, tv_booking_status;
+    TextView tv_zone_name, tv_booking_id_lbl, tv_start_duration, tv_end_duration, tv_parking_amount, tv_booking_status;
 
     Button btn_pass, btn_cancel;
 
@@ -74,12 +74,14 @@ public abstract class Booking_History_Adapter extends BaseAdapter {
         }
 
         tv_zone_name       = (TextView) rootView.findViewById(R.id.tv_zone_name);
+        tv_booking_id_lbl  = (TextView) rootView.findViewById(R.id.tv_booking_id_lbl);
         tv_start_duration  = (TextView) rootView.findViewById(R.id.tv_start_duration);
         tv_end_duration    = (TextView) rootView.findViewById(R.id.tv_end_duration);
         tv_parking_amount  = (TextView) rootView.findViewById(R.id.tv_parking_amount);
         tv_booking_status  = (TextView) rootView.findViewById(R.id.tv_booking_status);
 
         tv_zone_name.setText(data.get(position).get("zoneName"));
+        tv_booking_id_lbl.setText("Booking Id : " + data.get(position).get("bookingId"));
         tv_start_duration.setText(Common.change_in_am_pm_format(data.get(position).get("fromTime")));
         tv_end_duration.setText(Common.change_in_am_pm_format(data.get(position).get("toTime")));
         tv_parking_amount.setText("$" + data.get(position).get("amount"));

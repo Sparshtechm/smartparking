@@ -82,5 +82,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/div1"
+        android:scrollbars="none"
         android:divider="@null" />
 </RelativeLayout>

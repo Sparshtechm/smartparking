@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -24,6 +25,7 @@ import com.sparsh.smartparkingsystem.R;
 import com.sparsh.smartparkingsystem.common.Common;
 import com.sparsh.smartparkingsystem.common.Constants;
 import com.sparsh.smartparkingsystem.common.Preferences;
+import com.sparsh.smartparkingsystem.dashboard.DashboardActivity;
 import com.sparsh.smartparkingsystem.payment.Payment_Activity;
 import com.sparsh.smartparkingsystem.registration.LoginActivity;
 
@@ -191,7 +193,7 @@ public class Booking_Availability extends AppCompatActivity {
                 error.printStackTrace();
             }
         });
-        Volley.newRequestQueue(Booking_Availability.this).add(jsObjRequest);
+        Volley.newRequestQueue(Booking_Availability.this).add(jsObjRequest).setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
 // ******* CALL SLOT BLOCKING API *******
@@ -255,6 +257,7 @@ public class Booking_Availability extends AppCompatActivity {
                 error.printStackTrace();
             }
         });
-        Volley.newRequestQueue(Booking_Availability.this).add(jsObjRequest);
+        //Volley.newRequestQueue(Booking_Availability.this).add(jsObjRequest);
+        Volley.newRequestQueue(Booking_Availability.this).add(jsObjRequest).setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 }

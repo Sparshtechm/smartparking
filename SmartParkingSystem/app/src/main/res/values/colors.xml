@@ -7,6 +7,10 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="bg_txt_blue">#8db3f1</color>
+    <color name="bg_transparent">#00000000</color>
+
+    <color name="bg_selected">#61cbff</color>
+
 
     <color name="header_bg_color">#CACCCB</color>
     <color name="blue_btn">#3399FF</color>
