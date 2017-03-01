@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.sparsh.smartparkingsystem.R;
+import com.sparsh.smartparkingsystem.booking.Booking_Availability;
 import com.sparsh.smartparkingsystem.common.Common;
 import com.sparsh.smartparkingsystem.common.Constants;
 import com.sparsh.smartparkingsystem.common.Preferences;
@@ -135,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
 
 // ******* USER LOGIN API *******
 
-    public void user_login_api(String email, String pswd) {
+    public void user_login_api(final String email, String pswd) {
 
         pDialog = new ProgressDialog(LoginActivity.this);
         pDialog.setMessage("Loading...");
@@ -165,24 +166,29 @@ public class LoginActivity extends AppCompatActivity {
 
                         String customerId = response.get("customerId").toString();
 
-                        // pref.set(Constants.kcode,    OTP_code);
                         pref.set(Constants.kcust_id, customerId);
                         pref.commit();
 
-                        startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
-                        finish();
-
+                        if(pref.get(Constants.kloginChk).equals("1")){
+                           /* pref.set(Constants.kloginChk,"0");
+                            pref.commit();*/
+                            startActivity(new Intent(LoginActivity.this, Booking_Availability.class));
+                            finish();
+                        }else{
+                            startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+                            finish();
+                        }
                     }
                     // If email id is not verified
                     else if(resCode.equals("410")){
 
-                       /* String customerId = response.get("customerId").toString();
-                        String OTP_code   = response.get("verificationCode").toString();
+                        String user_mob          = response.get("mdnNumber").toString();
+                        String sel_country_code  = response.get("countryCode").toString();
 
-                        pref.set(Constants.kcust_id, customerId);
-                        pref.commit();
-                       */
-                        startActivity(new Intent(LoginActivity.this, VerificationActivity.class));//.putExtra("OTP", OTP_code));
+                        //startActivity(new Intent(LoginActivity.this, VerificationActivity.class));//.putExtra("OTP", OTP_code));
+                        startActivity(new Intent(LoginActivity.this, VerificationActivity.class)
+                                .putExtra("OTP", "").putExtra("user_email", email)
+                                .putExtra("Cnt_no", user_mob).putExtra("Country_code", sel_country_code));
                         finish();
                     }
                     else {

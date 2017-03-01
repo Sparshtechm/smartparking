@@ -46,8 +46,8 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="5dp"
@@ -89,13 +89,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginBottom="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
             android:text="@string/txt_start_date_lbl"
             android:textColor="@color/app_theme_color"
-            android:textStyle="bold"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:id="@+id/rl_start_dt_left"
@@ -251,13 +251,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginBottom="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
             android:text="@string/txt_end_date_lbl"
             android:textColor="@color/app_theme_color"
-            android:textStyle="bold"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:id="@+id/rl_end_dt_left"
@@ -338,7 +338,6 @@
     </RelativeLayout>
 
 
-
     <!-- End Date -->
 
     <!--<RelativeLayout
@@ -391,53 +390,53 @@
 
     <!--End Time -->
 
-<!--    <RelativeLayout
-        android:id="@+id/rl_end_time"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_below="@+id/rl_end_date"
-        android:layout_margin="10dp"
-        android:background="@drawable/shape_b">
-
-        <TextView
-            android:id="@+id/tv_end_time_lbl"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="10dp"
-            android:text="@string/txt_end_time_lbl"
-            android:textColor="@color/app_theme_color"
-            android:textStyle="bold"
-            android:textSize="18sp"  />
-
-        <EditText
-            android:id="@+id/edt_end_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+    <!--    <RelativeLayout
+            android:id="@+id/rl_end_time"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/rl_end_date"
             android:layout_margin="10dp"
-            android:layout_toEndOf="@+id/tv_end_time_lbl"
-            android:layout_toStartOf="@+id/iv_end_time_icon"
-            android:background="#00000000"
-            android:ems="10"
-            android:enabled="false"
-            android:hint="Select end time"
-            android:paddingEnd="8dp"
-            android:paddingStart="8dp"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:background="@drawable/shape_b">
+
+            <TextView
+                android:id="@+id/tv_end_time_lbl"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:text="@string/txt_end_time_lbl"
+                android:textColor="@color/app_theme_color"
+                android:textStyle="bold"
+                android:textSize="18sp"  />
+
+            <EditText
+                android:id="@+id/edt_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:layout_toEndOf="@+id/tv_end_time_lbl"
+                android:layout_toStartOf="@+id/iv_end_time_icon"
+                android:background="#00000000"
+                android:ems="10"
+                android:enabled="false"
+                android:hint="Select end time"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
 
-        <ImageView
-            android:id="@+id/iv_end_time_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            app:srcCompat="@drawable/time_icon" />
-    </RelativeLayout>-->
+            <ImageView
+                android:id="@+id/iv_end_time_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                app:srcCompat="@drawable/time_icon" />
+        </RelativeLayout>-->
 
     <!-- Vehicle type -->
 
@@ -447,6 +446,7 @@
         android:layout_height="80dp"
         android:layout_below="@+id/rl_end_date"
         android:layout_margin="10dp"
+        android:visibility="gone"
         android:background="@drawable/shape_b">
 
         <TextView
@@ -459,8 +459,8 @@
             android:layout_marginStart="10dp"
             android:text="@string/txt_vehicle_type_lbl"
             android:textColor="@color/app_theme_color"
-            android:textStyle="bold"
-            android:textSize="18sp"  />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/spnr_vehicle_type"
@@ -468,42 +468,45 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/tv_vehicle_type_lbl"
-            android:visibility="visible"/>
+            android:visibility="gone" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:weightSum="3"
-            android:visibility="gone"
-            android:layout_toEndOf="@+id/tv_vehicle_type_lbl">
+            android:layout_toEndOf="@+id/tv_vehicle_type_lbl"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="3">
 
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@drawable/icon_two_wheeler"
-                android:layout_gravity="center_vertical"
-                android:id="@+id/iv_two_wheeler"
-                android:layout_weight="1" />
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@drawable/icon_four_wheeler"
-                android:layout_gravity="center_vertical"
                 android:id="@+id/iv_four_wheeler"
-                android:background="@color/bg_selected"
-                android:layout_weight="1" />
-            <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                app:srcCompat="@drawable/icon_van"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_car_blue" />
+
+            <ImageView
+                android:id="@+id/iv_two_wheeler"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/icon_bike_white" />
+
+            <ImageView
                 android:id="@+id/iv_lmv"
-                android:layout_weight="1" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/icon_van_white" />
         </LinearLayout>
 
     </RelativeLayout>
@@ -527,8 +530,8 @@
             android:layout_marginStart="10dp"
             android:text="@string/txt_slot_type_lbl"
             android:textColor="@color/app_theme_color"
-            android:textStyle="bold"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/spnr_slot_type"
@@ -538,43 +541,43 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/tv_slot_type_lbl"
-            android:visibility="visible"/>
+            android:visibility="gone" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:weightSum="3"
-            android:visibility="gone"
-            android:layout_toEndOf="@+id/tv_slot_type_lbl">
+            android:layout_toEndOf="@+id/tv_slot_type_lbl"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="3">
 
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@drawable/icon_slot_type"
-                android:layout_gravity="center_vertical"
                 android:id="@+id/iv_public"
-                android:background="@color/bg_selected"
-                android:layout_weight="1" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_parking_blue" />
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@drawable/icon_slot_type"
-                android:layout_gravity="center_vertical"
                 android:id="@+id/iv_reserved"
-                android:layout_weight="1" />
-            <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                app:srcCompat="@drawable/icon_handicap"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_reserve_white" />
+
+            <ImageView
                 android:id="@+id/iv_handicapped"
-                android:layout_weight="1" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_handicap_white" />
         </LinearLayout>
 
     </RelativeLayout>
@@ -584,10 +587,9 @@
         style="@style/Reg_btnStyle"
         android:layout_below="@+id/rl_slot_type"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
         android:text="@string/btn_chk_availability" />
-
 
 </RelativeLayout>

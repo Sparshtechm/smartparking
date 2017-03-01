@@ -15,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -76,6 +77,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
     String resMsg, resCode, screen_chk = "0", booking_msg;
     double latitude;   // latitude
     double longitude;  // longitude
+    int search_api_call_chk = 0;
 
 // ******* Declaring TextView *******
 
@@ -137,7 +139,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
 
 // ******* Declaring Alert Dialog *******
 
-    Dialog dialog;
+    Dialog dialog, alert;
 
     Intent intent;
 
@@ -149,15 +151,15 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
 
         setContentView(R.layout.activity_dashboard);
 
+        pref = new Preferences(DashboardActivity.this);
+
         mGoogleApiClient = new GoogleApiClient.Builder(this).addApi(Places.GEO_DATA_API).addApi(Places.PLACE_DETECTION_API)
             .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
-                @Override
-                public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+            @Override
+            public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-                }
-            }).build();
-
-        pref = new Preferences(DashboardActivity.this);
+            }
+        }).build();
 
     // ******* TextViews *******
 
@@ -179,25 +181,24 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if(count>=3) {
+                //if(count>=3) {
                     if (Common.isConnectingToInternet(DashboardActivity.this)) {
 
-                        auto_search_places_api(String.valueOf(s));
+                        if(search_api_call_chk == 0) {
+
+                            auto_search_places_api(String.valueOf(s));
+                        }else {
+                            search_api_call_chk = 0;
+                        }
                     } else {
                         Common.alert(DashboardActivity.this, getResources().getString(R.string.no_internet_txt));
                     }
-                }
+                //}
             }
 
             @Override
             public void afterTextChanged(Editable s) {
 
-                /* if (Common.isConnectingToInternet(DashboardActivity.this)) {
-
-                    auto_search_places_api(String.valueOf(s));
-                } else {
-                    Common.alert(DashboardActivity.this, getResources().getString(R.string.no_internet_txt));
-                }*/
             }
         });
 
@@ -234,7 +235,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
             tv_logout_lbl.setText("Logout");
         }
 
-    // ******* AutoSearch ListView *******
+    // ******* ListView *******
 
         lv_auto_search_list = (ListView)findViewById(R.id.lv_auto_search_list);
         lv_booking_list     = (ListView)findViewById(R.id.lv_booking_list);
@@ -261,9 +262,6 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
     // ******* Check Manifest Permissions *******
 
         checkPermissions();
-
-        // Get Current Location Co-ordinates
-        // getLocation();
 
         try {
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
@@ -299,14 +297,8 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
             rl_settings.setVisibility(View.GONE);
             rl_contact.setVisibility(View.GONE);
 
-           /* iv_search_icon.setVisibility(View.GONE);
-            iv_home.setImageResource(R.drawable.home_g);
-            iv_booking.setImageResource(R.drawable.info_w);
-            iv_setting.setImageResource(R.drawable.ic_menu_manage);
-            iv_cnt.setImageResource(R.drawable.contact_g);*/
-
             if (Common.isConnectingToInternet(DashboardActivity.this)) {
-                //Common.alert(DashboardActivity.this, booking_msg);
+
                 get_booking_history_list_api();
             }
             else {
@@ -350,12 +342,11 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                 rl_booking_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
                 rl_settings_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
                 rl_contact_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
-               // getLocation();
-               // iv_search_icon.setVisibility(View.GONE);
-               /* iv_home.setImageResource(R.drawable.home_w);
-                iv_booking.setImageResource(R.drawable.info_g);
-                iv_setting.setImageResource(R.drawable.ic_menu_manage);
-                iv_cnt.setImageResource(R.drawable.contact_g);*/
+
+                if(screen_chk.equals("1") || screen_chk.equals("2")){
+                    screen_chk.equals("0");
+                    getLocation();
+                }
 
                 break;
 
@@ -373,12 +364,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                 rl_settings_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
                 rl_contact_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
 
-                /*iv_search_icon.setVisibility(View.GONE);
-                iv_home.setImageResource(R.drawable.home_g);
-                iv_booking.setImageResource(R.drawable.info_w);
-                iv_setting.setImageResource(R.drawable.ic_menu_manage);
-                iv_cnt.setImageResource(R.drawable.contact_g);
-*/
+
                 if (Common.isConnectingToInternet(DashboardActivity.this)) {
 
                     get_booking_history_list_api();
@@ -403,11 +389,6 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                 rl_settings_btn.setBackgroundColor(getResources().getColor(R.color.app_theme_color));
                 rl_contact_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
 
-                /*iv_search_icon.setVisibility(View.GONE);
-                iv_home.setImageResource(R.drawable.home_g);
-                iv_booking.setImageResource(R.drawable.info_g);
-                iv_setting.setImageResource(R.drawable.ic_menu_manage);
-                iv_cnt.setImageResource(R.drawable.contact_g);*/
 
                 break;
 
@@ -425,14 +406,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                 rl_settings_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
                 rl_contact_btn.setBackgroundColor(getResources().getColor(R.color.app_theme_color));
 
-               /* iv_search_icon.setVisibility(View.GONE);
-                iv_home.setImageResource(R.drawable.home_w);
-                iv_booking.setImageResource(R.drawable.info_g);
-                iv_setting.setImageResource(R.drawable.ic_menu_manage);
-                iv_cnt.setImageResource(R.drawable.contact_g);*/
 
-                /*startActivity(new Intent(DashboardActivity.this, Parking_Selection_Activity.class));
-                finish();*/
 
                 break;
 
@@ -497,7 +471,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
 
                     @Override
                     protected void onCancelBtnClick(View v, String position) {
-                        cancel_booking_api(arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("bookingId"));
+                        cancel_booking_dialog(arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("bookingId"));
                     }
                 });
 
@@ -536,8 +510,6 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                     logout_dialog();
                 }
 
-
-
                 break;
 
             default:
@@ -550,6 +522,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
@@ -610,14 +583,13 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
 // ******* Get Location Method *******
 
     public void getLocation(){
-
         // check if GPS enabled
         GPSTracker gpsTracker = new GPSTracker(DashboardActivity.this);
 
         if (gpsTracker.canGetLocation()){
 
-            latitude  = gpsTracker.getLatitude();//28.5393154;//
-            longitude = gpsTracker.getLongitude();//77.3963628;//
+            latitude  =  gpsTracker.getLatitude(); // 28.5393154;//28.600174; //
+            longitude =  gpsTracker.getLongitude(); // 77.3963628;//77.368172; //
 
             /* latitude = 23.464311;
             longitude = 17.345611;*/
@@ -670,7 +642,39 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
 
     public void logout_dialog(){
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(DashboardActivity.this);
+        alert = new Dialog(DashboardActivity.this);
+        alert.setContentView(R.layout.common_alert_dialog_layout1);
+
+        // TextView tv_title   = (TextView)alert.findViewById(R.id.tv_title);
+        TextView tv_msg     = (TextView)alert.findViewById(R.id.tv_msg);
+        tv_msg.setText("Are you sure you want to logout?");
+        TextView tv_ok      = (TextView)alert.findViewById(R.id.tv_ok);
+        TextView tv_cancel  = (TextView)alert.findViewById(R.id.tv_cancel);
+        tv_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pref.set(Constants.kcust_id, "");
+                pref.commit();
+
+                startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alert.cancel();
+            }
+        });
+
+
+        alert.show();
+
+
+
+
+
+        /*AlertDialog.Builder alertDialog = new AlertDialog.Builder(DashboardActivity.this);
 
         alertDialog.setTitle("Logout...");
 
@@ -706,7 +710,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
             }
         });
         // Showing Alert Message
-        alertDialog.show();
+        alertDialog.show();*/
 
     }
 
@@ -754,6 +758,8 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                             zones_list_Map.put("longitude",    zones_list_Obj.getString("longitude"));
                             zones_list_Map.put("distance",     zones_list_Obj.getString("distance"));
                             zones_list_Map.put("timeZone",     zones_list_Obj.getString("timeZone"));
+                            zones_list_Map.put("price",        zones_list_Obj.getString("price"));
+                            zones_list_Map.put("currency",     zones_list_Obj.getString("currency"));
 
                             arr_parking_zones_map_List.add(zones_list_Map);
                         }
@@ -769,7 +775,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                                 e.printStackTrace();
                             }
 
-                            Marker marker = mMap.addMarker(new MarkerOptions().position(point).title(arr_parking_zones_map_List.get(i).get("zoneName")).icon(BitmapDescriptorFactory.fromResource(R.drawable.parking_loc)));
+                            Marker marker = mMap.addMarker(new MarkerOptions().position(point).title(arr_parking_zones_map_List.get(i).get("zoneName")).snippet(arr_parking_zones_map_List.get(i).get("currency")+ " "+ arr_parking_zones_map_List.get(i).get("price")).icon(BitmapDescriptorFactory.fromResource(R.drawable.parking_loc)));
                             marker.setTag(i);
                             marker.showInfoWindow();
                           /*  mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -852,6 +858,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                         arr_booking_history_map_List.clear();
                         arr_upcoming_booking_history_map_List.clear();
                         arr_cancelled_booking_history_map_List.clear();
+
                     // GET PAST BOOKING API
 
                         JSONArray arr_past_booking_list_Json = response.getJSONArray("pastBookingHistoryList");
@@ -940,7 +947,9 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
 
                             @Override
                             protected void onCancelBtnClick(View v, String position) {
-                                cancel_booking_api(arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("bookingId"));
+
+                                cancel_booking_dialog(arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("bookingId"));
+
                             }
                         });
 
@@ -1077,8 +1086,8 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
 
     public void auto_search_places_api(String auto_search_txt) {
 
-        String key = "key=" + getString(R.string.google_maps_key);
-        String types = "types=geocode";
+        String key    = "key=" + getString(R.string.google_maps_key);
+        String types  = "types=geocode";
         String sensor = "sensor=false";
 
         // Building the parameters to the web service
@@ -1109,7 +1118,10 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                         arr_search_details_map_List.add(auto_search_Map);
                     }
 
-                    if(!arr_search_details_map_List.isEmpty()){
+                    search_list();
+
+
+                    /*if(!arr_search_details_map_List.isEmpty()){
 
                         lv_auto_search_list.setVisibility(View.VISIBLE);
                         autoSearchAdapter = new AutoSearchAdapter(DashboardActivity.this, arr_search_details_map_List) {
@@ -1137,18 +1149,13 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                                         places.release();
                                     }
                                 });
-
-
-
-
-
                             }
                         };
                         lv_auto_search_list.setAdapter(autoSearchAdapter);
                     }
                     else{
                         lv_auto_search_list.setVisibility(View.GONE);
-                    }
+                    }*/
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -1171,6 +1178,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
 
         dialog = new Dialog(DashboardActivity.this);
         dialog.setContentView(R.layout.extended_booking_dialog);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
         TextView tv_zone_name       = (TextView)dialog.findViewById(R.id.tv_zone_name);
         TextView tv_start_duration  = (TextView)dialog.findViewById(R.id.tv_start_duration);
@@ -1215,11 +1223,110 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
         dialog.show();
     }
 
+// ******* Cancel Booking Dialog *******
+
+    public void cancel_booking_dialog(final String booking_id){
+
+        alert = new Dialog(DashboardActivity.this);
+        alert.setContentView(R.layout.common_alert_dialog_layout1);
+
+        TextView tv_title   = (TextView)alert.findViewById(R.id.tv_title);
+        TextView tv_msg     = (TextView)alert.findViewById(R.id.tv_msg);
+        tv_msg.setText("Are you sure you want to cancel this booking?");
+        TextView tv_ok      = (TextView)alert.findViewById(R.id.tv_ok);
+        TextView tv_cancel  = (TextView)alert.findViewById(R.id.tv_cancel);
+        tv_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alert.cancel();
+                cancel_booking_api(booking_id);
+            }
+        });
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alert.cancel();
+            }
+        });
+
+
+        alert.show();
 
 
 
+        /*AlertDialog.Builder alertDialog = new AlertDialog.Builder(DashboardActivity.this);
 
+        alertDialog.setTitle("Cancel Booking");
 
+        // Setting Dialog Message
+        alertDialog.setMessage("Are you sure you want to cancel this booking?");
+
+        // Setting Icon to Dialog
+        //alertDialog.setIcon(R.drawable.delete);
+
+        // Setting Positive "Yes" Button
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                cancel_booking_api(booking_id);
+            }
+        });
+
+        // Setting Negative "NO" Button
+        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // Write your code here to invoke NO event
+                //  Toast.makeText(getApplicationContext(), "You clicked on NO", Toast.LENGTH_SHORT).show();
+                dialog.cancel();
+            }
+        });
+        // Showing Alert Message
+        alertDialog.show();*/
+    }
+
+// ******* Update Markers *******
+
+    public void search_list(){
+
+        if(!arr_search_details_map_List.isEmpty()){
+
+            lv_auto_search_list.setVisibility(View.VISIBLE);
+
+            autoSearchAdapter = new AutoSearchAdapter(DashboardActivity.this, arr_search_details_map_List) {
+                @Override
+                protected void onRowClick(View v, String position) {
+
+                    // latitude  = Double.valueOf(arr_search_details_map_List.get(Integer.parseInt(position)).get("latitude"));
+                    // longitude = Double.valueOf(arr_search_details_map_List.get(Integer.parseInt(position)).get("longitude"));
+                    //edt_auto_search.setText(arr_search_details_map_List.get(Integer.parseInt(position)).get("description"));
+                    lv_auto_search_list.setVisibility(View.GONE);
+                    search_api_call_chk = 1;
+                    edt_auto_search.setText(arr_search_details_map_List.get(Integer.parseInt(position)).get("description"));
+
+                    String place_id = arr_search_details_map_List.get(Integer.parseInt(position)).get("place_id");
+                    Places.GeoDataApi.getPlaceById(mGoogleApiClient, place_id).setResultCallback(new ResultCallback<PlaceBuffer>() {
+                        @Override
+                        public void onResult(PlaceBuffer places) {
+                            if (places.getStatus().isSuccess()) {
+                                final Place myPlace = places.get(0);
+                                LatLng queriedLocation = myPlace.getLatLng();
+                                // Log.v("Latitude is", "" + queriedLocation.latitude);
+                                // Log.v("Longitude is", "" + queriedLocation.longitude);
+                                latitude  = queriedLocation.latitude;
+                                longitude = queriedLocation.longitude;
+                                get_parking_zones_list_api();
+                            }
+                            places.release();
+                        }
+                    });
+                }
+            };
+            lv_auto_search_list.setAdapter(autoSearchAdapter);
+        }
+        else{
+            lv_auto_search_list.setVisibility(View.GONE);
+        }
+    }
 
 
 

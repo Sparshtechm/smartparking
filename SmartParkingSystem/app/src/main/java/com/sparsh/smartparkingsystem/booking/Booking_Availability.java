@@ -2,14 +2,11 @@ package com.sparsh.smartparkingsystem.booking;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -78,7 +75,6 @@ public class Booking_Availability extends AppCompatActivity {
 
                 startActivity(new Intent(Booking_Availability.this, Parking_Selection_Activity.class));
                 finish();
-
             }
         });
 
@@ -97,6 +93,12 @@ public class Booking_Availability extends AppCompatActivity {
 
             }
         });
+
+        if(pref.get(Constants.kloginChk).equals("1")){
+            pref.set(Constants.kloginChk,"0");
+            pref.commit();
+            booking_cnf_dialog(pref.get(Constants.kParking_amount));
+        }
     }
 
 // ******* CONFIRMATION DIALOG *******
@@ -105,6 +107,7 @@ public class Booking_Availability extends AppCompatActivity {
 
         dialog = new Dialog(Booking_Availability.this);
         dialog.setContentView(R.layout.confirmation_dialog);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
         TextView tv_zone_name      = (TextView)dialog.findViewById(R.id.tv_zone_name);
         TextView tv_start_duration = (TextView)dialog.findViewById(R.id.tv_start_duration);
@@ -120,12 +123,26 @@ public class Booking_Availability extends AppCompatActivity {
         tv_slot_type.setText(pref.get(Constants.kSlotTypeName));
         tv_amount.setText("$" + price);
 
+        ImageView iv_slot_type = (ImageView)dialog.findViewById(R.id.iv_slot_type);
+
+        if(pref.get(Constants.kSlotTypeId).equals("1")){
+            iv_slot_type.setImageResource(R.drawable.icon_parking_white);
+        }
+        else if(pref.get(Constants.kSlotTypeId).equals("2")){
+            iv_slot_type.setImageResource(R.drawable.icon_reserve_white);
+        }
+        else if(pref.get(Constants.kSlotTypeId).equals("3")){
+            iv_slot_type.setImageResource(R.drawable.icon_handicap_white);
+        }
+
         Button btn_pay = (Button)dialog.findViewById(R.id.btn_pay);
         btn_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if(pref.get(Constants.kcust_id).equals("")){
+                    pref.set(Constants.kloginChk,"1");
+                    pref.commit();
                     startActivity(new Intent(Booking_Availability.this, LoginActivity.class));
                     finish();
                 }else {
@@ -176,7 +193,7 @@ public class Booking_Availability extends AppCompatActivity {
 
                     if (resCode.equals("200")) {
 
-                        pref.set(Constants.kParking_amount,response.get("price").toString());
+                        pref.set(Constants.kParking_amount, response.get("price").toString());
                         pref.commit();
                         booking_cnf_dialog(response.get("price").toString());
                     }
@@ -240,7 +257,6 @@ public class Booking_Availability extends AppCompatActivity {
                         finish();
 
                     } else {
-
                         Common.alert(Booking_Availability.this, resMsg);
                     }
                 } catch (JSONException e) {

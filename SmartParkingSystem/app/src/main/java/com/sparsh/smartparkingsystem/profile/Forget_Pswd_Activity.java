@@ -151,7 +151,7 @@ public class Forget_Pswd_Activity extends AppCompatActivity implements View.OnCl
                 if (Common.isConnectingToInternet(Forget_Pswd_Activity.this)) {
 
                     if (Validate(2)) {
-                        user_verification_api(edt_forgot_OTP.getText().toString().trim());
+                        user_verification_api(edt_forgot_email.getText().toString().trim(), edt_forgot_OTP.getText().toString().trim());
                     }
                 } else {
                     Common.alert(Forget_Pswd_Activity.this, getResources().getString(R.string.no_internet_txt));
@@ -164,7 +164,7 @@ public class Forget_Pswd_Activity extends AppCompatActivity implements View.OnCl
                 if (Common.isConnectingToInternet(Forget_Pswd_Activity.this)) {
 
                     if (Validate(3)) {
-                        reset_pswd_api(edt_new_reset_pswd.getText().toString().trim());
+                        reset_pswd_api(edt_forgot_email.getText().toString().trim(),edt_new_reset_pswd.getText().toString().trim());
                     }
                 } else {
                     Common.alert(Forget_Pswd_Activity.this, getResources().getString(R.string.no_internet_txt));
@@ -209,10 +209,10 @@ public class Forget_Pswd_Activity extends AppCompatActivity implements View.OnCl
                         Common.alert(Forget_Pswd_Activity.this, resMsg);
 
                         String OTP_code   = response.get("verificationCode").toString();
-                        String customerId = response.get("customerId").toString();
+                       /* String customerId = response.get("customerId").toString();
                         pref.set(Constants.kemail, user_email);
                         pref.set(Constants.kcust_id, customerId);
-                        pref.commit();
+                        pref.commit();*/
 
                         tv_title.setText(getResources().getString(R.string.txt_title_verification));
                         rl_forgot.setVisibility(View.GONE);
@@ -242,7 +242,7 @@ public class Forget_Pswd_Activity extends AppCompatActivity implements View.OnCl
 
 // ******* USER VERIFICATION API *******
 
-    public void user_verification_api(String OTP_code) {
+    public void user_verification_api(String user_email, String OTP_code) {
 
         pDialog = new ProgressDialog(Forget_Pswd_Activity.this);
         pDialog.setMessage("Loading...");
@@ -251,7 +251,7 @@ public class Forget_Pswd_Activity extends AppCompatActivity implements View.OnCl
         pDialog.show();
 
         Map<String, String> postParam = new HashMap<String, String>();
-        postParam.put("email",            pref.get(Constants.kemail));
+        postParam.put("email",            user_email); // pref.get(Constants.kemail));
         postParam.put("nonceType",        "F");
         postParam.put("verificationCode", OTP_code);
 
@@ -299,7 +299,7 @@ public class Forget_Pswd_Activity extends AppCompatActivity implements View.OnCl
 
 // ******* RESET PASSWORD API *******
 
-    public void reset_pswd_api(String pswd) {
+    public void reset_pswd_api(String user_email, String pswd) {
 
         pDialog = new ProgressDialog(Forget_Pswd_Activity.this);
         pDialog.setMessage("Loading...");
@@ -309,7 +309,7 @@ public class Forget_Pswd_Activity extends AppCompatActivity implements View.OnCl
 
         Map <String, String> postParam = new HashMap<String, String>();
 
-        postParam.put("email",     pref.get(Constants.kemail));
+        postParam.put("email",     user_email);// pref.get(Constants.kemail));
         postParam.put("password",  pswd);
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, getResources().getString(R.string.reset_pswd_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {

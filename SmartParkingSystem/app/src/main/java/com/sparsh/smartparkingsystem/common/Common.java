@@ -6,12 +6,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.View;
+import android.widget.TextView;
 
 import com.sparsh.smartparkingsystem.R;
+import com.sparsh.smartparkingsystem.booking.Parking_Selection_Activity;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,8 +59,6 @@ public class Common {
         return true;
     }
 
-
-
 // ******* CHECK INTERNET CONNECTION *******
 
     public static boolean isConnectingToInternet(Context ctx){
@@ -76,16 +79,33 @@ public class Common {
 
 // ******* COMMON ALERT DIALOG (3 PARAMETERS) *******
 
-    public static void alert(Context c, int titleRes, String message) {
+    public static void alert(Context ctx, int titleRes, String message) {
 
-        alert = new AlertDialog.Builder(c)/*setIcon(R.drawable.app_icon)*/.setTitle(titleRes).setMessage(message).setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
+        alert = new Dialog(ctx);
+        alert.setContentView(R.layout.common_alert_dialog_layout);
+
+       TextView tv_title = (TextView)alert.findViewById(R.id.tv_title);
+       TextView tv_msg   = (TextView)alert.findViewById(R.id.tv_msg);
+       TextView tv_ok    = (TextView)alert.findViewById(R.id.tv_ok);
+        tv_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alert.cancel();
+            }
+        });
+        tv_msg.setText(message);
+
+
+        alert.show();
+
+        /*alert = new AlertDialog.Builder(c).setIcon(R.drawable.icon_zone_logo).setTitle(titleRes).setMessage(message).setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 // continue with delete
                 dialog.cancel();
             }
         }).create();// .setIcon(R.drawable.error)
         alert.setCanceledOnTouchOutside(true);
-        alert.show();
+        alert.show();*/
     }
 
 // ******* COMMON ALERT DIALOG (2 PARAMETERS) *******
@@ -114,5 +134,28 @@ public class Common {
 
         return f;
     }
+
+
+    public static String convertToGMTTime(String time,String timezone){
+
+        DateFormat sdfFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        TimeZone timeZone = TimeZone.getTimeZone(timezone);
+        sdfFormat.setTimeZone(timeZone);
+        Date date=null;
+        try {
+            date = sdfFormat.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        DateFormat gmtFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        TimeZone gmtTime = TimeZone.getTimeZone("UTC");
+        gmtFormat.setTimeZone(gmtTime);
+
+        return gmtFormat.format(date);
+    }
+
+
+
+
 
 }

@@ -146,7 +146,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/tv_vehicle_type_lbl"
             android:layout_marginStart="20dp"
-            app:srcCompat="@drawable/icon_four_wheeler" />
+            app:srcCompat="@drawable/icon_car_white" />
 
         <TextView
             android:id="@+id/tv_slot_type_lbl"
@@ -177,13 +177,12 @@
         <ImageView
             android:id="@+id/iv_slot_type"
             android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:scaleType="fitCenter"
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/tv_slot_type_lbl"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="5dp"
-            app:srcCompat="@drawable/icon_slot_type" />
+            app:srcCompat="@drawable/icon_parking_white" />
 
         <View
             android:id="@+id/div4"

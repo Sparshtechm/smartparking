@@ -58,9 +58,11 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
 
     String sel_hour = ""; String sel_min = "";
 
-    Date crnt_date, sel_start_date, sel_end_date, crnt_time, sel_start_time, sel_end_time;
+    Date crnt_date, sel_start_date, sel_end_date, crnt_time, sel_start_time, sel_end_time;//, final_sel_start_date, final_sel_end_date;
 
     String format;
+
+    private final static int TIME_PICKER_INTERVAL = 5;
 
 // ******* Declaring Text Views *******
 
@@ -71,6 +73,7 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
 // ******* Declaring ImageView *******
 
     ImageView iv_back, iv_start_calendar_icon, iv_start_time_icon, iv_end_calendar_icon, iv_end_time_icon;
+    ImageView iv_four_wheeler, iv_two_wheeler, iv_lmv, iv_public, iv_reserved, iv_handicapped;
 
 // ******* Declaring Spinner *******
 
@@ -153,6 +156,13 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
         iv_end_calendar_icon   = (ImageView)findViewById(R.id.iv_end_calendar_icon);
         iv_end_time_icon       = (ImageView)findViewById(R.id.iv_end_time_icon);
 
+        iv_four_wheeler  = (ImageView)findViewById(R.id.iv_four_wheeler);
+        iv_two_wheeler   = (ImageView)findViewById(R.id.iv_two_wheeler);
+        iv_lmv           = (ImageView)findViewById(R.id.iv_lmv);
+        iv_public        = (ImageView)findViewById(R.id.iv_public);
+        iv_reserved      = (ImageView)findViewById(R.id.iv_reserved);
+        iv_handicapped   = (ImageView)findViewById(R.id.iv_handicapped);
+
     // ******* Spinner *******
 
         spnr_vehicle_type = (Spinner)findViewById(R.id.spnr_vehicle_type);
@@ -204,6 +214,14 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
         iv_start_time_icon.setOnClickListener(this);
         iv_end_calendar_icon.setOnClickListener(this);
         iv_end_time_icon.setOnClickListener(this);
+
+        iv_four_wheeler.setOnClickListener(this);
+        iv_two_wheeler.setOnClickListener(this);
+        iv_lmv.setOnClickListener(this);
+        iv_public.setOnClickListener(this);
+        iv_reserved.setOnClickListener(this);
+        iv_handicapped.setOnClickListener(this);
+
         btn_chk_availability.setOnClickListener(this);
 
         edt_start_date.setOnClickListener(this);
@@ -221,7 +239,10 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
 
         current_time = new SimpleDateFormat("hh:mm a").format(new Date());
         edt_start_time.setText(current_time);
-        edt_end_time.setText(current_time);
+
+        Calendar now = Calendar.getInstance();
+        now.add(Calendar.HOUR_OF_DAY, 1);
+        edt_end_time.setText(new SimpleDateFormat("hh:mm a").format(now.getTime()));
 
     // ******* Get vehicle and slot types *******
 
@@ -280,6 +301,83 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
                 time_picker_dialog(2);
                 break;
 
+            // Vehicle Type
+
+            case R.id.iv_four_wheeler:
+
+                iv_four_wheeler.setImageResource(R.drawable.icon_car_blue);
+                iv_two_wheeler.setImageResource(R.drawable.icon_bike_white);
+                iv_lmv.setImageResource(R.drawable.icon_van_white);
+
+                pref.set(Constants.kVehicleTypeId,   arr_vehicle_type_map_List.get(1).get("id"));
+                pref.set(Constants.kVehicleTypeName, arr_vehicle_type_map_List.get(1).get("type"));
+                pref.commit();
+
+
+                break;
+
+            case R.id.iv_two_wheeler:
+
+                iv_four_wheeler.setImageResource(R.drawable.icon_car_white);
+                iv_two_wheeler.setImageResource(R.drawable.icon_bike_blue);
+                iv_lmv.setImageResource(R.drawable.icon_van_white);
+
+                pref.set(Constants.kVehicleTypeId,   arr_vehicle_type_map_List.get(1).get("id"));
+                pref.set(Constants.kVehicleTypeName, arr_vehicle_type_map_List.get(1).get("type"));
+                pref.commit();
+
+                break;
+
+            case R.id.iv_lmv:
+
+                iv_four_wheeler.setImageResource(R.drawable.icon_car_white);
+                iv_two_wheeler.setImageResource(R.drawable.icon_bike_white);
+                iv_lmv.setImageResource(R.drawable.icon_van_blue);
+
+                pref.set(Constants.kVehicleTypeId,   arr_vehicle_type_map_List.get(2).get("id"));
+                pref.set(Constants.kVehicleTypeName, arr_vehicle_type_map_List.get(2).get("type"));
+                pref.commit();
+
+                break;
+
+            // Slot Type
+
+            case R.id.iv_public:
+
+                iv_public.setImageResource(R.drawable.icon_parking_blue);
+                iv_reserved.setImageResource(R.drawable.icon_reserve_white);
+                iv_handicapped.setImageResource(R.drawable.icon_handicap_white);
+
+                pref.set(Constants.kSlotTypeId,   arr_slot_type_map_List.get(0).get("id"));
+                pref.set(Constants.kSlotTypeName, arr_slot_type_map_List.get(0).get("type"));
+                pref.commit();
+
+                break;
+
+            case R.id.iv_reserved:
+
+                iv_public.setImageResource(R.drawable.icon_parking_white);
+                iv_reserved.setImageResource(R.drawable.icon_reserve_blue);
+                iv_handicapped.setImageResource(R.drawable.icon_handicap_white);
+
+                pref.set(Constants.kSlotTypeId,   arr_slot_type_map_List.get(1).get("id"));
+                pref.set(Constants.kSlotTypeName, arr_slot_type_map_List.get(1).get("type"));
+                pref.commit();
+
+                break;
+
+            case R.id.iv_handicapped:
+
+                iv_public.setImageResource(R.drawable.icon_parking_white);
+                iv_reserved.setImageResource(R.drawable.icon_reserve_white);
+                iv_handicapped.setImageResource(R.drawable.icon_handicap_blue);
+
+                pref.set(Constants.kSlotTypeId,   arr_slot_type_map_List.get(2).get("id"));
+                pref.set(Constants.kSlotTypeName, arr_slot_type_map_List.get(2).get("type"));
+                pref.commit();
+
+                break;
+
             case R.id.btn_chk_availability:
 
                 try {
@@ -290,6 +388,9 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
                     crnt_time      = new SimpleDateFormat("hh:mm a").parse(current_time);
                     sel_start_time = new SimpleDateFormat("hh:mm a").parse(edt_start_time.getText().toString().trim());
                     sel_end_time   = new SimpleDateFormat("hh:mm a").parse(edt_end_time.getText().toString().trim());
+
+                   // final_sel_start_date = new SimpleDateFormat("yyyy-MM-dd hh:mm a").parse(edt_start_date.getText().toString().trim() + " " + edt_start_time.getText().toString().trim());
+                   // final_sel_end_date   = new SimpleDateFormat("yyyy-MM-dd hh:mm a").parse(edt_end_date.getText().toString().trim() + " " + edt_end_time.getText().toString().trim());
                 }
                 catch (ParseException e) {
 
@@ -309,10 +410,9 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
                         pref.set(Constants.kEnd_Duration,    edt_end_date.getText().toString().trim()   + "    " + edt_end_time.getText().toString().trim());
                         pref.set(Constants.kStartDateTime1,  edt_start_date.getText().toString().trim() + " " + final_start_time + ":00");
                         pref.set(Constants.kEndDateTime1,    edt_end_date.getText().toString().trim()   + " " + final_end_time + ":00");
-
                         pref.commit();
 
-                        get_availability_api(pref.get(Constants.kZone_Id), pref.get(Constants.kVehicleTypeId), pref.get(Constants.kSlotTypeId), edt_start_date.getText().toString().trim() + "%20" + final_start_time + ":00 ", edt_end_date.getText().toString().trim() + "%20" + final_end_time + ":00 ", pref.get(Constants.kTimeZone));
+                        get_availability_api(pref.get(Constants.kZone_Id), pref.get(Constants.kVehicleTypeId), pref.get(Constants.kSlotTypeId), edt_start_date.getText().toString().trim() + "%20" + final_start_time + ":00", edt_end_date.getText().toString().trim() + "%20" + final_end_time + ":00", pref.get(Constants.kTimeZone));
 
                        /* pref.set(Constants.kStartDateTime,  edt_start_date.getText().toString().trim() + "%20" + edt_start_time.getText().toString().trim().substring(0, edt_start_time.getText().toString().trim().length() - 3));
                         pref.set(Constants.kEndDateTime,    edt_end_date.getText().toString().trim()   + "%20" + edt_end_time.getText().toString().trim().substring(0, edt_end_time.getText().toString().trim().length() - 3));
@@ -414,10 +514,52 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
 
 // ******* TIME PICKER *******
 
-     public void time_picker_dialog(final int val){
+    public void time_picker_dialog(final int val){
 
         dialog = new Dialog(Parking_Selection_Activity.this);
         dialog.setContentView(R.layout.time_picker_layout);
+
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.HOUR_OF_DAY, 1);
+        int crnt_hour = c.get(Calendar.HOUR_OF_DAY);
+        int crnt_min  = c.get(Calendar.MINUTE);
+
+        if (crnt_hour == 0) {
+
+            crnt_hour += 12;
+
+            format = "AM";
+        }
+        else if (crnt_hour == 12) {
+
+            format = "PM";
+        }
+        else if (crnt_hour > 12) {
+
+            crnt_hour -= 12;
+
+            format = "PM";
+        }
+        else {
+
+            format = "AM";
+        }
+
+        if(crnt_hour < 10){
+
+            sel_hour =  "0" + String.valueOf(crnt_hour);
+        }
+        else{
+            sel_hour =   String.valueOf(crnt_hour);
+        }
+
+        if(crnt_min < 10){
+
+            sel_min =  "0" + String.valueOf(crnt_min);
+        }
+        else{
+            sel_min =   String.valueOf(crnt_min);
+        }
 
         TextView tv_set = (TextView)dialog.findViewById(R.id.tv_set);
         tv_set.setOnClickListener(new View.OnClickListener() {
@@ -428,17 +570,19 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
 
                 if(val == 1){
                     edt_start_time.setText(sel_hour + ":" + sel_min /*+ ":00 "*/ + " " + format);
-                    search_start_time = sel_hour + ":" + sel_min;// + ":00 ";
+                    // search_start_time = sel_hour + ":" + sel_min;// + ":00 ";
 
                 }
                 else{
                     edt_end_time.setText(sel_hour + ":" + sel_min /*+ ":00 "*/ + " " + format);
-                    search_end_time   = sel_hour + ":" + sel_min; // + ":00 ";
+                    // search_end_time   = sel_hour + ":" + sel_min; // + ":00 ";
                 }
             }
         });
 
         TimePicker timePicker = (TimePicker)dialog.findViewById(R.id.timePicker);
+
+
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
@@ -479,8 +623,8 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
                 else{
                     sel_min =   String.valueOf(minute);
                 }
-/*
-                if(val == 1){
+
+               /* if(val == 1){
                     edt_start_time.setText(sel_hour + ":" + sel_min + ":00 " + format);
                 }
                 else{
@@ -611,6 +755,18 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
                         ArrayAdapter<String> slot_type_adapter = new ArrayAdapter<String>(Parking_Selection_Activity.this, android.R.layout.simple_spinner_item, slot_type_list);
                         slot_type_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spnr_slot_type.setAdapter(slot_type_adapter);
+
+                        // Set Vehicle Type
+
+                        pref.set(Constants.kVehicleTypeId,   arr_vehicle_type_map_List.get(0).get("id"));
+                        pref.set(Constants.kVehicleTypeName, arr_vehicle_type_map_List.get(0).get("type"));
+                        pref.commit();
+
+                        // Set Slot Type
+
+                        pref.set(Constants.kSlotTypeId,   arr_slot_type_map_List.get(0).get("id"));
+                        pref.set(Constants.kSlotTypeName, arr_slot_type_map_List.get(0).get("type"));
+                        pref.commit();
                     }
 
                     /*else if (resCode.equals("411")) {
@@ -775,20 +931,13 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
                 Common.alert(Parking_Selection_Activity.this, getString(R.string.blank_txt_end_time));
             }
 
-
 // date validation
 
-            else if (sel_start_date.before(crnt_date)) {
+    /*        else if (sel_start_date.before(crnt_date)) {
                 status = false;
                 edt_start_date.startAnimation(anim_shake);
                 Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_back_date));
             }
-
-           /* else if (sel_end_date.before(sel_start_date)) {
-                status = false;
-                edt_end_date.startAnimation(anim_shake);
-                Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_back_date));
-            }*/
 
             else if (sel_end_date.before(sel_start_date)) {
                 status = false;
@@ -798,32 +947,95 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
 
 // time validation
 
+            if(!sel_end_date.after(sel_start_date)){
+
+                if (sel_start_time.before(crnt_time)) {
+                    status = false;
+                    edt_start_time.startAnimation(anim_shake);
+                    Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_back_time));
+                }
+
+                else if (sel_end_time.before(sel_start_time)) {
+                    status = false;
+                    edt_end_time.startAnimation(anim_shake);
+                    Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_less_time));
+                }
+                else if (sel_end_time.equals(sel_start_time)) {
+                    status = false;
+                    edt_end_time.startAnimation(anim_shake);
+                    Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_less_time));
+                }
+            }*/
+
+            // Final Validation
+
+       /*     if (sel_start_date.before(crnt_date)) {
+                status = false;
+                edt_start_date.startAnimation(anim_shake);
+                Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_back_date));
+            }
+            else{
+                if (sel_end_date.before(sel_start_date)) {
+                    status = false;
+                    edt_end_date.startAnimation(anim_shake);
+                    Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_less_date));
+                }
+                else{
+                    if(sel_start_date.equals(crnt_date)){
+
+                        if (sel_start_date.equals(crnt_date)&& sel_start_time.before(crnt_time)) {
+                            status = false;
+                            edt_start_time.startAnimation(anim_shake);
+                            Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_back_time));
+                        }
+
+
+                        else if (sel_start_date.equals(crnt_date) && sel_end_time.before(sel_start_time)) {
+                            status = false;
+                            edt_end_time.startAnimation(anim_shake);
+                            Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_less_time));
+                        }
+                       *//* else if (sel_end_time.equals(sel_start_time)) {
+                            status = false;
+                            edt_end_time.startAnimation(anim_shake);
+                            Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_less_time));
+                        }*//*
+                    }else{
+                        *//*if (sel_end_time.equals(sel_start_time)) {
+                            status = false;
+                            edt_end_time.startAnimation(anim_shake);
+                            Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_less_time));
+                        }*//*
+                    }
+                }
+            }
+*/
+
+            // Final test Validation
 
 
 
-
-            else if (sel_start_time.before(crnt_time)) {
+            else if (sel_start_date.before(crnt_date)) {
+                status = false;
+                edt_start_date.startAnimation(anim_shake);
+                Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_back_date));
+            }
+            else if (sel_end_date.before(sel_start_date)) {
+                status = false;
+                edt_end_date.startAnimation(anim_shake);
+                Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_less_date));
+            }
+            else if (sel_start_date.equals(crnt_date) && sel_start_time.before(crnt_time)) {
                 status = false;
                 edt_start_time.startAnimation(anim_shake);
                 Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_back_time));
             }
-
-         /*   else if (sel_end_time.before(crnt_time)) {
-                status = false;
-                edt_end_time.startAnimation(anim_shake);
-                Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_back_time));
-            }*/
-
-            else if (sel_end_time.before(sel_start_time)) {
+            else if (sel_end_date.equals(sel_start_date)&& sel_end_time.before(sel_start_time)) {
                 status = false;
                 edt_end_time.startAnimation(anim_shake);
                 Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_less_time));
             }
-            else if (sel_end_time.equals(sel_start_time)) {
-                status = false;
-                edt_end_time.startAnimation(anim_shake);
-                Common.alert(Parking_Selection_Activity.this, getString(R.string.txt_less_time));
-            }
+
         }
         return status;
     }

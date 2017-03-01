@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.sparsh.smartparkingsystem.R;
+import com.sparsh.smartparkingsystem.booking.Booking_Availability;
 import com.sparsh.smartparkingsystem.common.Common;
 import com.sparsh.smartparkingsystem.common.Constants;
 import com.sparsh.smartparkingsystem.common.Preferences;
@@ -34,14 +35,15 @@ public class VerificationActivity extends AppCompatActivity {
 // ******* Declaring variables *******
 
     String resMsg, resCode;
+    String user_email, cnt_no, otp, country_code;
 
 // ******* Declaring Text View *******
 
-    TextView tv_vfy_user_mob, tv_resend;
+    TextView /*tv_vfy_user_mob*/ tv_country_code, tv_resend;
 
 // ******* Declaring Edit Text View *******
 
-    EditText vfy_edt_user_code;
+    EditText vfy_edt_user_code, edt_mobile;
 
 // ******* Declaring Buttons *******
 
@@ -73,10 +75,33 @@ public class VerificationActivity extends AppCompatActivity {
 
         anim_shake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
 
+    // ******* Getting Value from Intent *******
+
+        try {
+            Intent intent = getIntent();
+            cnt_no     = intent.getStringExtra("Cnt_no");
+            otp        = intent.getStringExtra("OTP");
+            user_email = intent.getStringExtra("user_email");
+            country_code = intent.getStringExtra("Country_code");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
     // ******* TEXT VIEWS *******
 
-        tv_vfy_user_mob   = (TextView)findViewById(R.id.tv_vfy_user_mob);
-        tv_vfy_user_mob.setText(pref.get(Constants.kContact_no));
+        /*tv_vfy_user_mob   = (TextView)findViewById(R.id.tv_vfy_user_mob);
+        tv_vfy_user_mob.setText(cnt_no);*/
+
+        tv_country_code = (TextView)findViewById(R.id.tv_country_code);
+        tv_country_code.setText(country_code);
+
+        if(country_code.equals("91")){
+            tv_country_code.setText("+91");
+        }
+        else{
+            tv_country_code.setText("+1");
+        }
 
         tv_resend = (TextView)findViewById(R.id.tv_resend);
         tv_resend.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +109,7 @@ public class VerificationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (Common.isConnectingToInternet(VerificationActivity.this)) {
 
-                    OTP_request_api(pref.get(Constants.kemail));
+                    OTP_request_api(user_email);
                 }
                 else {
                     Common.alert(VerificationActivity.this, getResources().getString(R.string.no_internet_txt));
@@ -94,15 +119,11 @@ public class VerificationActivity extends AppCompatActivity {
 
     // ******* EDIT TEXT VIEW *******
 
-        vfy_edt_user_code = (EditText)findViewById(R.id.vfy_edt_user_code);
+        edt_mobile = (EditText)findViewById(R.id.edt_mobile);
+        edt_mobile.setText(cnt_no);
 
-        try {
-            Intent intent = getIntent();
-            String otp = intent.getStringExtra("OTP");
-            vfy_edt_user_code.setText(otp);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        vfy_edt_user_code = (EditText)findViewById(R.id.vfy_edt_user_code);
+        vfy_edt_user_code.setText(otp);
 
     // ******* Button Verify *******
 
@@ -133,7 +154,7 @@ public class VerificationActivity extends AppCompatActivity {
         pDialog.show();
 
         Map<String, String> postParam = new HashMap<String, String>();
-        postParam.put("email",            pref.get(Constants.kemail));
+        postParam.put("email",            user_email); // pref.get(Constants.kemail));
         postParam.put("nonceType",        "R");
         postParam.put("verificationCode", OTP_code);
 
@@ -151,10 +172,24 @@ public class VerificationActivity extends AppCompatActivity {
 
                     if (resCode.equals("200")) {
 
+                        String customerId = response.get("customerId").toString();
+                        pref.set(Constants.kcust_id, customerId);
+                        pref.commit();
+
                         Toast.makeText(VerificationActivity.this, resMsg, Toast.LENGTH_SHORT).show();
 
-                        startActivity(new Intent(VerificationActivity.this, DashboardActivity.class));
+                       /* startActivity(new Intent(VerificationActivity.this, DashboardActivity.class));
                         finish();
+*/
+                        if(pref.get(Constants.kloginChk).equals("1")){
+                           /* pref.set(Constants.kloginChk,"0");
+                            pref.commit();*/
+                            startActivity(new Intent(VerificationActivity.this, Booking_Availability.class));
+                            finish();
+                        }else{
+                            startActivity(new Intent(VerificationActivity.this, DashboardActivity.class));
+                            finish();
+                        }
 
                     } else {
 
@@ -180,6 +215,12 @@ public class VerificationActivity extends AppCompatActivity {
 
     public void OTP_request_api(final String user_email) {
 
+        pDialog = new ProgressDialog(VerificationActivity.this);
+        pDialog.setMessage("Loading...");
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.setCancelable(false);
+        pDialog.show();
+
         Map <String, String> postParam = new HashMap<String, String>();
         postParam.put("email",     user_email);
         postParam.put("nonceType", "R");
@@ -200,11 +241,6 @@ public class VerificationActivity extends AppCompatActivity {
                     if (resCode.equals("200")) {
 
                         String OTP_code   = response.get("verificationCode").toString();
-                        String customerId = response.get("customerId").toString();
-
-                        pref.set(Constants.kcust_id, customerId);
-                        pref.commit();
-
                         vfy_edt_user_code.setText(OTP_code);
                     }
                     else {
@@ -213,7 +249,6 @@ public class VerificationActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
 

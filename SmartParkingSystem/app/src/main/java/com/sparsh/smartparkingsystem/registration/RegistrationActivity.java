@@ -14,8 +14,11 @@ import android.text.style.StyleSpan;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,14 +36,16 @@ import com.sparsh.smartparkingsystem.common.Preferences;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RegistrationActivity extends AppCompatActivity {
 
 // ******* Declaring Variables *******
 
-    String resMsg, resCode;
+    String resMsg, resCode, sel_country_code;
 
 // ******* Declaring Progress Bar *******
 
@@ -48,7 +53,11 @@ public class RegistrationActivity extends AppCompatActivity {
 
 // ******* Declaring Text View *******
 
-    TextView tv_login_here;
+    TextView tv_login_here, tv_country_code ;
+
+// ******* Declaring Spinner *******
+
+    Spinner spnr_country;
 
 // ******* Declaring Edit Text View *******
 
@@ -65,6 +74,9 @@ public class RegistrationActivity extends AppCompatActivity {
 // ******* Declaring Class Objects *******
 
     Preferences pref;
+
+    List<String> country_name_list = new ArrayList<String>();
+    List<String> country_code_list = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +108,9 @@ public class RegistrationActivity extends AppCompatActivity {
         tv_login_here.setText(wordtoSpan);
         tv_login_here.setMovementMethod(LinkMovementMethod.getInstance());
 
+        tv_country_code = (TextView) findViewById(R.id.tv_country_code);
+        tv_country_code.setText("+91");
+
     // ******* Edit TextView *******
 
         edt_reg_name     = (EditText) findViewById(R.id.edt_reg_name);
@@ -103,6 +118,39 @@ public class RegistrationActivity extends AppCompatActivity {
         edt_reg_email    = (EditText) findViewById(R.id.edt_reg_email);
         edt_reg_pswd     = (EditText) findViewById(R.id.edt_reg_pswd);
         edt_reg_cnf_pswd = (EditText) findViewById(R.id.edt_reg_cnf_pswd);
+
+    // ******* Spinner Country *******
+
+        country_name_list.add("India");
+        country_name_list.add("US");
+
+        country_code_list.add("91");
+        country_code_list.add("001");
+
+        spnr_country = (Spinner)findViewById(R.id.spnr_country);
+        ArrayAdapter<String> vehicle_type_adapter = new ArrayAdapter<String>(RegistrationActivity.this, android.R.layout.simple_spinner_item, country_name_list);
+        vehicle_type_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnr_country.setAdapter(vehicle_type_adapter);
+
+        spnr_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView <?> parent, View view, int position, long id) {
+
+                if(position == 0){
+                    tv_country_code.setText("+91");
+                    sel_country_code = country_code_list.get(position);
+                }
+                else{
+                    tv_country_code.setText("+1");
+                    sel_country_code = country_code_list.get(position);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     // ******* Button Register *******
 
@@ -114,7 +162,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 if (Common.isConnectingToInternet(RegistrationActivity.this)) {
 
                     if (Validate()) {
-                        user_registration_api(edt_reg_name.getText().toString().trim(),  edt_reg_mobile.getText().toString().trim(), edt_reg_email.getText().toString().trim(), edt_reg_pswd.getText().toString().trim());
+                        user_registration_api(edt_reg_name.getText().toString().trim(), edt_reg_mobile.getText().toString().trim(),
+                                             edt_reg_email.getText().toString().trim(), edt_reg_pswd.getText().toString().trim());
                     }
                 } else {
                     Common.alert(RegistrationActivity.this, getResources().getString(R.string.no_internet_txt));
@@ -140,8 +189,8 @@ public class RegistrationActivity extends AppCompatActivity {
         postParam.put("username",     user_name);
         postParam.put("password",     pswd);
         postParam.put("updatedBy",    user_name);
-        postParam.put("country",      "India");
-        postParam.put("countryCode",  "91");
+        postParam.put("country",      spnr_country.getSelectedItem().toString()); // "India");
+        postParam.put("countryCode",  sel_country_code); //"91");
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, getResources().getString(R.string.registration_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
 
@@ -158,31 +207,14 @@ public class RegistrationActivity extends AppCompatActivity {
 
                     if (resCode.equals("200")) {
 
-                        pref.set(Constants.kcust_id,    response.get("customerId").toString());
-                        pref.set(Constants.kemail,      email);
+                        //pref.set(Constants.kcust_id,    response.get("customerId").toString());
+                        /* pref.set(Constants.kemail,      email);
                         pref.set(Constants.kContact_no, mob);
-                        pref.commit();
+                        pref.commit();*/
 
                         // Call api for getting verification code
-                        OTP_request_api(resMsg, email);
+                        OTP_request_api(resMsg, email, mob);
                     }
-                    /*else if(resCode.equals("401")){
-
-                        JSONObject validation_errors_Obj = response.getJSONObject("errors");
-                        JSONArray arr_validation_errors_list_Json = validation_errors_Obj.getJSONArray("validationErrors");
-
-                        for (int i = 0; i < arr_validation_errors_list_Json.length(); i++) {
-
-                            JSONObject error_list_Obj = arr_validation_errors_list_Json.getJSONObject(i);
-
-                            HashMap<String, String> valid_error_list_Map = new HashMap<String, String>();
-                            valid_error_list_Map.put("param", error_list_Obj.getString("param"));
-                            valid_error_list_Map.put("msg",   error_list_Obj.getString("msg"));
-                        }
-                        resMsg  = header_Obj.get("statusMessage").toString();
-                        Common.alert(RegistrationActivity.this, resMsg);
-                    }*/
-
                     else {
                         pDialog.cancel();
                         Common.alert(RegistrationActivity.this, resMsg);
@@ -206,7 +238,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 // ******* OTP REQUEST API *******
 
-    public void OTP_request_api(final String registration_msg, final String user_email) {
+    public void OTP_request_api(final String registration_msg, final String user_email, final String user_mob) {
 
         Map <String, String> postParam = new HashMap<String, String>();
         postParam.put("email",     user_email);
@@ -227,15 +259,13 @@ public class RegistrationActivity extends AppCompatActivity {
 
                     if (resCode.equals("200")) {
 
-                        Toast.makeText(RegistrationActivity.this, registration_msg, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrationActivity.this, registration_msg, Toast.LENGTH_LONG).show();
 
-                        String OTP_code   = response.get("verificationCode").toString();
-                        String customerId = response.get("customerId").toString();
-
+                        String OTP_code = response.get("verificationCode").toString();
+                        /* String customerId = response.get("customerId").toString();
                         pref.set(Constants.kcust_id, customerId);
-                        pref.commit();
-
-                        startActivity(new Intent(RegistrationActivity.this, VerificationActivity.class).putExtra("OTP", OTP_code));
+                        pref.commit();*/
+                        startActivity(new Intent(RegistrationActivity.this, VerificationActivity.class).putExtra("OTP", OTP_code).putExtra("user_email", user_email).putExtra("Cnt_no", user_mob).putExtra("Country_code", sel_country_code));
                         finish();
 
                     } else {
@@ -263,10 +293,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
         boolean status = true;
 
-        if (edt_reg_name.getText().toString().trim().equals("") &&
+        if (edt_reg_name.getText().toString().trim().equals("")       &&
                 edt_reg_mobile.getText().toString().trim().equals("") &&
-                edt_reg_email.getText().toString().trim().equals("") &&
-                edt_reg_pswd.getText().toString().trim().equals("") &&
+                edt_reg_email.getText().toString().trim().equals("")  &&
+                edt_reg_pswd.getText().toString().trim().equals("")   &&
                 edt_reg_cnf_pswd.getText().toString().trim().equals("")) {
 
             status = false;
@@ -330,7 +360,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 edt_reg_pswd.startAnimation(anim_shake);
                 Common.alert(RegistrationActivity.this, getString(R.string.txt_pswd_length));
             }
-
             else if (!edt_reg_pswd.getText().toString().trim().equals(edt_reg_cnf_pswd.getText().toString().trim())) {
                 status = false;
                 edt_reg_pswd.setText("");

@@ -30,6 +30,7 @@ public class Constants {
     public static final String kStartDateTime1   = "start_date_time1";
     public static final String kEndDateTime1     = "end_date_time1";
 
+    public static final String kloginChk         = "login_chk";
 
     public static final String kPay_Screen       = "pay_screen";
 

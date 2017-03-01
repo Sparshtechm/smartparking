@@ -78,7 +78,7 @@ public abstract class Booking_Availability_Adapter extends BaseAdapter {
         tv_over_delayed     = (TextView) rootView.findViewById(R.id.tv_over_delayed);
         tv_long_hours       = (TextView) rootView.findViewById(R.id.tv_long_hours);
 
-        tv_level_lbl.setText("Level " + data.get(position).get("floorId"));
+        tv_level_lbl.setText("Floor " + data.get(position).get("floorId"));
         tv_capacity.setText(data.get(position).get("capacity"));
         tv_availability.setText(data.get(position).get("capacityRemaning"));
 
