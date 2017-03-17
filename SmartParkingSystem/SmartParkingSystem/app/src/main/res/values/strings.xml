@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">SmartParkingSystem</string>
-    <string name="app_name_splash">Smart Parking System</string>
+    <string name="app_name">ParkNxt</string>
+    <string name="app_name_splash">ParkNxt</string>
 
     <!-- Title Text Labels -->
 
@@ -14,10 +14,14 @@
     <string name="txt_title_forgot_pswd">Forgot Password</string>
     <string name="txt_title_verify_code">Verify Code</string>
     <string name="txt_title_reset_pswd">Reset Password</string>
+    <string name="txt_title_parking_availability">Parking Availability</string>
+    <string name="txt_title_parking_confirmation">Booking Confirmation</string>
+    <string name="txt_title_extended_confirmation">Booking Extended</string>
+    <string name="txt_title_pass">Gate Pass</string>
 
     <!-- Text Labels -->
 
-   <!-- <string name="txt_sign_up">Don't have an account? Sign Up!</string>-->
+    <!-- <string name="txt_sign_up">Don't have an account? Sign Up!</string>-->
     <string name="txt_forgot_pswd">Forgot Password</string>
     <string name="txt_name_lbl">Name</string>
     <string name="txt_user_name_lbl">Username</string>
@@ -25,12 +29,38 @@
     <string name="txt_mob_lbl">Mobile</string>
     <string name="txt_home_lbl">Home</string>
     <string name="txt_booking_lbl">Bookings</string>
+    <string name="txt_resend_code_lbl">Resend code</string>
+    <string name="txt_booking_history_lbl">Booking History</string>
     <string name="txt_settings_lbl">Settings</string>
-    <string name="txt_contact_lbl">Contact Us</string>
+    <string name="txt_contact_lbl">Support</string>
     <string name="txt_otp">Please enter OTP</string>
     <string name="txt_valid_email">Please enter valid email id.</string>
     <string name="txt_reset_pswd">Reset your password</string>
-    <string name="txt_pswd_length">Password should be greater than 8 digits.</string>
+    <string name="txt_pswd_length">Password should be between 8&#8211;16 characters.</string>
+    <string name="txt_start_date_lbl">Start Date &amp; Time</string>
+    <string name="txt_end_date_lbl">End Date &amp; Time</string>
+    <string name="txt_start_time_lbl">Start Time</string>
+    <string name="txt_end_time_lbl">End Time</string>
+    <string name="txt_vehicle_type_lbl">Vehicle Type</string>
+    <string name="txt_slot_type_lbl">Slot Type</string>
+    <string name="txt_mobile_length">Please enter valid mobile number. Mobile number length must be between 10&#8211;16 digits.</string>
+
+    <string name="txt_tab_past">Past</string>
+    <string name="txt_tab_upcoming">Upcoming</string>
+    <string name="txt_tab_cancel">Cancelled</string>
+    <string name="txt_edit_profile_lbl">Edit Profile</string>
+    <string name="txt_notify_lbl">Notificaitons</string>
+    <string name="txt_changed_pswd_lbl">Change Password</string>
+    <string name="txt_logout_lbl">Logout</string>
+
+
+    <string name="txt_back_date">Please enter valid date. Start date should be greater than or equal to current date.</string>
+    <string name="txt_less_date">End date should be greater than or equal to start date.</string>
+
+    <string name="txt_back_time">Please enter valid time.Start time should not be less than current time.</string>
+    <string name="txt_less_time">End time should not be less than and equal to start time.</string>
+
+    <string name="txt_extended_msg">Your booking has been extended as you are not taken away your vehicle on time. You have to pay the extended amount.</string>
 
     <!-- Alert Msgs -->
 
@@ -45,9 +75,20 @@
     <string name="btn_verify">Verify</string>
     <string name="btn_update">Update</string>
     <string name="btn_submit">Submit</string>
+    <string name="btn_change">Change Password</string>
+    <string name="btn_chk_availability">Check Availability</string>
+    <string name="btn_book_now">Book Now</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_pay">Pay</string>
+    <string name="btn_set">Set</string>
+    <string name="btn_show_code">Show code</string>
+    <string name="btn_cancel_booking">Cancel booking</string>
+
 
     <!-- Hints -->
 
+    <string name="hint_search">Search parking zones...</string>
     <string name="hint_name">Enter name</string>
     <string name="hint_username">Enter user name</string>
     <string name="hint_mobile">Enter mobile</string>
@@ -70,7 +111,27 @@
     <string name="blank_txt_crnt_pswd">Current Password can not be blank.</string>
     <string name="blank_txt_new_pswd">New Password can not be blank.</string>
 
+    <string name="blank_txt_start_date">Start date can not be blank.</string>
+    <string name="blank_txt_end_date">End date can not be blank.</string>
+    <string name="blank_txt_start_time">Start time can not be blank.</string>
+    <string name="blank_txt_end_time">End time can not be blank.</string>
 
+
+    <!-- <resources>
+        <string-array name="country_name">
+            <item>India</item>
+            <item>US</item>
+        </string-array>
+    </resources>
+
+    <resources>
+        <string-array name="country_code">
+            <item>91</item>
+            <item>+1</item>
+        </string-array>
+    </resources>
+
+-->
     <!-- To be deleted -->
     <!-- Drawer Text Labels -->
 
@@ -84,4 +145,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="title_activity_parking__selection_">Parking_Selection_Activity</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

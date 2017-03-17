@@ -30,50 +30,139 @@
             android:id="@+id/iv_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:contentDescription="@null"
             android:src="@drawable/back_button"
             android:visibility="visible" />
     </RelativeLayout>
 
-
-    <EditText
-        android:id="@+id/edt_current_pswd"
-        style="@style/Reg_EditTextStyle"
-        android:layout_marginTop="50dp"
+    <RelativeLayout
+        android:id="@+id/rl_crnt_pswd"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/rl_header"
-        android:ems="10"
-        android:hint="@string/hint_crnt_pswd"
-        android:inputType="textEmailAddress" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape_blue">
 
-    <EditText
-        android:id="@+id/edt_new_pswd"
-        style="@style/Reg_EditTextStyle"
-        android:layout_below="@+id/edt_current_pswd"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:hint="@string/hint_new_pswd"
-        android:inputType="textEmailAddress" />
+        <ImageView
+            android:id="@+id/iv_crnt_pswd_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@null"
+            android:src="@drawable/key_icon" />
 
+        <EditText
+            android:id="@+id/edt_current_pswd"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/iv_crnt_pswd_icon"
+            android:background="@color/bg_transparent"
+            android:ems="10"
+            android:hint="@string/hint_crnt_pswd"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
+    </RelativeLayout>
 
-    <EditText
-        android:id="@+id/edt_cnf_pswd"
-        style="@style/Reg_EditTextStyle"
-        android:layout_below="@+id/edt_new_pswd"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:hint="@string/hint_cnf_pswd"
-        android:inputType="textEmailAddress" />
+    <RelativeLayout
+        android:id="@+id/rl_new_pswd"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/rl_crnt_pswd"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape_blue">
+
+        <ImageView
+            android:id="@+id/iv_new_pswd_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@null"
+            android:src="@drawable/key_icon" />
+
+        <EditText
+            android:id="@+id/edt_new_pswd"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/iv_new_pswd_icon"
+            android:background="@color/bg_transparent"
+            android:ems="10"
+            android:hint="@string/hint_new_pswd"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_cnf_pswd"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/rl_new_pswd"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape_blue">
+
+        <ImageView
+            android:id="@+id/iv_cnf_pswd_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@null"
+            android:src="@drawable/key_icon" />
+
+        <EditText
+            android:id="@+id/edt_cnf_pswd"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/iv_cnf_pswd_icon"
+            android:background="@color/bg_transparent"
+            android:ems="10"
+            android:hint="@string/hint_cnf_pswd"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
+    </RelativeLayout>
 
     <Button
-        android:id="@+id/btn_submit"
+        android:id="@+id/btn_change"
         style="@style/Reg_btnStyle"
-        android:layout_below="@+id/edt_cnf_pswd"
+        android:layout_below="@+id/rl_cnf_pswd"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:text="@string/btn_submit" />
-
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:text="@string/btn_change" />
 
 </RelativeLayout>

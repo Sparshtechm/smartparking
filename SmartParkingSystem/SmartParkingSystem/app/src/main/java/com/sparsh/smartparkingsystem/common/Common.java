@@ -1,13 +1,20 @@
 package com.sparsh.smartparkingsystem.common;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.telephony.TelephonyManager;
+import android.view.View;
+import android.widget.TextView;
 
 import com.sparsh.smartparkingsystem.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,6 +40,37 @@ public class Common {
 	    return isValid;
 	}
 
+// ******* GET MOBILE NUMBER *******
+
+   /* public static String getMyPhoneNO(Context ctx) {
+
+        TelephonyManager tMgr = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
+
+        String m1 = tMgr.getDeviceId();
+        String m2 = tMgr.getNetworkOperator();
+        String m3 = tMgr.getNetworkOperatorName();
+        String mPhoneNumber = tMgr.getLine1Number();
+
+        return mPhoneNumber;
+    }*/
+
+// ******* CHECK PASSWORD VALIDATION *******
+
+    public static boolean validatePassword(String pswd) {
+        //check that there are letters
+        if(!pswd.matches("[a-zA-Z]+"))
+            return false;  //nope no letters, stop checking and fail!
+        //check if there are any numbers
+        if(!pswd.matches("[0-9]+"))
+            return false;  //nope no numbers, stop checking and fail!
+        //check any valid special characters
+        if(!pswd.matches("[.!#*()?,]+"))
+            return false;  //nope no special chars, fail!
+
+        //everything has passed so far, lets return valid
+        return true;
+    }
+
 // ******* CHECK INTERNET CONNECTION *******
 
     public static boolean isConnectingToInternet(Context ctx){
@@ -53,11 +91,34 @@ public class Common {
 
 // ******* COMMON ALERT DIALOG (3 PARAMETERS) *******
 
-    public static void alert(Context c, int titleRes, String message) {
+    public static void alert(Context ctx, int titleRes, String message) {
 
-        alert = new AlertDialog.Builder(c)/*setIcon(R.drawable.app_icon)*/.setTitle(titleRes).setMessage(message).create();// .setIcon(R.drawable.error)
-        alert.setCanceledOnTouchOutside(true);
+        alert = new Dialog(ctx);
+        alert.setContentView(R.layout.common_alert_dialog_layout);
+
+       //TextView tv_title = (TextView)alert.findViewById(R.id.tv_title);
+       TextView tv_msg   = (TextView)alert.findViewById(R.id.tv_msg);
+       tv_msg.setText(message);
+       TextView tv_ok    = (TextView)alert.findViewById(R.id.tv_ok);
+        tv_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alert.cancel();
+            }
+        });
+
+
+
         alert.show();
+
+        /*alert = new AlertDialog.Builder(c).setIcon(R.drawable.icon_zone_logo).setTitle(titleRes).setMessage(message).setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // continue with delete
+                dialog.cancel();
+            }
+        }).create();// .setIcon(R.drawable.error)
+        alert.setCanceledOnTouchOutside(true);
+        alert.show();*/
     }
 
 // ******* COMMON ALERT DIALOG (2 PARAMETERS) *******
@@ -66,5 +127,48 @@ public class Common {
 
         alert(c, R.string.app_name, message);
     }
+
+// ******* CONVERT FORMAT in 12 hours  *******
+
+    public static String change_in_am_pm_format(String sel_time){
+
+        String f ="";
+
+        // convert time in 24 hrs format
+        try {
+            SimpleDateFormat displayFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+            SimpleDateFormat parseFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            Date date = parseFormat.parse(sel_time);
+            f = displayFormat.format(date);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return f;
+    }
+
+
+    public static String convertToGMTTime(String time,String timezone){
+
+        DateFormat sdfFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        TimeZone timeZone = TimeZone.getTimeZone(timezone);
+        sdfFormat.setTimeZone(timeZone);
+        Date date=null;
+        try {
+            date = sdfFormat.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        DateFormat gmtFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        TimeZone gmtTime = TimeZone.getTimeZone("UTC");
+        gmtFormat.setTimeZone(gmtTime);
+
+        return gmtFormat.format(date);
+    }
+
+
+
+
 
 }

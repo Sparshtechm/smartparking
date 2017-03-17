@@ -1,0 +1,22 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=C4:65:FA:1A:16:F8:DC:6E:FA:2D:A4:32:C9:9C:15:CD:11:07:58:B8%3Bcom.sparsh.smartparkingsystem.dashboard
+
+    You can also add your credentials to an existing key, using this line:
+    C4:65:FA:1A:16:F8:DC:6E:FA:2D:A4:32:C9:9C:15:CD:11:07:58:B8;com.sparsh.smartparkingsystem.dashboard
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <!--<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBqb5LNEbONLpfLljK4J0FnHkL7efzuNq4</string>-->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAYkRcA0wfHLgbsMKWivzl13OzAv5f-P_A</string>
+
+
+</resources>

@@ -2,7 +2,6 @@ package com.sparsh.smartparkingsystem.registration;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
@@ -25,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.sparsh.smartparkingsystem.R;
+import com.sparsh.smartparkingsystem.booking.Booking_Availability;
 import com.sparsh.smartparkingsystem.common.Common;
 import com.sparsh.smartparkingsystem.common.Constants;
 import com.sparsh.smartparkingsystem.common.Preferences;
@@ -100,7 +100,6 @@ public class LoginActivity extends AppCompatActivity {
     // ******* Sign up  *******
 
         tv_sign_up = (TextView) findViewById(R.id.tv_sign_up);
-        Spannable wordtoSpan = new SpannableString("Don't have an account? Sign Up!");
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View textView) {
@@ -108,6 +107,8 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         };
+
+        Spannable wordtoSpan = new SpannableString("Don't have an account? Sign Up!");
         wordtoSpan.setSpan(clickableSpan, 23, 31, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.app_theme_color)), 23, 31, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         wordtoSpan.setSpan(new StyleSpan(android.graphics.Typeface.BOLD_ITALIC), 23,31, 0);
@@ -135,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
 
 // ******* USER LOGIN API *******
 
-    public void user_login_api(String email, String pswd) {
+    public void user_login_api(final String email, String pswd) {
 
         pDialog = new ProgressDialog(LoginActivity.this);
         pDialog.setMessage("Loading...");
@@ -143,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
         pDialog.show();
 
-        Map<String, String> postParam = new HashMap<String, String>();
+        Map <String, String> postParam = new HashMap <String, String>();
         postParam.put("email",        email);
         postParam.put("logInSession", "true");
         postParam.put("password",     pswd);
@@ -165,30 +166,38 @@ public class LoginActivity extends AppCompatActivity {
 
                         String customerId = response.get("customerId").toString();
 
-                        //pref.set(Constants.kcode,    OTP_code);
                         pref.set(Constants.kcust_id, customerId);
                         pref.commit();
 
-                        startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+                        if(pref.get(Constants.kloginChk).equals("1")){
+                           /* pref.set(Constants.kloginChk,"0");
+                            pref.commit();*/
+                            startActivity(new Intent(LoginActivity.this, Booking_Availability.class));
+                            finish();
+                        }else{
+                            startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+                            finish();
+                        }
+                    }
+                    // If email id is not verified
+                    else if(resCode.equals("410")){
+
+                        String user_mob          = response.get("mdnNumber").toString();
+                        String sel_country_code  = response.get("countryCode").toString();
+
+                        //startActivity(new Intent(LoginActivity.this, VerificationActivity.class));//.putExtra("OTP", OTP_code));
+                        startActivity(new Intent(LoginActivity.this, VerificationActivity.class)
+                                .putExtra("OTP", "").putExtra("user_email", email)
+                                .putExtra("Cnt_no", user_mob).putExtra("Country_code", sel_country_code));
                         finish();
+                    }
+                    else {
 
-                          /*  Common.alert(RegistrationActivity.this, getResources().getString(R.string.msg_success));
-
-                            pref.set(Constants.kF_name,     edt_fname.getText().toString().trim());
-                            pref.set(Constants.kL_name,     edt_lname.getText().toString().trim());
-                            pref.set(Constants.kContact_no, edt_cnt_no.getText().toString().trim());
-                            pref.set(Constants.kType,       gender_type);
-                            pref.commit();
-                          */
-
-                    } else {
-
-                        Common.alert(LoginActivity.this, response.get("message").toString());
+                        Common.alert(LoginActivity.this, resMsg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
 
@@ -229,7 +238,7 @@ public class LoginActivity extends AppCompatActivity {
                 edt_login_pswd.requestFocus();
                 Common.alert(LoginActivity.this, getString(R.string.blank_txt_pswd));
             }
-            else if (edt_login_pswd.getText().toString().trim().length()<8) {
+            else if (edt_login_pswd.getText().toString().trim().length()<8 || edt_login_pswd.getText().toString().trim().length()>16) {
                 status = false;
                 edt_login_pswd.setText("");
                 edt_login_pswd.requestFocus();

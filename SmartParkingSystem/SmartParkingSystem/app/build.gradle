@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -25,10 +26,12 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile files('libs/volley.jar')
+    compile files('libs/HERE-sdk.jar')
+    compile files('libs/jts-1.14.jar')
+    compile files('libs/core-3.2.1.jar')
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.paypal.sdk:paypal-android-sdk:2.15.1'
     compile 'com.android.support:design:24.2.1'
+    compile 'com.google.android.gms:play-services:10.0.1'
     testCompile 'junit:junit:4.12'
-    compile files('libs/HERE-sdk.jar')
-    compile files('libs/jts-1.14.jar')
 }

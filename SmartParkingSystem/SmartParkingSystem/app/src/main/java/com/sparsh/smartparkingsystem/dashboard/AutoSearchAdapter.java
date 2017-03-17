@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 
 
-public class AutoSearchAdapter extends BaseAdapter {
+public abstract class AutoSearchAdapter extends BaseAdapter {
 
 // ******* DECLARING TEXT VIEW *******
 
@@ -32,11 +32,24 @@ public class AutoSearchAdapter extends BaseAdapter {
 
     ArrayList<HashMap<String, String>> data;
 
+// ******* DECLARING CLICK LISTENER ******
+
+    public View.OnClickListener onRowClickListener;
+
 
 
     public AutoSearchAdapter(Context context, ArrayList <HashMap <String, String>> placeData) {
         this.context = context;
         this.data = placeData;
+
+        onRowClickListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                onRowClick(v, String.valueOf(v.getTag()));
+            }
+        };
     }
 
 
@@ -52,8 +65,10 @@ public class AutoSearchAdapter extends BaseAdapter {
         }
 
         tv_auto_search = (TextView) rootView.findViewById(R.id.tv_auto_search);
-        tv_auto_search.setText(data.get(position).get("title"));
+        tv_auto_search.setText(data.get(position).get("description"));
 
+        rootView.setOnClickListener(onRowClickListener);
+        rootView.setTag(position);
 
         return rootView;
     }
@@ -75,4 +90,7 @@ public class AutoSearchAdapter extends BaseAdapter {
 
         return position;
     }
+
+    protected abstract void onRowClick(View v, String position);
+
 }

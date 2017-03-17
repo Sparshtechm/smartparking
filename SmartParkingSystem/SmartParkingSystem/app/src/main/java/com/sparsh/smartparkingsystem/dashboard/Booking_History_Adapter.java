@@ -9,19 +9,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.sparsh.smartparkingsystem.R;
+import com.sparsh.smartparkingsystem.common.Common;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class Booking_History_Adapter extends BaseAdapter {
+public abstract class Booking_History_Adapter extends BaseAdapter {
 
 // ******* DECLARING TEXT VIEW *******
 
-    TextView tv_auto_search;
+    TextView tv_zone_name, tv_booking_id_lbl, tv_start_duration, tv_end_duration, tv_parking_amount, tv_booking_status;
+
+    Button btn_pass, btn_cancel;
 
 // ******* DECLARING CONTEXT *******
 
@@ -31,13 +35,32 @@ public class Booking_History_Adapter extends BaseAdapter {
 
     ArrayList<HashMap<String, String>> data;
 
+// ******* DECLARING CLICK LISTENER ******
+
+    public View.OnClickListener onShowPassBtnClickListener;
+    public View.OnClickListener onCancelBtnClickListener;
 
 
     public Booking_History_Adapter(Context context, ArrayList <HashMap <String, String>> placeData) {
         this.context = context;
         this.data = placeData;
-    }
 
+        onShowPassBtnClickListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                onShowPassBtnClick(v, String.valueOf(v.getTag()));
+            }
+        };
+
+        onCancelBtnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCancelBtnClick(v, String.valueOf(v.getTag()));
+            }
+        };
+    }
 
     @Override
     public View getView( int position, View convertView, ViewGroup parent) {
@@ -50,9 +73,39 @@ public class Booking_History_Adapter extends BaseAdapter {
             rootView = inflater.inflate(R.layout.gv_booking_history, null);
         }
 
-        tv_auto_search = (TextView) rootView.findViewById(R.id.tv_auto_search);
-        tv_auto_search.setText(data.get(position).get("title"));
+        tv_zone_name       = (TextView) rootView.findViewById(R.id.tv_zone_name);
+        tv_booking_id_lbl  = (TextView) rootView.findViewById(R.id.tv_booking_id_lbl);
+        tv_start_duration  = (TextView) rootView.findViewById(R.id.tv_start_duration);
+        tv_end_duration    = (TextView) rootView.findViewById(R.id.tv_end_duration);
+        tv_parking_amount  = (TextView) rootView.findViewById(R.id.tv_parking_amount);
+        tv_booking_status  = (TextView) rootView.findViewById(R.id.tv_booking_status);
 
+        tv_zone_name.setText(data.get(position).get("zoneName"));
+        tv_booking_id_lbl.setText("Booking Id : " + data.get(position).get("bookingDisplayId"));
+        tv_start_duration.setText(Common.change_in_am_pm_format(data.get(position).get("fromTime")));
+        tv_end_duration.setText(Common.change_in_am_pm_format(data.get(position).get("toTime")));
+        tv_parking_amount.setText("$" + data.get(position).get("amount"));
+        tv_booking_status.setText(data.get(position).get("status"));
+
+        btn_pass = (Button)rootView.findViewById(R.id.btn_pass);
+        btn_pass.setTag(position);
+        btn_pass.setOnClickListener(onShowPassBtnClickListener);
+
+        if(data.get(position).get("qrcodeGeneratable").equals("false")){
+            btn_pass.setVisibility(View.GONE);
+        }else{
+            btn_pass.setVisibility(View.VISIBLE);
+        }
+
+        btn_cancel = (Button)rootView.findViewById(R.id.btn_cancel);
+        btn_cancel.setTag(position);
+        btn_cancel.setOnClickListener(onCancelBtnClickListener);
+
+        if(data.get(position).get("cancellable").equals("false")){
+            btn_cancel.setVisibility(View.GONE);
+        }else{
+            btn_cancel.setVisibility(View.VISIBLE);
+        }
 
         return rootView;
     }
@@ -74,4 +127,7 @@ public class Booking_History_Adapter extends BaseAdapter {
 
         return position;
     }
+
+    protected abstract void onShowPassBtnClick(View v, String position);
+    protected abstract void onCancelBtnClick(View v, String position);
 }

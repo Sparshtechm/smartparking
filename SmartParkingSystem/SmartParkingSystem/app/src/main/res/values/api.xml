@@ -33,7 +33,41 @@
 
     <string name="update_profile_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer/edit</string>
 
+    <!-- GET PARKING ZONES API -->
 
+    <string name="get_parking_zones_api">http://smartparking.cloudapp.net:8080/smartparking/booking/proximitylist?</string>
+
+    <!-- GET PARKING VEHICLE AND SLOT TYPES API -->
+
+    <string name="get_vehicle_slot_type_api">http://smartparking.cloudapp.net:8080/smartparking/booking/slotAndVehicleType</string>
+
+    <!-- GET AVAILABILITY API -->
+
+    <string name="get_availability_api">http://smartparking.cloudapp.net:8080/smartparking/booking/levelDetailList?</string>
+
+    <!-- GET PARKING COST API -->
+
+    <string name="get_parking_cost_api">http://smartparking.cloudapp.net:8080/smartparking/booking/cost?</string>
+
+    <!-- PARKING SLOT BLOCKING API -->
+
+    <string name="parking_slot_blocking_api">http://smartparking.cloudapp.net:8080/smartparking/booking/block</string>
+
+    <!-- BOOKING HISTORY API -->
+
+    <string name="get_booking_history_api">http://smartparking.cloudapp.net:8080/smartparking/booking/history?</string>
+
+    <!-- CANCEL BOOKING API -->
+
+    <string name="cancel_booking_api">http://smartparking.cloudapp.net:8080/smartparking/booking/cancel/</string>
+
+    <!-- GATE PASS VALIDATION API -->
+
+    <string name="gate_pass_validation_api">http://smartparking.cloudapp.net:8080/smartparking/booking/extended/verify</string>
+
+    <!-- PAYMENT API -->
+
+    <string name="payment_api">http://smartparking.cloudapp.net:8080/smartparking/booking/payment</string>
 
 
 

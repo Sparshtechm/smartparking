@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_registration"
     android:layout_width="match_parent"
@@ -8,30 +9,62 @@
     tools:context="com.sparsh.smartparkingsystem.registration.RegistrationActivity">
 
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:contentDescription="@null"
+            app:srcCompat="@drawable/icon_zone_logo" />
+
+        <TextView
+            android:id="@+id/tv_app_name_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/imageView2"
+            android:text="@string/app_name_splash"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <!--<TextView
         android:id="@+id/tv_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:gravity="center"
         android:text="@string/app_name_splash"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold" />-->
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/roundedcorner"
-        android:layout_margin="20dp"
-        android:layout_below="@+id/tv_header">
+        android:layout_below="@+id/rl_header"
+        android:layout_centerHorizontal="true"
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/tv_reg_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:text="@string/txt_title_registration"
             android:textColor="@color/app_theme_color"
             android:textSize="25sp"
@@ -42,18 +75,18 @@
         <RelativeLayout
             android:id="@+id/rl_reg_name"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/tv_reg_lbl"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
-            android:background="@color/app_theme_color">
+            android:background="@drawable/shape_blue">
 
             <ImageView
                 android:id="@+id/iv_reg_user_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
@@ -65,17 +98,80 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@+id/iv_reg_user_icon"
+                android:background="@color/bg_transparent"
                 android:ems="10"
-                android:maxLines="1"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:background="@color/app_theme_color"
                 android:hint="@string/hint_name"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:maxLines="1"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
+        </RelativeLayout>
+
+        <!--Country layout -->
+
+        <RelativeLayout
+            android:id="@+id/rl_country"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/rl_reg_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_blue">
+
+            <ImageView
+                android:id="@+id/iv_reg_country"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_globe" />
+
+            <TextView
+                android:text="Country :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/iv_reg_country"
+                android:layout_marginStart="18dp"
+                android:id="@+id/tv_country_lbl"
+                android:textSize="18sp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_toEndOf="@+id/tv_country_lbl"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:id="@+id/spnr_country" />
+
+            <!-- <EditText
+                 android:id="@+id/edt_reg_name"
+                 android:layout_width="match_parent"
+                 android:layout_height="50dp"
+                 android:layout_centerVertical="true"
+                 android:layout_marginEnd="10dp"
+                 android:layout_marginStart="10dp"
+                 android:layout_toEndOf="@+id/iv_reg_user_icon"
+                 android:background="@color/bg_transparent"
+                 android:ems="10"
+                 android:hint="@string/hint_name"
+                 android:inputType="textEmailAddress"
+                 android:maxLines="1"
+                 android:paddingEnd="8dp"
+                 android:paddingStart="8dp"
+                 android:textColor="@color/black"
+                 android:textColorHint="@color/black" />-->
         </RelativeLayout>
 
         <!-- User Mobile -->
@@ -83,41 +179,57 @@
         <RelativeLayout
             android:id="@+id/rl_reg_mobile"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_below="@+id/rl_reg_name"
+            android:layout_height="50dp"
+            android:layout_below="@+id/rl_country"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="1dp"
-            android:background="@color/app_theme_color">
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_blue">
 
             <ImageView
                 android:id="@+id/iv_reg_mob_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
                 android:contentDescription="@null"
                 android:src="@drawable/mobile_icon" />
 
+            <TextView
+                android:text="91"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:layout_toEndOf="@+id/iv_reg_mob_icon"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:id="@+id/tv_country_code" />
+
             <EditText
                 android:id="@+id/edt_reg_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@+id/iv_reg_mob_icon"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/tv_country_code"
+                android:background="@color/bg_transparent"
                 android:ems="10"
-                android:maxLines="1"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:background="@color/app_theme_color"
                 android:hint="@string/hint_mobile"
-                android:maxLength="10"
                 android:inputType="number"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:maxLength="16"
+                android:maxLines="1"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
+
         </RelativeLayout>
 
         <!-- User email -->
@@ -125,40 +237,41 @@
         <RelativeLayout
             android:id="@+id/rl_reg_email"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/rl_reg_mobile"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="1dp"
-            android:background="@color/app_theme_color">
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_blue">
 
             <ImageView
                 android:id="@+id/iv_reg_email_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
                 android:contentDescription="@null"
-                android:src="@drawable/mail_icon_y" />
+                android:src="@drawable/email_icon" />
 
             <EditText
                 android:id="@+id/edt_reg_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@+id/iv_reg_email_icon"
+                android:background="@color/bg_transparent"
                 android:ems="10"
-                android:maxLines="1"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:background="@color/app_theme_color"
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:maxLines="1"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
         </RelativeLayout>
 
         <!-- User Password -->
@@ -166,18 +279,18 @@
         <RelativeLayout
             android:id="@+id/rl_password"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/rl_reg_email"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="1dp"
-            android:background="@color/app_theme_color">
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_blue">
 
             <ImageView
                 android:id="@+id/iv_reg_pswd_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
@@ -189,17 +302,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
                 android:layout_toEndOf="@+id/iv_reg_pswd_icon"
+                android:background="@color/bg_transparent"
                 android:ems="10"
-                android:background="@color/app_theme_color"
                 android:hint="@string/hint_pswd"
-                android:maxLines="1"
                 android:inputType="textPassword"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:maxLines="1"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
         </RelativeLayout>
 
         <!-- User Confirm Password -->
@@ -207,18 +321,18 @@
         <RelativeLayout
             android:id="@+id/rl_cnf_password"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/rl_password"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="1dp"
-            android:background="@color/app_theme_color">
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_blue">
 
             <ImageView
                 android:id="@+id/iv_cnf_pswd_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
@@ -230,17 +344,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
                 android:layout_toEndOf="@+id/iv_cnf_pswd_icon"
+                android:background="@color/bg_transparent"
                 android:ems="10"
-                android:background="@color/app_theme_color"
                 android:hint="@string/hint_cnf_pswd"
-                android:maxLines="1"
                 android:inputType="textPassword"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:maxLines="1"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
         </RelativeLayout>
 
         <Button
@@ -248,7 +363,9 @@
             style="@style/Reg_btnStyle"
             android:layout_below="@+id/rl_cnf_password"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
             android:text="@string/btn_register" />
 
         <TextView
@@ -259,71 +376,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
             android:maxLines="1"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/app_theme_color"
             android:textSize="20sp" />
 
     </RelativeLayout>
-
-  <!--  <TextView
-        android:id="@+id/tv_reg_title"
-        style="@style/Reg_log_Style"
-        android:layout_alignParentTop="true"
-        android:text="@string/txt_title_registration" />
-
-
-    <EditText
-        android:id="@+id/edt_username"
-        style="@style/Reg_EditTextStyle"
-        android:layout_below="@+id/tv_reg_title"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:hint="@string/hint_username"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/edt_reg_mobile"
-        style="@style/Reg_EditTextStyle"
-        android:layout_below="@+id/edt_username"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:maxLength="10"
-        android:hint="@string/hint_mobile"
-        android:inputType="number" />
-
-    <EditText
-        android:id="@+id/edt_reg_pswd"
-        style="@style/Reg_EditTextStyle"
-        android:layout_below="@+id/edt_reg_email"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:hint="@string/hint_pswd"
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/edt_reg_cnf_pswd"
-        style="@style/Reg_EditTextStyle"
-        android:layout_below="@+id/edt_reg_pswd"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:hint="@string/hint_cnf_pswd"
-        android:inputType="textPassword"/>
-
-    <Button
-        android:id="@+id/btn_register"
-        style="@style/Reg_btnStyle"
-        android:layout_below="@+id/edt_reg_cnf_pswd"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/btn_register" />
-
-    <EditText
-        android:id="@+id/edt_reg_email"
-        style="@style/Reg_EditTextStyle"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="@string/hint_email"
-        android:inputType="textEmailAddress"
-        android:layout_below="@+id/edt_reg_mobile"
-        android:layout_alignStart="@+id/edt_reg_pswd" />-->
 
 </RelativeLayout>

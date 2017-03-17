@@ -12,8 +12,6 @@
         android:id="@+id/rl_header"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:background="@color/app_theme_color">
 
         <TextView
@@ -30,9 +28,9 @@
             android:id="@+id/iv_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:contentDescription="@null"
             android:src="@drawable/back_button"
             android:visibility="visible" />
@@ -48,21 +46,53 @@
         android:layout_below="@+id/rl_header"
         android:visibility="visible">
 
-        <EditText
-            android:id="@+id/edt_forgot_email"
-            style="@style/Reg_EditTextStyle"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="@string/hint_email"
-            android:inputType="textEmailAddress" />
+        <RelativeLayout
+            android:id="@+id/rl_forgot_email"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/shape_blue">
+
+            <ImageView
+                android:id="@+id/iv_email_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:contentDescription="@null"
+                android:src="@drawable/email_icon" />
+
+            <EditText
+                android:id="@+id/edt_forgot_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/iv_email_icon"
+                android:background="@color/bg_transparent"
+                android:ems="10"
+                android:hint="@string/hint_email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/btn_forgot"
             style="@style/Reg_btnStyle"
-            android:layout_below="@+id/edt_forgot_email"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="Get OTP" />
+            android:layout_marginTop="50dp"
+            android:text="Get OTP"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_below="@+id/rl_forgot_email"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 
@@ -87,22 +117,54 @@
             android:textColor="@color/black"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/edt_forgot_OTP"
-            style="@style/Reg_EditTextStyle"
+        <RelativeLayout
+            android:id="@+id/rl_verify_code_lbl"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:layout_below="@+id/tv_verify_code_lbl"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:maxLength="4"
-            android:hint="@string/hint_verify_code"
-            android:inputType="number" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/shape_blue">
+
+            <ImageView
+                android:id="@+id/iv_code_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:contentDescription="@null"
+                android:src="@drawable/key_icon" />
+
+            <EditText
+                android:id="@+id/edt_forgot_OTP"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/iv_code_icon"
+                android:background="@color/bg_transparent"
+                android:ems="10"
+                android:hint="@string/hint_verify_code"
+                android:inputType="number"
+                android:maxLines="1"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:maxLength="4"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/btn_verify"
             style="@style/Reg_btnStyle"
-            android:layout_below="@+id/edt_forgot_OTP"
+            android:layout_below="@+id/rl_verify_code_lbl"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
             android:text="@string/btn_verify" />
 
     </RelativeLayout>
@@ -127,31 +189,93 @@
             android:textColor="@color/black"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/edt_new_reset_pswd"
-            style="@style/Reg_EditTextStyle"
+        <RelativeLayout
+            android:id="@+id/rl_reset_new_pswd"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
             android:layout_below="@+id/tv_reset_pswd_lbl"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="@string/hint_new_pswd"
-            android:inputType="textPassword" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/shape_blue">
 
-        <EditText
-            android:id="@+id/edt_cnf_reset_pswd"
-            style="@style/Reg_EditTextStyle"
-            android:layout_below="@+id/edt_new_reset_pswd"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="@string/hint_pswd"
-            android:inputType="textPassword" />
+            <ImageView
+                android:id="@+id/iv_reset_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:contentDescription="@null"
+                android:src="@drawable/key_icon" />
 
+            <EditText
+                android:id="@+id/edt_new_reset_pswd"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/iv_reset_icon"
+                android:background="@color/bg_transparent"
+                android:ems="10"
+                android:hint="@string/hint_new_pswd"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_reset_cnf_pswd"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/rl_reset_new_pswd"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/shape_blue">
+
+            <ImageView
+                android:id="@+id/iv_reset_cnf_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:contentDescription="@null"
+                android:src="@drawable/key_icon" />
+
+            <EditText
+                android:id="@+id/edt_cnf_reset_pswd"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/iv_reset_cnf_icon"
+                android:background="@color/bg_transparent"
+                android:ems="10"
+                android:hint="@string/hint_cnf_pswd"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/btn_submit"
             style="@style/Reg_btnStyle"
-            android:layout_below="@+id/edt_cnf_reset_pswd"
+            android:layout_below="@+id/rl_reset_cnf_pswd"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
             android:text="@string/btn_submit" />
 
     </RelativeLayout>
