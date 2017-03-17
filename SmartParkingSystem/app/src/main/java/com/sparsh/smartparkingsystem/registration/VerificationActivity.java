@@ -193,7 +193,7 @@ public class VerificationActivity extends AppCompatActivity {
 
                     } else {
 
-                        Common.alert(VerificationActivity.this, response.get("message").toString());
+                        Common.alert(VerificationActivity.this, resMsg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

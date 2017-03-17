@@ -12,106 +12,90 @@
         android:background="@drawable/roundedcorner">
 
         <ImageView
+            android:id="@+id/imageView4"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/icon_zone_logo"
-            android:layout_marginTop="5dp"
             android:layout_marginStart="10dp"
-            android:id="@+id/imageView4" />
+            android:layout_marginTop="5dp"
+            android:contentDescription="@null"
+            app:srcCompat="@drawable/icon_zone_logo" />
 
         <TextView
-            android:text="@string/app_name"
+            android:id="@+id/tv_header_lbl"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:textStyle="bold"
             android:layout_margin="5dp"
-            android:textColor="@color/app_theme_color"
             android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/app_theme_color"
             android:textSize="18sp"
-            android:id="@+id/tv_header_lbl" />
+            android:textStyle="bold" />
 
         <View
+            android:id="@+id/div1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_margin="5dp"
-            android:id="@+id/div1"
             android:layout_below="@+id/tv_header_lbl"
+            android:layout_margin="5dp"
             android:background="@color/grey" />
 
         <TextView
-            android:text="TextView"
+            android:id="@+id/tv_msg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/div1"
             android:layout_margin="5dp"
-            android:paddingStart="10dp"
             android:paddingEnd="10dp"
+            android:paddingStart="10dp"
             android:textColor="@color/app_theme_color"
-            android:textSize="16sp"
-            android:id="@+id/tv_msg" />
+            android:textSize="16sp" />
 
         <View
+            android:id="@+id/div2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_margin="5dp"
-            android:id="@+id/div2"
             android:layout_below="@+id/tv_msg"
+            android:layout_margin="5dp"
             android:background="@color/grey" />
 
-      <!--  <TextView
-            android:text="OK"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_below="@+id/div2"
-            android:layout_centerHorizontal="true"
-            android:textStyle="bold"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/app_theme_color"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:id="@+id/tv_ok" />-->
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/div2"
-            android:weightSum="2"
-            android:layout_marginBottom="5dp">
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <TextView
-                android:text="Cancel"
+                android:id="@+id/tv_cancel"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:textStyle="bold"
                 android:layout_marginBottom="5dp"
-                android:textColor="@color/app_theme_color"
-                android:gravity="center"
-                android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:textSize="18sp"
+                android:layout_marginStart="5dp"
                 android:layout_weight="1"
-                android:id="@+id/tv_cancel" />
+                android:gravity="center"
+                android:text="@string/btn_cancel"
+                android:textColor="@color/app_theme_color"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:text="OK"
+                android:id="@+id/tv_ok"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:textStyle="bold"
-                android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:textColor="@color/app_theme_color"
-                android:gravity="center"
-                android:textSize="18sp"
+                android:layout_marginStart="5dp"
                 android:layout_weight="1"
-                android:id="@+id/tv_ok" />
-
-
+                android:gravity="center"
+                android:text="@string/btn_ok"
+                android:textColor="@color/app_theme_color"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
-
-
     </RelativeLayout>
 </LinearLayout>

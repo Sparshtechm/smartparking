@@ -127,7 +127,6 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".dashboard.GoogleSearchPlaces" />
         <activity android:name=".dashboard.Test_demo_Activity" />
-        <activity android:name=".dashboard.Test2Activity"></activity>
     </application>
 
 </manifest>

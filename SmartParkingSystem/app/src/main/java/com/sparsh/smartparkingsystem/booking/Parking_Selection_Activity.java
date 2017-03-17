@@ -581,6 +581,8 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
         });
 
         TimePicker timePicker = (TimePicker)dialog.findViewById(R.id.timePicker);
+        // timePicker.setCurrentHour(crnt_hour);
+        // timePicker.setCurrentMinute(crnt_min);
 
 
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {

@@ -1,16 +1,14 @@
 package com.sparsh.smartparkingsystem.common;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.TextView;
 
 import com.sparsh.smartparkingsystem.R;
-import com.sparsh.smartparkingsystem.booking.Parking_Selection_Activity;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -41,6 +39,20 @@ public class Common {
 	    }
 	    return isValid;
 	}
+
+// ******* GET MOBILE NUMBER *******
+
+   /* public static String getMyPhoneNO(Context ctx) {
+
+        TelephonyManager tMgr = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
+
+        String m1 = tMgr.getDeviceId();
+        String m2 = tMgr.getNetworkOperator();
+        String m3 = tMgr.getNetworkOperatorName();
+        String mPhoneNumber = tMgr.getLine1Number();
+
+        return mPhoneNumber;
+    }*/
 
 // ******* CHECK PASSWORD VALIDATION *******
 
@@ -84,8 +96,9 @@ public class Common {
         alert = new Dialog(ctx);
         alert.setContentView(R.layout.common_alert_dialog_layout);
 
-       TextView tv_title = (TextView)alert.findViewById(R.id.tv_title);
+       //TextView tv_title = (TextView)alert.findViewById(R.id.tv_title);
        TextView tv_msg   = (TextView)alert.findViewById(R.id.tv_msg);
+       tv_msg.setText(message);
        TextView tv_ok    = (TextView)alert.findViewById(R.id.tv_ok);
         tv_ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +106,7 @@ public class Common {
                 alert.cancel();
             }
         });
-        tv_msg.setText(message);
+
 
 
         alert.show();

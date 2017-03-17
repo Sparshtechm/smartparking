@@ -45,6 +45,15 @@
     <string name="txt_slot_type_lbl">Slot Type</string>
     <string name="txt_mobile_length">Please enter valid mobile number. Mobile number length must be between 10&#8211;16 digits.</string>
 
+    <string name="txt_tab_past">Past</string>
+    <string name="txt_tab_upcoming">Upcoming</string>
+    <string name="txt_tab_cancel">Cancelled</string>
+    <string name="txt_edit_profile_lbl">Edit Profile</string>
+    <string name="txt_notify_lbl">Notificaitons</string>
+    <string name="txt_changed_pswd_lbl">Change Password</string>
+    <string name="txt_logout_lbl">Logout</string>
+
+
     <string name="txt_back_date">Please enter valid date. Start date should be greater than or equal to current date.</string>
     <string name="txt_less_date">End date should be greater than or equal to start date.</string>
 
@@ -79,6 +88,7 @@
 
     <!-- Hints -->
 
+    <string name="hint_search">Search parking zones...</string>
     <string name="hint_name">Enter name</string>
     <string name="hint_username">Enter user name</string>
     <string name="hint_mobile">Enter mobile</string>

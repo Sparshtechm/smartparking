@@ -119,7 +119,13 @@ public class RegistrationActivity extends AppCompatActivity {
         edt_reg_pswd     = (EditText) findViewById(R.id.edt_reg_pswd);
         edt_reg_cnf_pswd = (EditText) findViewById(R.id.edt_reg_cnf_pswd);
 
-    // ******* Spinner Country *******
+        /*try {
+            edt_reg_mobile.setText(Common.getMyPhoneNO(RegistrationActivity.this));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+
+        // ******* Spinner Country *******
 
         country_name_list.add("India");
         country_name_list.add("US");

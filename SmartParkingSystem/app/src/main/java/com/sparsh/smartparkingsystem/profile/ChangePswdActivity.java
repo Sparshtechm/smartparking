@@ -22,6 +22,7 @@ import com.sparsh.smartparkingsystem.common.Constants;
 import com.sparsh.smartparkingsystem.common.Preferences;
 import com.sparsh.smartparkingsystem.dashboard.DashboardActivity;
 import com.sparsh.smartparkingsystem.payment.Payment_Activity;
+import com.sparsh.smartparkingsystem.registration.LoginActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -141,17 +142,13 @@ public class ChangePswdActivity extends AppCompatActivity {
                     if (resCode.equals("200")) {
 
                         Common.alert(ChangePswdActivity.this, resMsg);
-
-                  /*      *//*String verificationCode = response.get("verificationCode").toString();*//*
-                        String customerId = response.get("customerId").toString();
-                        pref.set(Constants.kcust_id, customerId);
-                        pref.set(Constants.kemail, email);
-                        pref.set(Constants.kContact_no, mob);
-                        pref.commit();*/
                     }
+                   /* else  if (resCode.equals("400")) {
+                        Common.alert(ChangePswdActivity.this, resMsg);
+                    }*/
                     else {
                         pDialog.cancel();
-                        Common.alert(ChangePswdActivity.this, response.get("message").toString());
+                        Common.alert(ChangePswdActivity.this, resMsg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -200,7 +197,28 @@ public class ChangePswdActivity extends AppCompatActivity {
                 edt_cnf_pswd.startAnimation(anim_shake);
                 Common.alert(ChangePswdActivity.this, getString(R.string.blank_txt_cnf_pswd));
             }
-            else if (!edt_new_pswd.getText().toString().trim().equals(edt_cnf_pswd.getText().toString().trim().equals(""))) {
+            else if (edt_current_pswd.getText().toString().trim().length()<8 || edt_current_pswd.getText().toString().trim().length()>16) {
+                status = false;
+                edt_current_pswd.setText("");
+                edt_current_pswd.requestFocus();
+                edt_current_pswd.startAnimation(anim_shake);
+                Common.alert(ChangePswdActivity.this, getString(R.string.txt_pswd_length));
+            }
+            else if (edt_new_pswd.getText().toString().trim().length()<8 || edt_new_pswd.getText().toString().trim().length()>16) {
+                status = false;
+                edt_new_pswd.setText("");
+                edt_new_pswd.requestFocus();
+                edt_new_pswd.startAnimation(anim_shake);
+                Common.alert(ChangePswdActivity.this, getString(R.string.txt_pswd_length));
+            }
+            else if (edt_cnf_pswd.getText().toString().trim().length()<8 || edt_cnf_pswd.getText().toString().trim().length()>16) {
+                status = false;
+                edt_cnf_pswd.setText("");
+                edt_cnf_pswd.requestFocus();
+                edt_cnf_pswd.startAnimation(anim_shake);
+                Common.alert(ChangePswdActivity.this, getString(R.string.txt_pswd_length));
+            }
+            else if (!edt_new_pswd.getText().toString().trim().equals(edt_cnf_pswd.getText().toString().trim())) {
                 status = false;
                 edt_new_pswd.setText("");
                 edt_cnf_pswd.setText("");
