@@ -44,6 +44,7 @@
     <string name="txt_vehicle_type_lbl">Vehicle Type</string>
     <string name="txt_slot_type_lbl">Slot Type</string>
     <string name="txt_mobile_length">Please enter valid mobile number. Mobile number length must be between 10&#8211;16 digits.</string>
+    <string name="txt_mobile_valid">Invalid mobile number. Please enter valid mobile number.</string>
 
     <string name="txt_tab_past">Past</string>
     <string name="txt_tab_upcoming">Upcoming</string>
@@ -67,6 +68,7 @@
     <string name="no_internet_txt">No internet is available</string>
     <string name="txt_msg_pswd_not_match">Password not match.Please try again.</string>
     <string name="txt_msg_all_fields">Please enter all the fields.</string>
+    <string name="txt_msg_login">Please login.</string>
 
     <!-- Buttons -->
 

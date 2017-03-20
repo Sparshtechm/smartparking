@@ -286,7 +286,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
             e.printStackTrace();
         }
 
-        if(screen_chk.equals("1")){
+        if(screen_chk.equals("1")){// Display Booking Screen
 
             booking_msg = intent.getStringExtra("MSG");
 
@@ -311,6 +311,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
             }
         }
         else if(screen_chk.equals("2")){
+
             tv_title.setText(getResources().getString(R.string.txt_settings_lbl));
 
             rl_home.setVisibility(View.GONE);
@@ -356,27 +357,29 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                 break;
 
             case R.id.rl_booking_btn:
-
-                tv_title.setText(getResources().getString(R.string.txt_booking_history_lbl));
-
-                rl_home.setVisibility(View.GONE);
-                rl_bookings.setVisibility(View.VISIBLE);
-                rl_settings.setVisibility(View.GONE);
-                rl_contact.setVisibility(View.GONE);
-
-                rl_home_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
-                rl_booking_btn.setBackgroundColor(getResources().getColor(R.color.app_theme_color));
-                rl_settings_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
-                rl_contact_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
-
-                if (Common.isConnectingToInternet(DashboardActivity.this)) {
-
-                    get_booking_history_list_api();
+                if(pref.get(Constants.kcust_id).equals("")){
+                    Common.alert(DashboardActivity.this, getResources().getString(R.string.txt_msg_login));
                 }
                 else {
-                    Common.alert(DashboardActivity.this, getResources().getString(R.string.no_internet_txt));
-                }
+                    tv_title.setText(getResources().getString(R.string.txt_booking_history_lbl));
 
+                    rl_home.setVisibility(View.GONE);
+                    rl_bookings.setVisibility(View.VISIBLE);
+                    rl_settings.setVisibility(View.GONE);
+                    rl_contact.setVisibility(View.GONE);
+
+                    rl_home_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
+                    rl_booking_btn.setBackgroundColor(getResources().getColor(R.color.app_theme_color));
+                    rl_settings_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
+                    rl_contact_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
+
+                    if (Common.isConnectingToInternet(DashboardActivity.this)) {
+
+                        get_booking_history_list_api();
+                    } else {
+                        Common.alert(DashboardActivity.this, getResources().getString(R.string.no_internet_txt));
+                    }
+                }
                 break;
 
             case R.id.rl_settings_btn:
@@ -417,14 +420,23 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
 
             case R.id.rl_settings_profile:
 
-                startActivity(new Intent(DashboardActivity.this, ProfileActivity.class));
-                finish();
+                if(pref.get(Constants.kcust_id).equals("")){
+                    Common.alert(DashboardActivity.this, getResources().getString(R.string.txt_msg_login));
+                }
+                else{
+                    startActivity(new Intent(DashboardActivity.this, ProfileActivity.class));
+                    finish();
+                }
                 break;
 
             case R.id.rl_settings_change_pswd:
-
-                startActivity(new Intent(DashboardActivity.this, ChangePswdActivity.class));
-                finish();
+                if(pref.get(Constants.kcust_id).equals("")){
+                    Common.alert(DashboardActivity.this, getResources().getString(R.string.txt_msg_login));
+                }
+                else {
+                    startActivity(new Intent(DashboardActivity.this, ChangePswdActivity.class));
+                    finish();
+                }
 
                 break;
 

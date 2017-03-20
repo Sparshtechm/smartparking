@@ -359,6 +359,15 @@ public class RegistrationActivity extends AppCompatActivity {
                 Common.alert(RegistrationActivity.this, getString(R.string.txt_mobile_length));
             }
 
+
+            else if (edt_reg_mobile.getText().toString().trim().substring(0,3).equals("000")|| edt_reg_mobile.getText().toString().trim().substring(0,2).equals("00")) {
+                status = false;
+                edt_reg_mobile.startAnimation(anim_shake);
+                edt_reg_mobile.setText("");
+                edt_reg_mobile.requestFocus();
+                Common.alert(RegistrationActivity.this, getString(R.string.txt_mobile_valid));
+            }
+
             else if (edt_reg_pswd.getText().toString().trim().length()<8 || edt_reg_pswd.getText().toString().trim().length()>16) {
                 status = false;
                 edt_reg_pswd.setText("");
