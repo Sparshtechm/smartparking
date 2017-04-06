@@ -3,15 +3,14 @@ package com.sparsh.smartparkingsystem.dashboard;
 import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -55,17 +54,13 @@ import com.sparsh.smartparkingsystem.payment.Payment_Activity;
 import com.sparsh.smartparkingsystem.profile.ChangePswdActivity;
 import com.sparsh.smartparkingsystem.profile.ProfileActivity;
 import com.sparsh.smartparkingsystem.registration.LoginActivity;
-import com.sparsh.smartparkingsystem.registration.RegistrationActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -288,7 +283,11 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
 
         if(screen_chk.equals("1")){// Display Booking Screen
 
-            booking_msg = intent.getStringExtra("MSG");
+            try {
+                booking_msg = intent.getStringExtra("MSG");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             tv_title.setText(getResources().getString(R.string.txt_booking_lbl));
 
@@ -323,6 +322,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
             rl_booking_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
             rl_settings_btn.setBackgroundColor(getResources().getColor(R.color.app_theme_color));
             rl_contact_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
+            //getLocation();
         }
        else{
             getLocation();
@@ -457,6 +457,10 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                     protected void onCancelBtnClick(View v, String position) {
 
                     }
+                    @Override
+                    protected void onShowRouteClick(View v, String position) {
+
+                    }
                 });
 
                 break;
@@ -468,8 +472,9 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                 tv_cancelled_tab.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
 
                 lv_booking_list.setAdapter(new Booking_History_Adapter(DashboardActivity.this, arr_upcoming_booking_history_map_List) {
+
                     @Override
-                    protected void onShowPassBtnClick(View v, String position){
+                    protected void onShowPassBtnClick(View v, String position) {
 
                         // Call gate pass validation api
 
@@ -485,6 +490,33 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                     @Override
                     protected void onCancelBtnClick(View v, String position) {
                         cancel_booking_dialog(arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("bookingId"));
+                    }
+                    @Override
+                    protected void onShowRouteClick(View v, String position) {
+
+                        GPSTracker gpsTracker = new GPSTracker(DashboardActivity.this);
+
+                        if (gpsTracker.canGetLocation()) {
+
+                            latitude = gpsTracker.getLatitude(); // 28.5393154;//28.600174; //
+                            longitude = gpsTracker.getLongitude(); // 77.3963628;//77.368172; //
+
+                            String source_lat = String.valueOf(latitude);  // "28.6050711";
+                            String source_long = String.valueOf(longitude); // "77.3690047";
+                            String dest_lat = arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("latitude");
+                            String dest_long = arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("longitude");
+
+                            String source_point = source_lat + "," + source_long;
+                            String dest_point = dest_lat + "," + dest_long;
+
+                            String route_url = "http://maps.google.com/maps?saddr=" + source_point + "&daddr=" + dest_point;
+
+                            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(route_url));
+                            startActivity(intent);
+                        }else{
+                            // can't get location GPS or Network is not enabled, Ask user to enable GPS/network in settings
+                            gpsTracker.showSettingsAlert();
+                        }
                     }
                 });
 
@@ -505,6 +537,10 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
 
                     @Override
                     protected void onCancelBtnClick(View v, String position) {
+
+                    }
+                    @Override
+                    protected void onShowRouteClick(View v, String position) {
 
                     }
                 });
@@ -888,6 +924,8 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                             past_booking_list_Map.put("timezone",           past_booking_list_Obj.getString("timezone"));
                             past_booking_list_Map.put("cancellable",        past_booking_list_Obj.getString("cancellable"));
                             past_booking_list_Map.put("bookingDisplayId",   past_booking_list_Obj.getString("bookingDisplayId"));
+                            past_booking_list_Map.put("latitude",           past_booking_list_Obj.getString("latitude"));
+                            past_booking_list_Map.put("longitude",          past_booking_list_Obj.getString("longitude"));
 
                             arr_booking_history_map_List.add(past_booking_list_Map);
                         }
@@ -912,6 +950,8 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                             upcoming_booking_list_Map.put("timezone",           upcoming_booking_list_Obj.getString("timezone"));
                             upcoming_booking_list_Map.put("cancellable",        upcoming_booking_list_Obj.getString("cancellable"));
                             upcoming_booking_list_Map.put("bookingDisplayId",   upcoming_booking_list_Obj.getString("bookingDisplayId"));
+                            upcoming_booking_list_Map.put("latitude",           upcoming_booking_list_Obj.getString("latitude"));
+                            upcoming_booking_list_Map.put("longitude",          upcoming_booking_list_Obj.getString("longitude"));
 
                             arr_upcoming_booking_history_map_List.add(upcoming_booking_list_Map);
                         }
@@ -936,6 +976,8 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                             cancel_booking_list_Map.put("timezone",           cancel_booking_list_Obj.getString("timezone"));
                             cancel_booking_list_Map.put("cancellable",        cancel_booking_list_Obj.getString("cancellable"));
                             cancel_booking_list_Map.put("bookingDisplayId",   cancel_booking_list_Obj.getString("bookingDisplayId"));
+                            cancel_booking_list_Map.put("latitude",           cancel_booking_list_Obj.getString("latitude"));
+                            cancel_booking_list_Map.put("longitude",          cancel_booking_list_Obj.getString("longitude"));
 
                             arr_cancelled_booking_history_map_List.add(cancel_booking_list_Map);
                         }
@@ -962,6 +1004,33 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
 
                                 cancel_booking_dialog(arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("bookingId"));
 
+                            }
+                            @Override
+                            protected void onShowRouteClick(View v, String position) {
+
+                                GPSTracker gpsTracker = new GPSTracker(DashboardActivity.this);
+
+                                if (gpsTracker.canGetLocation()) {
+
+                                    latitude = gpsTracker.getLatitude(); // 28.5393154;//28.600174; //
+                                    longitude = gpsTracker.getLongitude(); // 77.3963628;//77.368172; //
+
+                                    String source_lat = String.valueOf(latitude);  // "28.6050711";
+                                    String source_long = String.valueOf(longitude); // "77.3690047";
+                                    String dest_lat = arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("latitude");
+                                    String dest_long = arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("longitude");
+
+                                    String source_point = source_lat + "," + source_long;
+                                    String dest_point = dest_lat + "," + dest_long;
+
+                                    String route_url = "http://maps.google.com/maps?saddr=" + source_point + "&daddr=" + dest_point;
+
+                                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(route_url));
+                                    startActivity(intent);
+                                }else{
+                                    // can't get location GPS or Network is not enabled, Ask user to enable GPS/network in settings
+                                    gpsTracker.showSettingsAlert();
+                                }
                             }
                         });
 

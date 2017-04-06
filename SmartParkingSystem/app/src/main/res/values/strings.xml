@@ -18,6 +18,7 @@
     <string name="txt_title_parking_confirmation">Booking Confirmation</string>
     <string name="txt_title_extended_confirmation">Booking Extended</string>
     <string name="txt_title_pass">Gate Pass</string>
+    <string name="txt_title_route">Route Navigation</string>
 
     <!-- Text Labels -->
 
@@ -37,6 +38,7 @@
     <string name="txt_valid_email">Please enter valid email id.</string>
     <string name="txt_reset_pswd">Reset your password</string>
     <string name="txt_pswd_length">Password should be between 8&#8211;16 characters.</string>
+    <string name="txt_pswd_invalid">Invalid password.</string>
     <string name="txt_start_date_lbl">Start Date &amp; Time</string>
     <string name="txt_end_date_lbl">End Date &amp; Time</string>
     <string name="txt_start_time_lbl">Start Time</string>
@@ -50,7 +52,7 @@
     <string name="txt_tab_upcoming">Upcoming</string>
     <string name="txt_tab_cancel">Cancelled</string>
     <string name="txt_edit_profile_lbl">Edit Profile</string>
-    <string name="txt_notify_lbl">Notificaitons</string>
+    <string name="txt_notify_lbl">Notifications</string>
     <string name="txt_changed_pswd_lbl">Change Password</string>
     <string name="txt_logout_lbl">Logout</string>
 

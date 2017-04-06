@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sparsh.smartparkingsystem.R;
@@ -25,7 +26,13 @@ public abstract class Booking_History_Adapter extends BaseAdapter {
 
     TextView tv_zone_name, tv_booking_id_lbl, tv_start_duration, tv_end_duration, tv_parking_amount, tv_booking_status;
 
+// ******* DECLARING BUTTON *******
+
     Button btn_pass, btn_cancel;
+
+// ******* DECLARING IMAGE VIEW *******
+
+    ImageView iv_route;
 
 // ******* DECLARING CONTEXT *******
 
@@ -39,6 +46,7 @@ public abstract class Booking_History_Adapter extends BaseAdapter {
 
     public View.OnClickListener onShowPassBtnClickListener;
     public View.OnClickListener onCancelBtnClickListener;
+    public View.OnClickListener onShowRouteClickListener;
 
 
     public Booking_History_Adapter(Context context, ArrayList <HashMap <String, String>> placeData) {
@@ -58,6 +66,12 @@ public abstract class Booking_History_Adapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 onCancelBtnClick(v, String.valueOf(v.getTag()));
+            }
+        };
+        onShowRouteClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onShowRouteClick(v, String.valueOf(v.getTag()));
             }
         };
     }
@@ -107,6 +121,15 @@ public abstract class Booking_History_Adapter extends BaseAdapter {
             btn_cancel.setVisibility(View.VISIBLE);
         }
 
+        iv_route = (ImageView)rootView.findViewById(R.id.iv_route);
+        iv_route.setTag(position);
+        iv_route.setOnClickListener(onShowRouteClickListener);
+        if(data.get(position).get("qrcodeGeneratable").equals("false")){
+            iv_route.setVisibility(View.GONE);
+        }else{
+            iv_route.setVisibility(View.VISIBLE);
+        }
+
         return rootView;
     }
 
@@ -130,4 +153,5 @@ public abstract class Booking_History_Adapter extends BaseAdapter {
 
     protected abstract void onShowPassBtnClick(View v, String position);
     protected abstract void onCancelBtnClick(View v, String position);
+    protected abstract void onShowRouteClick(View v, String position);
 }

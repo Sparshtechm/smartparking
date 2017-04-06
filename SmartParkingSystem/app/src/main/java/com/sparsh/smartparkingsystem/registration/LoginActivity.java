@@ -238,13 +238,13 @@ public class LoginActivity extends AppCompatActivity {
                 edt_login_pswd.requestFocus();
                 Common.alert(LoginActivity.this, getString(R.string.blank_txt_pswd));
             }
-            else if (edt_login_pswd.getText().toString().trim().length()<8 || edt_login_pswd.getText().toString().trim().length()>16) {
+           /* else if (edt_login_pswd.getText().toString().trim().length()<8 || edt_login_pswd.getText().toString().trim().length()>16) {
                 status = false;
                 edt_login_pswd.setText("");
                 edt_login_pswd.requestFocus();
                 edt_login_pswd.startAnimation(anim_shake);
-                Common.alert(LoginActivity.this, getString(R.string.txt_pswd_length));
-            }
+                Common.alert(LoginActivity.this, getString(R.string.txt_pswd_invalid));
+            }*/
             else if (!Common.isEmailValid(edt_login_email.getText().toString().trim())) {
                 status = false;
                 edt_login_email.startAnimation(anim_shake);

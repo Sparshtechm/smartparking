@@ -123,7 +123,7 @@ public class VerificationActivity extends AppCompatActivity {
         edt_mobile.setText(cnt_no);
 
         vfy_edt_user_code = (EditText)findViewById(R.id.vfy_edt_user_code);
-        vfy_edt_user_code.setText(otp);
+        //vfy_edt_user_code.setText(otp);
 
     // ******* Button Verify *******
 
@@ -141,6 +141,7 @@ public class VerificationActivity extends AppCompatActivity {
                 }
             }
         });
+        Common.alert(VerificationActivity.this, "Otp has been send to your registered mobile number.");
     }
 
 // ******* USER VERIFICATION API *******
@@ -241,7 +242,8 @@ public class VerificationActivity extends AppCompatActivity {
                     if (resCode.equals("200")) {
 
                         String OTP_code   = response.get("verificationCode").toString();
-                        vfy_edt_user_code.setText(OTP_code);
+                        //vfy_edt_user_code.setText(OTP_code);
+                        Common.alert(VerificationActivity.this, "Otp has been send to your registered mobile number.");
                     }
                     else {
                         Common.alert(VerificationActivity.this, resMsg);

@@ -221,7 +221,7 @@ public class Forget_Pswd_Activity extends AppCompatActivity implements View.OnCl
                         edt_forgot_OTP.setText(OTP_code);
 
                     } else {
-                        Common.alert(Forget_Pswd_Activity.this, response.get("message").toString());
+                        Common.alert(Forget_Pswd_Activity.this, resMsg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

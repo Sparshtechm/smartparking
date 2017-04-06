@@ -805,7 +805,7 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
                 "zoneId=" + zone_id + "&vehicleTypeId=" + vehicle_type_id + "&slotTypeId=" + Slot_type_id
                 + "&toTime=" + end_time  + "&fromTime=" + start_time + "&timeZone=" + timezone;
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, getResources().getString(R.string.get_availability_api) +
+            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, getResources().getString(R.string.get_availability_api) +
                 "zoneId=" + zone_id + "&vehicleTypeId=" + vehicle_type_id + "&slotTypeId=" + Slot_type_id
                 + "&toTime=" + end_time  + "&fromTime=" + start_time + "&timeZone=" + timezone, null, new Response.Listener<JSONObject>() {
 
