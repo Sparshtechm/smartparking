@@ -319,6 +319,51 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/rl_version"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="20dp"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/iv_app_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_zone_logo"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tv_version_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:paddingLeft="8dp"
+                    android:textColor="@color/app_theme_color"
+                    android:layout_toEndOf="@+id/iv_app_icon"
+                    android:paddingRight="8dp"
+                    android:text="@string/app_name"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_version_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:paddingLeft="8dp"
+                    android:layout_toEndOf="@+id/iv_app_icon"
+                    android:layout_below="@+id/tv_version_lbl"
+                    android:paddingRight="8dp"
+                    android:text="@string/txt_app_version_lbl"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
         </RelativeLayout>
 
         <!-- Contact -->

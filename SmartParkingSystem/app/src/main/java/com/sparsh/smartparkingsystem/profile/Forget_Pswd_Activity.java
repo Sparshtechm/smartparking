@@ -25,8 +25,6 @@ import com.sparsh.smartparkingsystem.common.Constants;
 import com.sparsh.smartparkingsystem.common.Preferences;
 import com.sparsh.smartparkingsystem.dashboard.DashboardActivity;
 import com.sparsh.smartparkingsystem.registration.LoginActivity;
-import com.sparsh.smartparkingsystem.registration.RegistrationActivity;
-import com.sparsh.smartparkingsystem.registration.VerificationActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -164,7 +162,7 @@ public class Forget_Pswd_Activity extends AppCompatActivity implements View.OnCl
                 if (Common.isConnectingToInternet(Forget_Pswd_Activity.this)) {
 
                     if (Validate(3)) {
-                        reset_pswd_api(edt_forgot_email.getText().toString().trim(),edt_new_reset_pswd.getText().toString().trim());
+                        reset_pswd_api(edt_forgot_email.getText().toString().trim(), edt_new_reset_pswd.getText().toString().trim());
                     }
                 } else {
                     Common.alert(Forget_Pswd_Activity.this, getResources().getString(R.string.no_internet_txt));
@@ -193,7 +191,7 @@ public class Forget_Pswd_Activity extends AppCompatActivity implements View.OnCl
         postParam.put("email",     user_email);
         postParam.put("nonceType", "F");
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, getResources().getString(R.string.otp_request_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, Common.getCompleteApiUrl(Forget_Pswd_Activity.this, R.string.otp_request_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -209,7 +207,7 @@ public class Forget_Pswd_Activity extends AppCompatActivity implements View.OnCl
                         Common.alert(Forget_Pswd_Activity.this, resMsg);
 
                         String OTP_code   = response.get("verificationCode").toString();
-                       /* String customerId = response.get("customerId").toString();
+                        /* String customerId = response.get("customerId").toString();
                         pref.set(Constants.kemail, user_email);
                         pref.set(Constants.kcust_id, customerId);
                         pref.commit();*/
@@ -255,7 +253,7 @@ public class Forget_Pswd_Activity extends AppCompatActivity implements View.OnCl
         postParam.put("nonceType",        "F");
         postParam.put("verificationCode", OTP_code);
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, getResources().getString(R.string.verification_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, Common.getCompleteApiUrl(Forget_Pswd_Activity.this, R.string.verification_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -309,10 +307,10 @@ public class Forget_Pswd_Activity extends AppCompatActivity implements View.OnCl
 
         Map <String, String> postParam = new HashMap<String, String>();
 
-        postParam.put("email",     user_email);// pref.get(Constants.kemail));
+        postParam.put("email",     user_email); // pref.get(Constants.kemail));
         postParam.put("password",  pswd);
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, getResources().getString(R.string.reset_pswd_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, Common.getCompleteApiUrl(Forget_Pswd_Activity.this, R.string.reset_pswd_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -327,7 +325,7 @@ public class Forget_Pswd_Activity extends AppCompatActivity implements View.OnCl
 
                     if (resCode.equals("200")) {
 
-                        //Common.alert(RegistrationActivity.this, resMsg);
+                        // Common.alert(RegistrationActivity.this, resMsg);
 
                         /*String verificationCode = response.get("verificationCode").toString();*/
                         String customerId = response.get("customerId").toString();
@@ -422,7 +420,6 @@ public class Forget_Pswd_Activity extends AppCompatActivity implements View.OnCl
                 }
             }
         }
-
         return status;
     }
 }

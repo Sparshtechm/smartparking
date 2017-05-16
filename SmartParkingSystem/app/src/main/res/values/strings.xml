@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ParkNxt</string>
     <string name="app_name_splash">ParkNxt</string>
+    <string name="txt_app_version_lbl">Version : 1.0.1</string>
 
     <!-- Title Text Labels -->
 
@@ -86,8 +87,10 @@
     <string name="btn_cancel">Cancel</string>
     <string name="btn_pay">Pay</string>
     <string name="btn_set">Set</string>
-    <string name="btn_show_code">Show code</string>
+    <string name="btn_show_code">Gate Pass</string>
     <string name="btn_cancel_booking">Cancel booking</string>
+    <string name="btn_entry">Trial Entry</string>
+    <string name="btn_exit">Trial Exit</string>
 
 
     <!-- Hints -->

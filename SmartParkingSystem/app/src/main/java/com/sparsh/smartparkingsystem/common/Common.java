@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.sparsh.smartparkingsystem.R;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,6 +23,15 @@ import java.util.regex.Pattern;
 public class Common {
 
     private static Dialog alert;
+
+// ******* API COMPLETE URL *******
+
+    public static String getCompleteApiUrl(Context ctx, int api) {
+
+        return /*"http://" +*/ ctx.getString(R.string.server) + "/" + ctx.getString(api);
+              /*  + ctx.getString(R.string.api_intermediary_path) + "/"*/
+
+    }
 
 // ******* CHECK EMAIL VALIDATION *******
 	
@@ -168,7 +178,20 @@ public class Common {
     }
 
 
+// ******* CONVERT STRING INTO DECIMAL UPTO 2 DIGITS DECIMAL  *******
 
+    public static String convertToDecimal(String val){
 
+        String convertedValue="";
 
+        try {
+            DecimalFormat df = new DecimalFormat("0.00");
+            convertedValue = df.format(Double.parseDouble(val));
+            df.setMaximumFractionDigits(2);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        return convertedValue;
+    }
 }

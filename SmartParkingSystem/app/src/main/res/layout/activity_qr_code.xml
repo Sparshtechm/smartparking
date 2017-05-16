@@ -52,12 +52,49 @@
         android:text="Please use this QR Code at boom barrier as gate pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_qr_code"
         android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:textStyle="bold"
         android:textColor="@color/app_theme_color"
         android:textSize="18sp"
-        android:id="@+id/textView2" />
+        android:id="@+id/lbl"
+        android:layout_below="@+id/iv_qr_code"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Trial version to replicate boom barrier."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textStyle="bold"
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        android:id="@+id/tv_test_lbl"
+        android:layout_below="@+id/lbl"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btn_entry"
+        style="@style/Reg_btnStyle"
+        android:layout_width="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_test_lbl"
+        android:layout_margin="20dp"
+        android:visibility="gone"
+        android:text="@string/btn_entry" />
+
+    <Button
+        android:id="@+id/btn_exit"
+        style="@style/Reg_btnStyle"
+        android:layout_width="150dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/tv_test_lbl"
+        android:visibility="gone"
+        android:layout_margin="20dp"
+        android:text="@string/btn_exit" />
+
 </RelativeLayout>

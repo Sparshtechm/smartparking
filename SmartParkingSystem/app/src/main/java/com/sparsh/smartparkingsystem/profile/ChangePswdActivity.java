@@ -21,8 +21,6 @@ import com.sparsh.smartparkingsystem.common.Common;
 import com.sparsh.smartparkingsystem.common.Constants;
 import com.sparsh.smartparkingsystem.common.Preferences;
 import com.sparsh.smartparkingsystem.dashboard.DashboardActivity;
-import com.sparsh.smartparkingsystem.payment.Payment_Activity;
-import com.sparsh.smartparkingsystem.registration.LoginActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -126,7 +124,7 @@ public class ChangePswdActivity extends AppCompatActivity {
         postParam.put("newPassword", new_pswd);
         postParam.put("oldPassword", old_pswd);
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, getResources().getString(R.string.change_pswd_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, Common.getCompleteApiUrl(ChangePswdActivity.this, R.string.change_pswd_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {

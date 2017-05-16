@@ -322,7 +322,6 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
             rl_booking_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
             rl_settings_btn.setBackgroundColor(getResources().getColor(R.color.app_theme_color));
             rl_contact_btn.setBackgroundColor(getResources().getColor(R.color.bg_txt_blue));
-            //getLocation();
         }
        else{
             getLocation();
@@ -477,6 +476,9 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                     protected void onShowPassBtnClick(View v, String position) {
 
                         // Call gate pass validation api
+
+                        pref.set(Constants.kBooking_Id, arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("bookingId"));
+                        pref.commit();
 
                         gatePassValidation_api(arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("bookingId"),
                                 arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("zoneName"),
@@ -768,9 +770,9 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
         pDialog.setCancelable(false);
         pDialog.show();
 
-        String url = getResources().getString(R.string.get_parking_zones_api) + "latitude=" + String.valueOf(latitude) + "&longitude=" + String.valueOf(longitude);
+        String url = Common.getCompleteApiUrl(DashboardActivity.this, R.string.get_parking_zones_api) + "latitude=" + String.valueOf(latitude) + "&longitude=" + String.valueOf(longitude);
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, getResources().getString(R.string.get_parking_zones_api) + "latitude=" + String.valueOf(latitude) + "&longitude=" + String.valueOf(longitude), null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, Common.getCompleteApiUrl(DashboardActivity.this, R.string.get_parking_zones_api) + "latitude=" + String.valueOf(latitude) + "&longitude=" + String.valueOf(longitude), null, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -802,7 +804,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                             zones_list_Map.put("longitude",    zones_list_Obj.getString("longitude"));
                             zones_list_Map.put("distance",     zones_list_Obj.getString("distance"));
                             zones_list_Map.put("timeZone",     zones_list_Obj.getString("timeZone"));
-                            zones_list_Map.put("price",        zones_list_Obj.getString("price"));
+                            zones_list_Map.put("price",        Common.convertToDecimal(zones_list_Obj.getString("price")));
                             zones_list_Map.put("currency",     zones_list_Obj.getString("currency"));
 
                             arr_parking_zones_map_List.add(zones_list_Map);
@@ -834,6 +836,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                                     return null;
                                 }
                             });*/
+
                             mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                                 @Override
                                 public void onInfoWindowClick(Marker marker) {
@@ -886,7 +889,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
         pDialog.setCancelable(false);
         pDialog.show();
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, getResources().getString(R.string.get_booking_history_api) + "customerId=" + pref.get(Constants.kcust_id), null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, Common.getCompleteApiUrl(DashboardActivity.this, R.string.get_booking_history_api) + "customerId=" + pref.get(Constants.kcust_id), null, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -990,6 +993,9 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
 
                                 //final String booking_id, final String zname, final String s_time, final String e_time, final String vType, final String sType, final String tZone) {
 
+                                    pref.set(Constants.kBooking_Id, arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("bookingId"));
+                                    pref.commit();
+
                                     gatePassValidation_api(arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("bookingId"),
                                             arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("zoneName"),
                                             arr_upcoming_booking_history_map_List.get(Integer.parseInt(position)).get("fromTime"),
@@ -1064,7 +1070,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
         pDialog.setCancelable(false);
         pDialog.show();
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.DELETE, getResources().getString(R.string.cancel_booking_api)  + booking_id +"/"+ pref.get(Constants.kcust_id), null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.DELETE, Common.getCompleteApiUrl(DashboardActivity.this, R.string.cancel_booking_api)  + booking_id +"/"+ pref.get(Constants.kcust_id), null, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -1116,7 +1122,7 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
         postParam.put("customerId",  pref.get(Constants.kcust_id));
         postParam.put("bookingId",   booking_id);
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, getResources().getString(R.string.gate_pass_validation_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, Common.getCompleteApiUrl(DashboardActivity.this, R.string.gate_pass_validation_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -1138,9 +1144,10 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                         }
                         else{
                             pref.set(Constants.kParking_amount, response.get("price").toString());
+                          //  pref.set(Constants.kBooking_Id, booking_id);
                             pref.commit();
                             //String zName, String sTime, String eTime, String vType, String slotType, String price
-                            booking_extended_dialog(zname, s_time, e_time, vType, sType, response.get("price").toString());
+                            booking_extended_dialog(zname, s_time, e_time, vType, sType, Common.convertToDecimal(response.get("price").toString()));
                         }
                     } else {
 
@@ -1272,11 +1279,10 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
         tv_end_duration.setText(eTime);
         tv_amount.setText("$" + price);
 
-        //TextView tv_vehicle_type = (TextView)dialog.findViewById(R.id.tv_vehicle_type);
-        //TextView tv_slot_type    = (TextView)dialog.findViewById(R.id.tv_slot_type);
-       // tv_vehicle_type.setText(vType);
-       // tv_slot_type.setText(slotType);
-
+        // TextView tv_vehicle_type = (TextView)dialog.findViewById(R.id.tv_vehicle_type);
+        // TextView tv_slot_type    = (TextView)dialog.findViewById(R.id.tv_slot_type);
+        // tv_vehicle_type.setText(vType);
+        // tv_slot_type.setText(slotType);
 
         Button btn_pay = (Button)dialog.findViewById(R.id.btn_pay);
         btn_pay.setOnClickListener(new View.OnClickListener() {
@@ -1287,6 +1293,8 @@ public class DashboardActivity extends FragmentActivity implements OnMapReadyCal
                     startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
                     finish();
                 }else {
+                    pref.set(Constants.kExtended_status, "true");
+                    pref.commit();
                     startActivity(new Intent(DashboardActivity.this, Payment_Activity.class));
                     finish();
                 }

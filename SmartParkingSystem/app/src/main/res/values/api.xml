@@ -1,74 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+    <!-- Server (Smart Parking Cloud Server) -->
+    <!--<string name="server">http://smartparking.cloudapp.net:8080/smartparking</string>-->
+
+    <!-- New Server (Smart Parking Cloud Server) -->
+
+    <string name="server">http://85.190.176.142:8080/smartparking</string>
+
+
+    <!-- Server (m2mdemo Cloud Server) -->
+    <!--<string name="server">http://m2mdemo.cloudapp.net:8080/smartparking</string>-->
+
+
+
+<!--
+    &lt;!&ndash; Intermediary path Server (m2mdemo Cloud Server) &ndash;&gt;
+    <string name="api_intermediary_path">smartparking/api/v1/mobile/</string>
+
+
+-->
+
     <!-- REGISTRATION API -->
 
-    <string name="registration_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer/registartion</string>
+    <string name="registration_api">api/v1/mobile/customer/registartion</string>
 
     <!-- LOGIN API -->
 
-    <string name="login_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer/login</string>
+    <string name="login_api">api/v1/mobile/customer/login</string>
 
     <!-- OTP REQUEST API -->
 
-    <string name="otp_request_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/nonce/creation</string>
+    <string name="otp_request_api">api/v1/mobile/nonce/creation</string>
 
     <!-- VERIFICATION API -->
 
-    <string name="verification_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/nonce/verification</string>
+    <string name="verification_api">api/v1/mobile/nonce/verification</string>
 
     <!-- RESET PASSWORD API -->
 
-    <string name="reset_pswd_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer/resetPassword</string>
+    <string name="reset_pswd_api">api/v1/mobile/customer/resetPassword</string>
 
     <!-- CHANGE PASSWORD API -->
 
-    <string name="change_pswd_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer/changePassword</string>
+    <string name="change_pswd_api">api/v1/mobile/customer/changePassword</string>
 
     <!-- GET USER PROFILE API -->
 
-    <string name="get_user_profile_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer?customerId=</string>
+    <string name="get_user_profile_api">api/v1/mobile/customer?customerId=</string>
 
     <!-- UPDATE USER PROFILE API -->
 
-    <string name="update_profile_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer/edit</string>
+    <string name="update_profile_api">api/v1/mobile/customer/edit</string>
 
     <!-- GET PARKING ZONES API -->
 
-    <string name="get_parking_zones_api">http://smartparking.cloudapp.net:8080/smartparking/booking/proximitylist?</string>
+    <string name="get_parking_zones_api">booking/proximitylist?</string>
 
     <!-- GET PARKING VEHICLE AND SLOT TYPES API -->
 
-    <string name="get_vehicle_slot_type_api">http://smartparking.cloudapp.net:8080/smartparking/booking/slotAndVehicleType</string>
+    <string name="get_vehicle_slot_type_api">booking/slotAndVehicleType</string>
 
     <!-- GET AVAILABILITY API -->
 
-    <string name="get_availability_api">http://smartparking.cloudapp.net:8080/smartparking/booking/levelDetailList?</string>
+    <string name="get_availability_api">booking/levelDetailList?</string>
 
     <!-- GET PARKING COST API -->
 
-    <string name="get_parking_cost_api">http://smartparking.cloudapp.net:8080/smartparking/booking/cost?</string>
+    <string name="get_parking_cost_api">booking/cost?</string>
 
     <!-- PARKING SLOT BLOCKING API -->
 
-    <string name="parking_slot_blocking_api">http://smartparking.cloudapp.net:8080/smartparking/booking/block</string>
+    <string name="parking_slot_blocking_api">booking/block</string>
 
     <!-- BOOKING HISTORY API -->
 
-    <string name="get_booking_history_api">http://smartparking.cloudapp.net:8080/smartparking/booking/history?</string>
+    <string name="get_booking_history_api">booking/history?</string>
 
     <!-- CANCEL BOOKING API -->
 
-    <string name="cancel_booking_api">http://smartparking.cloudapp.net:8080/smartparking/booking/cancel/</string>
+    <string name="cancel_booking_api">booking/cancel/</string>
 
     <!-- GATE PASS VALIDATION API -->
 
-    <string name="gate_pass_validation_api">http://smartparking.cloudapp.net:8080/smartparking/booking/extended/verify</string>
+    <string name="gate_pass_validation_api">booking/extended/verify</string>
 
     <!-- PAYMENT API -->
+
+    <string name="payment_api">booking/payment</string>
+
+
+
+    <!-- Parking Entry Exit Api's (These work should be done on Boom Barrier)-->
+
+    <!-- ENTRY API -->
+
+    <string name="entry_api">parking/entry</string>
+
+    <!-- EXIT API -->
+
+    <string name="exit_api">parking/exit</string>
+
+
+
+
+
+
+
+
+
+    <!-- Original -->
+
+<!--
+    &lt;!&ndash; REGISTRATION API &ndash;&gt;
+
+    <string name="registration_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer/registartion</string>
+
+    &lt;!&ndash; LOGIN API &ndash;&gt;
+
+    <string name="login_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer/login</string>
+
+    &lt;!&ndash; OTP REQUEST API &ndash;&gt;
+
+    <string name="otp_request_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/nonce/creation</string>
+
+    &lt;!&ndash; VERIFICATION API &ndash;&gt;
+
+    <string name="verification_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/nonce/verification</string>
+
+    &lt;!&ndash; RESET PASSWORD API &ndash;&gt;
+
+    <string name="reset_pswd_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer/resetPassword</string>
+
+    &lt;!&ndash; CHANGE PASSWORD API &ndash;&gt;
+
+    <string name="change_pswd_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer/changePassword</string>
+
+    &lt;!&ndash; GET USER PROFILE API &ndash;&gt;
+
+    <string name="get_user_profile_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer?customerId=</string>
+
+    &lt;!&ndash; UPDATE USER PROFILE API &ndash;&gt;
+
+    <string name="update_profile_api">http://smartparking.cloudapp.net:8080/smartparking/api/v1/mobile/customer/edit</string>
+
+    &lt;!&ndash; GET PARKING ZONES API &ndash;&gt;
+
+    <string name="get_parking_zones_api">http://smartparking.cloudapp.net:8080/smartparking/booking/proximitylist?</string>
+
+    &lt;!&ndash; GET PARKING VEHICLE AND SLOT TYPES API &ndash;&gt;
+
+    <string name="get_vehicle_slot_type_api">http://smartparking.cloudapp.net:8080/smartparking/booking/slotAndVehicleType</string>
+
+    &lt;!&ndash; GET AVAILABILITY API &ndash;&gt;
+
+    <string name="get_availability_api">http://smartparking.cloudapp.net:8080/smartparking/booking/levelDetailList?</string>
+
+    &lt;!&ndash; GET PARKING COST API &ndash;&gt;
+
+    <string name="get_parking_cost_api">http://smartparking.cloudapp.net:8080/smartparking/booking/cost?</string>
+
+    &lt;!&ndash; PARKING SLOT BLOCKING API &ndash;&gt;
+
+    <string name="parking_slot_blocking_api">http://smartparking.cloudapp.net:8080/smartparking/booking/block</string>
+
+    &lt;!&ndash; BOOKING HISTORY API &ndash;&gt;
+
+    <string name="get_booking_history_api">http://smartparking.cloudapp.net:8080/smartparking/booking/history?</string>
+
+    &lt;!&ndash; CANCEL BOOKING API &ndash;&gt;
+
+    <string name="cancel_booking_api">http://smartparking.cloudapp.net:8080/smartparking/booking/cancel/</string>
+
+    &lt;!&ndash; GATE PASS VALIDATION API &ndash;&gt;
+
+    <string name="gate_pass_validation_api">http://smartparking.cloudapp.net:8080/smartparking/booking/extended/verify</string>
+
+    &lt;!&ndash; PAYMENT API &ndash;&gt;
 
     <string name="payment_api">http://smartparking.cloudapp.net:8080/smartparking/booking/payment</string>
 
 
+
+    &lt;!&ndash; Parking Entry Exit Api's (These work should be done on Boom Barrier)&ndash;&gt;
+
+    &lt;!&ndash; ENTRY API &ndash;&gt;
+
+    <string name="entry_api">http://smartparking.cloudapp.net:8080/smartparking/parking/entry</string>
+
+    &lt;!&ndash; EXIT API &ndash;&gt;
+
+    <string name="exit_api">http://smartparking.cloudapp.net:8080/smartparking/parking/exit</string>-->
 
 </resources>

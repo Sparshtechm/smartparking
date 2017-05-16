@@ -29,9 +29,6 @@ import com.sparsh.smartparkingsystem.common.Common;
 import com.sparsh.smartparkingsystem.common.Constants;
 import com.sparsh.smartparkingsystem.common.Preferences;
 import com.sparsh.smartparkingsystem.dashboard.DashboardActivity;
-import com.sparsh.smartparkingsystem.registration.LoginActivity;
-import com.sparsh.smartparkingsystem.registration.RegistrationActivity;
-import com.sparsh.smartparkingsystem.registration.VerificationActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,6 +67,7 @@ public class Payment_Activity extends AppCompatActivity {
     private static PayPalConfiguration config = new PayPalConfiguration()
             .environment(CONFIG_ENVIRONMENT)
             .clientId(CONFIG_CLIENT_ID)
+            .acceptCreditCards(false)// Disable button coming on paypal screen for credit cards accept.
             // The following are only used in PayPalFuturePaymentActivity.
             .merchantName("Sparsh Saxena")
             .merchantPrivacyPolicyUri(Uri.parse("https://www.example.com/privacy"))
@@ -260,11 +258,11 @@ public class Payment_Activity extends AppCompatActivity {
         pDialog.setCancelable(false);
         pDialog.show();
 
-        Map<String, String> postParam = new HashMap<String, String>();
+        Map <String, String> postParam = new HashMap <String, String>();
         postParam.put("bookingId",       pref.get(Constants.kBooking_Id));
         postParam.put("cost",            pref.get(Constants.kParking_amount));
         postParam.put("customerId",      pref.get(Constants.kcust_id));
-        postParam.put("extendedStatus",  "false");
+        postParam.put("extendedStatus",  pref.get(Constants.kExtended_status));
 
         if(status.equals("approved")){
             postParam.put("paymentStatus",  "true");
@@ -274,7 +272,7 @@ public class Payment_Activity extends AppCompatActivity {
 
         postParam.put("transactionId",  trans_id);
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, getResources().getString(R.string.payment_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, Common.getCompleteApiUrl(Payment_Activity.this, R.string.payment_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {

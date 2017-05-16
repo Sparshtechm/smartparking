@@ -21,7 +21,6 @@ import com.sparsh.smartparkingsystem.common.Common;
 import com.sparsh.smartparkingsystem.common.Constants;
 import com.sparsh.smartparkingsystem.common.Preferences;
 import com.sparsh.smartparkingsystem.dashboard.DashboardActivity;
-import com.sparsh.smartparkingsystem.registration.LoginActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -118,7 +117,7 @@ public class ProfileActivity extends AppCompatActivity {
         postParam.put("email",            pref.get(Constants.kemail));
         postParam.put("nonceType",        "R");*/
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, getResources().getString(R.string.get_user_profile_api) + pref.get(Constants.kcust_id), null/*new JSONObject(postParam)*/, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, Common.getCompleteApiUrl(ProfileActivity.this, R.string.get_user_profile_api) + pref.get(Constants.kcust_id), null/*new JSONObject(postParam)*/, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -178,7 +177,7 @@ public class ProfileActivity extends AppCompatActivity {
         postParam.put("username",      edt_prf_name.getText().toString().trim());
 
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, getResources().getString(R.string.update_profile_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, Common.getCompleteApiUrl(ProfileActivity.this, R.string.update_profile_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {

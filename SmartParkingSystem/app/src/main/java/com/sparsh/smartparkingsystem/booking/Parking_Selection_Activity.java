@@ -2,7 +2,6 @@ package com.sparsh.smartparkingsystem.booking;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,11 +16,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -34,7 +31,6 @@ import com.sparsh.smartparkingsystem.common.Common;
 import com.sparsh.smartparkingsystem.common.Constants;
 import com.sparsh.smartparkingsystem.common.Preferences;
 import com.sparsh.smartparkingsystem.dashboard.DashboardActivity;
-import com.sparsh.smartparkingsystem.dashboard.Test_demo_Activity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -81,7 +77,7 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
 
 // ******* Declaring Layouts *******
 
-    //RelativeLayout rl_start_dt_left, rl_start_dt_right, rl_end_dt_left, rl_end_dt_right;
+    // RelativeLayout rl_start_dt_left, rl_start_dt_right, rl_end_dt_left, rl_end_dt_right;
 
 // ******* Declaring Button *******
 
@@ -312,7 +308,6 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
                 pref.set(Constants.kVehicleTypeId,   arr_vehicle_type_map_List.get(1).get("id"));
                 pref.set(Constants.kVehicleTypeName, arr_vehicle_type_map_List.get(1).get("type"));
                 pref.commit();
-
 
                 break;
 
@@ -702,7 +697,7 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
         pDialog.setCancelable(false);
         pDialog.show();
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, getResources().getString(R.string.get_vehicle_slot_type_api), null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, Common.getCompleteApiUrl(Parking_Selection_Activity.this, R.string.get_vehicle_slot_type_api), null, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -801,11 +796,11 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
         pDialog.setCancelable(false);
         pDialog.show();
 
-        String url = getResources().getString(R.string.get_availability_api) +
+        String url = Common.getCompleteApiUrl(Parking_Selection_Activity.this, R.string.get_availability_api) +
                 "zoneId=" + zone_id + "&vehicleTypeId=" + vehicle_type_id + "&slotTypeId=" + Slot_type_id
                 + "&toTime=" + end_time  + "&fromTime=" + start_time + "&timeZone=" + timezone;
 
-            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, getResources().getString(R.string.get_availability_api) +
+            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, Common.getCompleteApiUrl(Parking_Selection_Activity.this, R.string.get_availability_api) +
                 "zoneId=" + zone_id + "&vehicleTypeId=" + vehicle_type_id + "&slotTypeId=" + Slot_type_id
                 + "&toTime=" + end_time  + "&fromTime=" + start_time + "&timeZone=" + timezone, null, new Response.Listener<JSONObject>() {
 
@@ -854,9 +849,9 @@ public class Parking_Selection_Activity extends AppCompatActivity implements Vie
                                     JSONObject slot_list_Obj = arr_slot_list_Json.getJSONObject(k);
 
                                     level_list_Map.put("slotId",           slot_list_Obj.getString("slotId"));
-                                    level_list_Map.put("overnightPrice",   slot_list_Obj.getString("overnightPrice"));
-                                    level_list_Map.put("price",            slot_list_Obj.getString("price"));
-                                    level_list_Map.put("longhourPrice",    slot_list_Obj.getString("longhourPrice"));
+                                    level_list_Map.put("overnightPrice",   Common.convertToDecimal(slot_list_Obj.getString("overnightPrice")));
+                                    level_list_Map.put("price",            Common.convertToDecimal(slot_list_Obj.getString("price")));
+                                    level_list_Map.put("longhourPrice",    Common.convertToDecimal(slot_list_Obj.getString("longhourPrice")));
                                     level_list_Map.put("capacity",         slot_list_Obj.getString("capacity"));
                                     level_list_Map.put("capacityUsed",     slot_list_Obj.getString("capacityUsed"));
                                     level_list_Map.put("capacityRemaning", slot_list_Obj.getString("capacityRemaning"));

@@ -22,7 +22,6 @@ import com.sparsh.smartparkingsystem.R;
 import com.sparsh.smartparkingsystem.common.Common;
 import com.sparsh.smartparkingsystem.common.Constants;
 import com.sparsh.smartparkingsystem.common.Preferences;
-import com.sparsh.smartparkingsystem.dashboard.DashboardActivity;
 import com.sparsh.smartparkingsystem.payment.Payment_Activity;
 import com.sparsh.smartparkingsystem.registration.LoginActivity;
 
@@ -109,12 +108,12 @@ public class Booking_Availability extends AppCompatActivity {
         dialog.setContentView(R.layout.confirmation_dialog);
         dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
-        TextView tv_zone_name = (TextView) dialog.findViewById(R.id.tv_zone_name);
+        TextView tv_zone_name      = (TextView) dialog.findViewById(R.id.tv_zone_name);
         TextView tv_start_duration = (TextView) dialog.findViewById(R.id.tv_start_duration);
-        TextView tv_end_duration = (TextView) dialog.findViewById(R.id.tv_end_duration);
-        TextView tv_vehicle_type = (TextView) dialog.findViewById(R.id.tv_vehicle_type);
-        TextView tv_slot_type = (TextView) dialog.findViewById(R.id.tv_slot_type);
-        TextView tv_amount = (TextView) dialog.findViewById(R.id.tv_amount);
+        TextView tv_end_duration   = (TextView) dialog.findViewById(R.id.tv_end_duration);
+        TextView tv_vehicle_type   = (TextView) dialog.findViewById(R.id.tv_vehicle_type);
+        TextView tv_slot_type      = (TextView) dialog.findViewById(R.id.tv_slot_type);
+        TextView tv_amount         = (TextView) dialog.findViewById(R.id.tv_amount);
 
         tv_zone_name.setText(pref.get(Constants.kZone_Name));
         tv_start_duration.setText(pref.get(Constants.kStart_Duration));
@@ -171,11 +170,11 @@ public class Booking_Availability extends AppCompatActivity {
         pDialog.show();
 
 
-        String url = getResources().getString(R.string.get_parking_cost_api) +
-                "levelId=" + level_id + "&vehicleTypeId=" + vehicle_type_id + "&slotTypeId=" + Slot_type_id
-                + "&toTime=" + end_time + "&fromTime=" + start_time;
+        String url = Common.getCompleteApiUrl(Booking_Availability.this, R.string.get_parking_cost_api) +
+                     "levelId=" + level_id + "&vehicleTypeId=" + vehicle_type_id + "&slotTypeId="
+                     + Slot_type_id + "&toTime=" + end_time + "&fromTime=" + start_time;
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, getResources().getString(R.string.get_parking_cost_api) +
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, Common.getCompleteApiUrl(Booking_Availability.this, R.string.get_parking_cost_api) +
                 "levelId=" + level_id + "&vehicleTypeId=" + vehicle_type_id + "&slotTypeId=" + Slot_type_id
                 + "&toTime=" + end_time + "&fromTime=" + start_time, null, new Response.Listener<JSONObject>() {
 
@@ -187,11 +186,11 @@ public class Booking_Availability extends AppCompatActivity {
                 try {
                     JSONObject header_Obj = response.getJSONObject("appHeader");
                     resCode = header_Obj.get("statusCode").toString();
-                    resMsg = header_Obj.get("statusMessage").toString();
+                    resMsg  = header_Obj.get("statusMessage").toString();
 
                     if (resCode.equals("200")) {
 
-                        pref.set(Constants.kParking_amount, response.get("price").toString());
+                        pref.set(Constants.kParking_amount, Common.convertToDecimal(response.get("price").toString()));
                         pref.commit();
                         booking_cnf_dialog(response.get("price").toString());
                     }
@@ -221,17 +220,17 @@ public class Booking_Availability extends AppCompatActivity {
         pDialog.setCancelable(false);
         pDialog.show();
 
-        Map<String, String> postParam = new HashMap<String, String>();
+        Map <String, String> postParam = new HashMap<String, String>();
 
-        postParam.put("customerId", pref.get(Constants.kcust_id));
-        postParam.put("fromTime", pref.get(Constants.kStartDateTime1));
-        postParam.put("levelId", pref.get(Constants.kLevel_Id));
-        postParam.put("slotTypeId", pref.get(Constants.kSlotTypeId));
-        postParam.put("timeZone", pref.get(Constants.kTimeZone));
-        postParam.put("toTime", pref.get(Constants.kEndDateTime1));
+        postParam.put("customerId",    pref.get(Constants.kcust_id));
+        postParam.put("fromTime",      pref.get(Constants.kStartDateTime1));
+        postParam.put("levelId",       pref.get(Constants.kLevel_Id));
+        postParam.put("slotTypeId",    pref.get(Constants.kSlotTypeId));
+        postParam.put("timeZone",      pref.get(Constants.kTimeZone));
+        postParam.put("toTime",        pref.get(Constants.kEndDateTime1));
         postParam.put("vehicleTypeId", pref.get(Constants.kVehicleTypeId));
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, getResources().getString(R.string.parking_slot_blocking_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, Common.getCompleteApiUrl(Booking_Availability.this, R.string.parking_slot_blocking_api), new JSONObject(postParam), new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -248,6 +247,7 @@ public class Booking_Availability extends AppCompatActivity {
 
                         String BookingId = response.get("bookingId").toString();
                         pref.set(Constants.kBooking_Id, BookingId);
+                        pref.set(Constants.kExtended_status, "false");
                         pref.commit();
                         dialog.cancel();
 
@@ -271,7 +271,7 @@ public class Booking_Availability extends AppCompatActivity {
                 error.printStackTrace();
             }
         });
-        //Volley.newRequestQueue(Booking_Availability.this).add(jsObjRequest);
+        // Volley.newRequestQueue(Booking_Availability.this).add(jsObjRequest);
         Volley.newRequestQueue(Booking_Availability.this).add(jsObjRequest).setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 }

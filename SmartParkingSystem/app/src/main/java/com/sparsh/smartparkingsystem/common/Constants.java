@@ -24,6 +24,8 @@ public class Constants {
     public static final String kTimeZone         = "timezone";
     public static final String kBooking_Id       = "booking_id";
 
+    public static final String kExtended_status  = "extended_status";
+
     public static final String kStartDateTime    = "start_date_time";
     public static final String kEndDateTime      = "end_date_time";
 
